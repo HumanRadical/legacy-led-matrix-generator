@@ -1,16 +1,29 @@
 const inputBox = document.querySelector("#inputBox")
 const submitForm = document.querySelector("#submitForm")
-const pixelGrid = document.querySelectorAll(".pixel")
+const grid = document.querySelector("#grid")
 const snake = document.querySelector("#snakeBox")
 
-snakeGrid = (array) => {
+createGrid = (x, y) => {
+    grid.innerHTML = ""
+
+    for (let i = 0; i < x * y; i++) {
+        const pixel = document.createElement("div")
+        pixel.style.width = `${400 / x}px`
+        pixel.style.height = `${400 / y}px`
+        pixel.style.display = "inline-block"
+        pixel.classList.add("pixel")
+        grid.append(pixel)
+    }
+}
+
+snakeGrid = (arr, x, y) => {
     const newArray = []
 
-    for(let i = 0; i < 16; i++) {
+    for(let i = 0; i < y; i++) {
         const row = []
 
-        for(let j = 0; j < 16; j++) {
-            row.push(array[16 * i + j])
+        for(let j = 0; j < x; j++) {
+            row.push(arr[x * i + j])
         }
 
         if(i % 2 === 1) {
@@ -26,14 +39,20 @@ snakeGrid = (array) => {
 
 addGridColors = (e) => {
     e.preventDefault()
+
+    let x = document.querySelector("#x-axis").value
+    let y = document.querySelector("#y-axis").value
+    createGrid(x, y)
+    const pixels = document.querySelectorAll(".pixel")
+
     let colorInput = JSON.parse(inputBox.value)
 
     if (snake.checked) {
-        colorInput = snakeGrid(colorInput)
+        colorInput = snakeGrid(colorInput, x, y)
     }
 
     colorInput.forEach((color, index) => {
-        const pixel = pixelGrid[index]
+        const pixel = pixels[index]
         pixel.style.backgroundColor = `#${color}`
     })
 }
