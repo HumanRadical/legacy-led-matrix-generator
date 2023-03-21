@@ -24,7 +24,8 @@ snakeGrid = (array) => {
     return finalArray
 }
 
-addGridColors = () => {
+addGridColors = (e) => {
+    e.preventDefault();
     let colorInput = JSON.parse(inputBox.value)
 
     if (snake.checked) {
