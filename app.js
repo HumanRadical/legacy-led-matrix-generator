@@ -1,6 +1,5 @@
 const textbox = document.querySelector("#textbox")
 const form = document.querySelector("form")
-const submit = document.querySelector("#submit")
 const pixelGrid = document.querySelectorAll(".pixel")
 const snake = document.querySelector("#snake")
 
@@ -38,4 +37,4 @@ addGridColors = () => {
     })
 }
 
-submit.addEventListener("click", addGridColors)
+form.addEventListener("submit", addGridColors)
