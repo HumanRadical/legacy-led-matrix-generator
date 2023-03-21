@@ -12,22 +12,20 @@ h1 {
 
 #grid {
     border: 5px solid black;
-    display: inline-block;
+    text-align: center;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 0px;
     margin-bottom: 20px;
     background-color: white;
-    padding-top: 4px;
-}
-
-.row {
-    margin: 0;
 }
 
 .pixel {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     display: inline-block;
-    margin: -4px -3px;
 }
 
 #textbox {
