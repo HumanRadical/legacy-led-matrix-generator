@@ -1,7 +1,7 @@
-const textbox = document.querySelector("#textbox")
-const form = document.querySelector("form")
+const inputBox = document.querySelector("#inputBox")
+const submitForm = document.querySelector("#submitForm")
 const pixelGrid = document.querySelectorAll(".pixel")
-const snake = document.querySelector("#snake")
+const snake = document.querySelector("#snakeBox")
 
 snakeGrid = (array) => {
     const newArray = []
@@ -25,7 +25,7 @@ snakeGrid = (array) => {
 }
 
 addGridColors = () => {
-    let colorInput = JSON.parse(textbox.value)
+    let colorInput = JSON.parse(inputBox.value)
 
     if (snake.checked) {
         colorInput = snakeGrid(colorInput)
@@ -37,4 +37,4 @@ addGridColors = () => {
     })
 }
 
-form.addEventListener("submit", addGridColors)
+submitForm.addEventListener("submit", addGridColors)
