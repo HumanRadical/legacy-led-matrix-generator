@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    text-align: center;
+}
+
+.pixel {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: -3px;
+}
+
+#textbox {
+    width: 300px;
+    height: 100px;
+}
+
+#submit {
+    display: inline;
+}
