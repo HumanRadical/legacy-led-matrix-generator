@@ -10,42 +10,44 @@ h1 {
     margin-bottom: 8px;
 }
 
-#grid {
+.grid {
     border: 5px solid black;
-    display: inline-block;
+    margin: auto;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 0px;
     margin-bottom: 20px;
     background-color: white;
-    padding-top: 4px;
-}
-
-.row {
-    margin: 0;
 }
 
 .pixel {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     display: inline-block;
-    margin: -4px -3px;
 }
 
-#textbox {
+.inputBox {
     border: 5px solid black;
     font-size: large;
 }
 
-#snakeLabel {
+.snakeMode {
+    margin: 8px;
+}
+
+.snakeLabel {
     font-size: large;
     font-weight: 600;
 }
 
-#snake {
+.snakeBox {
     width: 1rem;
     height: 1rem;
 }
 
-#submit {
+.submit {
     font-size: x-large;
     font-weight: 600;
     margin-top: 8px;
@@ -57,6 +59,6 @@ h1 {
     transition-duration: 0.2s;
 }
 
-#submit:hover {
+.submit:hover {
     background-color: orange;
 }
