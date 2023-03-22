@@ -53,7 +53,12 @@ addGridColors = (e) => {
 
     colorInput.forEach((color, index) => {
         const pixel = pixels[index]
-        pixel.style.backgroundColor = `#${color}`
+        if (typeof pixel === "number") {
+            pixel.style.backgroundColor = color
+        }
+        else {
+            pixel.style.backgroundColor = `#${color}`
+        }
     })
 }
 
