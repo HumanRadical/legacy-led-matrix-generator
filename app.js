@@ -40,8 +40,8 @@ snakeGrid = (arr, x, y) => {
 addGridColors = (e) => {
     e.preventDefault()
 
-    let x = document.querySelector("#x-axis").value
-    let y = document.querySelector("#y-axis").value
+    const x = document.querySelector("#x-axis").value
+    const y = document.querySelector("#y-axis").value
     createGrid(x, y)
     const pixels = document.querySelectorAll(".pixel")
 
