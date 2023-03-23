@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../app.css">
+    <title>LED Matrix Generator (Draw Mode)</title>
+</head>
+<body>
+    <h1>Drawing Mode</h1>
+
+    <div id="grid" class="grid drawGrid"></div>
+
+    <form id="colorPresetForm" action="#">
+        <input type="radio" class="colorPresets redPreset" name="colorPresets" value="red" checked>
+        <input type="radio" class="colorPresets yellowPreset" name="colorPresets" value="yellow">
+        <input type="radio" class="colorPresets bluePreset" name="colorPresets" value="blue">
+        <input type="radio" class="colorPresets greenPreset" name="colorPresets" value="green">
+        <input type="radio" class="colorPresets orangePreset" name="colorPresets" value="orange">
+        <input type="radio" class="colorPresets purplePreset" name="colorPresets" value="purple">
+        <input type="radio" class="colorPresets whitePreset" name="colorPresets" value="white">
+        <input type="radio" class="colorPresets customPreset" name="colorPresets" value="custom">
+        <input type="color" class="colorPicker" id="colorPicker">
+    </form>
+    
+    <script src="app.js"></script>
+</body>
+</html>

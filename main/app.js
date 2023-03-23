@@ -37,8 +37,8 @@ snakeGrid = (arr, x, y) => {
     return finalArray
 }
 
-addGridColors = (e) => {
-    e.preventDefault()
+addGridColors = (event) => {
+    event.preventDefault()
 
     const x = document.querySelector("#x-axis").value
     const y = document.querySelector("#y-axis").value

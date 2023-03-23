@@ -22,12 +22,6 @@ h1 {
     background-color: white;
 }
 
-.pixel {
-    width: 25px;
-    height: 25px;
-    display: inline-block;
-}
-
 .inputBox {
     border: 5px solid black;
     font-size: large;
@@ -75,4 +69,20 @@ h1 {
 
 .submit:hover {
     background-color: orange;
+}
+
+/* Draw Mode Styles */
+
+.drawGrid {
+    width: 600px;
+    height: 600px;
+}
+
+.drawPixel {
+    border: 1px solid white;
+}
+
+.colorPresets {
+    width: 1.5em;
+    height: 1.5em;
 }
