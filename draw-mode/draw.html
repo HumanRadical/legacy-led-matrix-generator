@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../app.css">
+    <title>LED Matrix Generator (Draw Mode)</title>
+</head>
+<body>
+    <h1>Drawing Mode</h1>
+
+    <div id="grid" class="grid drawGrid"></div>
+
+    <button class="resetButton" id="resetButton">Reset</button>
+    <form class="colorPresetForm" id="colorPresetForm" action="#">
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="#FF0000" checked>
+            <span class="redPreset"></span>
+        </label class="colorPresets">
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="#0000FF">
+            <span class="bluePreset"></span>
+        </label>
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="#FFFF00">
+            <span class="yellowPreset"></span>
+        </label>
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="#00FF00">
+            <span class="greenPreset"></span>
+        </label>
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="#FFFFFF">
+            <span class="whitePreset"></span>
+        </label>
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="#000000">
+            <span class="blackPreset"></span>
+        </label>
+        <label class="colorPresets customPreset">
+            <input type="radio" name="colorPresets" value="custom">
+            <span>Custom</span>
+            <input type="color" class="colorPicker" id="colorPicker">
+        </label>
+    </form>
+
+    <form action="#" class="submitForm drawSubmitForm" id="submitForm">
+        <label class="snakeLabel drawSnakeLabel" for="snakeBox">
+            Snake mode:
+            <input class="snakeBox" id="snakeBox" type="checkbox" checked>
+        </label>
+
+        <button id="submit" class="submit drawSubmit">SUBMIT</button>
+
+        <label for="outputType" class="outputTypeLabel">
+            Colour type:
+            <select name="outputType" id="outputType" class="outputType">
+                <option value="hex">Hexcode</option>
+                <option value="rgb">RGB</option>
+            </select>
+        </label>
+    </form>
+    
+    <div>
+        <textarea name="output" id="outputBox" class="outputBox" cols="100" rows="12"></textarea>
+    </div>
+
+    <p>
+        <a href="../main.html">Back to main</a>
+    </p>
+
+    <script src="draw.js"></script>
+</body>
+</html>

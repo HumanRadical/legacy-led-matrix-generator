@@ -1,8 +1,12 @@
 const inputBox = document.querySelector("#inputBox")
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
+<<<<<<< HEAD:app.js
 const snake = document.querySelector("#snakeBox")
 const errorMessage = document.querySelector("#errorMessage")
+=======
+const snakeBox = document.querySelector("#snakeBox")
+>>>>>>> draw-mode:main.js
 
 const createGrid = (x, y) => {
     grid.innerHTML = ""
@@ -21,24 +25,26 @@ const snakeGrid = (arr, x, y) => {
 
     for(let i = 0; i < y; i++) {
         const row = []
-
         for(let j = 0; j < x; j++) {
             row.push(arr[x * i + j])
         }
-
         if(i % 2 === 1) {
             row.reverse()
         }
-
         newArray.push(row)
     }
 
-    const finalArray = [].concat(...newArray);
+    const finalArray = [].concat(...newArray)
     return finalArray
 }
 
+<<<<<<< HEAD:app.js
 const addGridColors = (e) => {
     e.preventDefault()
+=======
+addGridColors = (event) => {
+    event.preventDefault()
+>>>>>>> draw-mode:main.js
 
     const x = document.querySelector("#x-axis").value
     const y = document.querySelector("#y-axis").value
@@ -47,12 +53,16 @@ const addGridColors = (e) => {
 
     let colorInput = JSON.parse(inputBox.value)
 
+<<<<<<< HEAD:app.js
     errorMessage.innerText = ""
     if (colorInput.length !== pixels.length) {
         errorMessage.innerText = "The number of colors does not match the number of pixels."
     }
 
     if (snake.checked) {
+=======
+    if (snakeBox.checked) {
+>>>>>>> draw-mode:main.js
         colorInput = snakeGrid(colorInput, x, y)
     }
 
