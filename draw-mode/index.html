@@ -12,16 +12,36 @@
 
     <div id="grid" class="grid drawGrid"></div>
 
-    <form id="colorPresetForm" action="#">
-        <input type="radio" class="colorPresets redPreset" name="colorPresets" value="red" checked>
-        <input type="radio" class="colorPresets yellowPreset" name="colorPresets" value="yellow">
-        <input type="radio" class="colorPresets bluePreset" name="colorPresets" value="blue">
-        <input type="radio" class="colorPresets greenPreset" name="colorPresets" value="green">
-        <input type="radio" class="colorPresets orangePreset" name="colorPresets" value="orange">
-        <input type="radio" class="colorPresets purplePreset" name="colorPresets" value="purple">
-        <input type="radio" class="colorPresets whitePreset" name="colorPresets" value="white">
-        <input type="radio" class="colorPresets customPreset" name="colorPresets" value="custom">
-        <input type="color" class="colorPicker" id="colorPicker">
+    <form class="colorPresetForm" id="colorPresetForm" action="#">
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="red" checked>
+            <span class="redPreset"></span>
+        </label class="colorPresets">
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="blue">
+            <span class="bluePreset"></span>
+        </label>
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="yellow">
+            <span class="yellowPreset"></span>
+        </label>
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="green">
+            <span class="greenPreset"></span>
+        </label>
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="orange">
+            <span class="orangePreset"></span>
+        </label>
+        <label class="colorPresets">
+            <input type="radio" name="colorPresets" value="purple">
+            <span class="purplePreset"></span>
+        </label>
+        <label class="colorPresets customPreset">
+            <input type="radio" name="colorPresets" value="custom">
+            <span>Custom</span>
+            <input type="color" class="colorPicker" id="colorPicker">
+        </label>
     </form>
     
     <script src="app.js"></script>
