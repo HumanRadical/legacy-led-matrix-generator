@@ -28,6 +28,14 @@ h1 {
     display: inline-block;
 }
 
+.errorPixel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    font-weight: 800;
+}
+
 .errorMessage {
     color: red;
     font-size: large;

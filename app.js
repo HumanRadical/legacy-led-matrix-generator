@@ -11,7 +11,6 @@ createGrid = (x, y) => {
         const pixel = document.createElement("div")
         pixel.style.width = `${400 / x}px`
         pixel.style.height = `${400 / y}px`
-        pixel.style.display = "inline-block"
         pixel.classList.add("pixel")
         grid.append(pixel)
     }
@@ -59,7 +58,17 @@ addGridColors = (e) => {
 
     colorInput.forEach((color, index) => {
         const pixel = pixels[index]
-        pixel.style.backgroundColor = `#${color}`
+        const targetColor = `#${color}`
+        function isHexCode(color) {
+            return /^#[0-9A-F]{6}$/i.test(color);
+        }
+        if (!isHexCode(targetColor)) {
+            errorMessage.innerText = "One or more pixels has an invalid color."
+            pixel.innerText = "E"
+            pixel.classList.add("errorPixel")
+        } else {
+            pixel.style.backgroundColor = targetColor
+        }
     })
 }
 
