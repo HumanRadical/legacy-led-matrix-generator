@@ -2,6 +2,7 @@ const inputBox = document.querySelector("#inputBox")
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
 const snake = document.querySelector("#snakeBox")
+const errorMessage = document.querySelector("#errorMessage")
 
 createGrid = (x, y) => {
     grid.innerHTML = ""
@@ -46,6 +47,11 @@ addGridColors = (e) => {
     const pixels = document.querySelectorAll(".pixel")
 
     let colorInput = JSON.parse(inputBox.value)
+
+    errorMessage.innerText = ""
+    if (colorInput.length !== pixels.length) {
+        errorMessage.innerText = "The number of colors does not match the number of pixels."
+    }
 
     if (snake.checked) {
         colorInput = snakeGrid(colorInput, x, y)

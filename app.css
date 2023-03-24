@@ -28,6 +28,12 @@ h1 {
     display: inline-block;
 }
 
+.errorMessage {
+    color: red;
+    font-size: large;
+    font-weight: 600;
+}
+
 .inputBox {
     border: 5px solid black;
     font-size: large;
