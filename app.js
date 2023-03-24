@@ -2,6 +2,7 @@ const inputBox = document.querySelector("#inputBox")
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
 const snake = document.querySelector("#snakeBox")
+const errorMessage = document.querySelector("#errorMessage")
 
 createGrid = (x, y) => {
     grid.innerHTML = ""
@@ -10,7 +11,6 @@ createGrid = (x, y) => {
         const pixel = document.createElement("div")
         pixel.style.width = `${400 / x}px`
         pixel.style.height = `${400 / y}px`
-        pixel.style.display = "inline-block"
         pixel.classList.add("pixel")
         grid.append(pixel)
     }
@@ -47,13 +47,29 @@ addGridColors = (e) => {
 
     let colorInput = JSON.parse(inputBox.value)
 
+    errorMessage.innerText = ""
+    if (colorInput.length !== pixels.length) {
+        errorMessage.innerText = "The number of colors does not match the number of pixels."
+    }
+
     if (snake.checked) {
         colorInput = snakeGrid(colorInput, x, y)
     }
 
     colorInput.forEach((color, index) => {
         const pixel = pixels[index]
-        pixel.style.backgroundColor = `#${color}`
+        const targetColor = `#${color}`
+        function isHexCode(color) {
+            return /^#[0-9A-F]{6}$/i.test(color);
+        }
+        if (!isHexCode(targetColor)) {
+            errorMessage.innerText = "One or more pixels has an invalid color."
+            pixel.innerHTML = `
+                <img src="./img/error_icon.svg" alt="error" />
+            `
+        } else {
+            pixel.style.backgroundColor = targetColor
+        }
     })
 }
 
