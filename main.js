@@ -1,12 +1,16 @@
 const inputBox = document.querySelector("#inputBox")
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
+<<<<<<< HEAD:main.js
 <<<<<<< HEAD:app.js
 const snake = document.querySelector("#snakeBox")
 const errorMessage = document.querySelector("#errorMessage")
 =======
 const snakeBox = document.querySelector("#snakeBox")
 >>>>>>> draw-mode:main.js
+=======
+const snakeBox = document.querySelector("#snakeBox")
+>>>>>>> 0cb3316 (Add colour type option and snake mode option for output):main/app.js
 
 const createGrid = (x, y) => {
     grid.innerHTML = ""
@@ -53,6 +57,7 @@ addGridColors = (event) => {
 
     let colorInput = JSON.parse(inputBox.value)
 
+<<<<<<< HEAD:main.js
 <<<<<<< HEAD:app.js
     errorMessage.innerText = ""
     if (colorInput.length !== pixels.length) {
@@ -63,6 +68,9 @@ addGridColors = (event) => {
 =======
     if (snakeBox.checked) {
 >>>>>>> draw-mode:main.js
+=======
+    if (snakeBox.checked) {
+>>>>>>> 0cb3316 (Add colour type option and snake mode option for output):main/app.js
         colorInput = snakeGrid(colorInput, x, y)
     }
 

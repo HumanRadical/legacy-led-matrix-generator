@@ -1,8 +1,10 @@
 const grid = document.querySelector("#grid")
 const colorPicker = document.querySelector("#colorPicker")
 const colorPresetForm = document.querySelector("#colorPresetForm")
-const submit = document.querySelector("#submit")
+const submitForm = document.querySelector("#submitForm")
 const outputBox = document.querySelector("#outputBox")
+const snakeBox = document.querySelector("#snakeBox")
+const outputType = document.querySelector("#outputType")
 
 createDrawGrid = (x, y) => {
     grid.innerHTML = ""
@@ -34,14 +36,50 @@ colorInPixel = (event) => {
     }
 }
 
+snakeGrid = (arr, x, y) => {
+    const newArray = []
+
+    for(let i = 0; i < y; i++) {
+        const row = []
+        for(let j = 0; j < x; j++) {
+            row.push(arr[x * i + j])
+        }
+        if(i % 2 === 1) {
+            row.reverse()
+        }
+        newArray.push(row)
+    }
+
+    const finalArray = [].concat(...newArray)
+    return finalArray
+}
+
+convertToHex = (color) => {
+    color = color.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+    return (color && color.length === 4) ? 
+        ("0" + parseInt(color[1],10).toString(16)).slice(-2) +
+        ("0" + parseInt(color[2],10).toString(16)).slice(-2) +
+        ("0" + parseInt(color[3],10).toString(16)).slice(-2) : ''
+}
+
 outputCode = (event) => {
     event.preventDefault()
     outputBox.innerText = ""
-    const pixelColors = []
+    let pixelColors = []
 
     pixels.forEach((pixel, index) => {
-        pixelColors[index] = pixel.style.backgroundColor
+        const color = pixel.style.backgroundColor
+
+        if (outputType.value === "hex") {
+            pixelColors[index] = `"${convertToHex(color)}"`
+        } else {
+            pixelColors[index] = `"${color}"`
+        }
     })
+
+    if (snakeBox.checked) {
+        pixelColors = snakeGrid(pixelColors, 16, 16)
+    }
 
     outputBox.innerText = `[${pixelColors.toString()}]`
 }
@@ -49,8 +87,8 @@ outputCode = (event) => {
 erasePixel = (event) => {
     event.preventDefault()
 
-    event.target.style.backgroundColor = "white"
+    event.target.style.backgroundColor = "#000000"
 }
 
 grid.addEventListener("click", colorInPixel)
-submit.addEventListener("click", outputCode)
+submitForm.addEventListener("submit", outputCode)
