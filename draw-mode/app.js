@@ -1,16 +1,18 @@
 const grid = document.querySelector("#grid")
 const colorPicker = document.querySelector("#colorPicker")
 const colorPresetForm = document.querySelector("#colorPresetForm")
+const submit = document.querySelector("#submit")
+const outputBox = document.querySelector("#outputBox")
 
 createDrawGrid = (x, y) => {
     grid.innerHTML = ""
 
     for (let i = 0; i < x * y; i++) {
         const pixel = document.createElement("div")
-        pixel.style.width = `${600 / x - 2}px`
-        pixel.style.height = `${600 / y - 2}px`
+        pixel.style.width = `${550 / x - 2}px`
+        pixel.style.height = `${550 / y - 2}px`
         pixel.style.display = "inline-block"
-        pixel.style.backgroundColor = "black"
+        pixel.style.backgroundColor = "#000000"
         pixel.classList.add("pixel")
         pixel.classList.add("drawPixel")
         grid.append(pixel)
@@ -32,6 +34,18 @@ colorInPixel = (event) => {
     }
 }
 
+outputCode = (event) => {
+    event.preventDefault()
+    outputBox.innerText = ""
+    const pixelColors = []
+
+    pixels.forEach((pixel, index) => {
+        pixelColors[index] = pixel.style.backgroundColor
+    })
+
+    outputBox.innerText = `[${pixelColors.toString()}]`
+}
+
 erasePixel = (event) => {
     event.preventDefault()
 
@@ -39,3 +53,4 @@ erasePixel = (event) => {
 }
 
 grid.addEventListener("click", colorInPixel)
+submit.addEventListener("click", outputCode)

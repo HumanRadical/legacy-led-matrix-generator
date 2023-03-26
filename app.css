@@ -22,7 +22,7 @@ h1 {
     background-color: white;
 }
 
-.inputBox {
+textarea {
     border: 5px solid black;
     font-size: large;
 }
@@ -74,8 +74,8 @@ h1 {
 /* DRAW MODE STYLES */
 
 .drawGrid {
-    width: 600px;
-    height: 600px;
+    width: 550px;
+    height: 550px;
 }
 
 .drawPixel {
@@ -84,7 +84,7 @@ h1 {
 
 .colorPresetForm {
     margin: auto;
-    padding-right: 30px;
+    padding-right: 35px;
     width: 600px;
     display: flex;
     justify-content: space-between;
@@ -126,7 +126,7 @@ h1 {
 }
 
 .greenPreset {
-    background-color: green;
+    background-color: #00FF00;
 }
 
 .orangePreset {
@@ -134,7 +134,7 @@ h1 {
 }
 
 .purplePreset {
-    background-color: purple;
+    background-color: #A020F0;
 }
 
 .customPreset span {
@@ -160,4 +160,8 @@ h1 {
     background-color: white;
     border: 3px solid white;
     cursor: pointer;
+}
+
+.drawSubmit {
+    margin: 20px;
 }

@@ -14,27 +14,27 @@
 
     <form class="colorPresetForm" id="colorPresetForm" action="#">
         <label class="colorPresets">
-            <input type="radio" name="colorPresets" value="red" checked>
+            <input type="radio" name="colorPresets" value="#FF0000" checked>
             <span class="redPreset"></span>
         </label class="colorPresets">
         <label class="colorPresets">
-            <input type="radio" name="colorPresets" value="blue">
+            <input type="radio" name="colorPresets" value="#0000FF">
             <span class="bluePreset"></span>
         </label>
         <label class="colorPresets">
-            <input type="radio" name="colorPresets" value="yellow">
+            <input type="radio" name="colorPresets" value="#FFFF00">
             <span class="yellowPreset"></span>
         </label>
         <label class="colorPresets">
-            <input type="radio" name="colorPresets" value="green">
+            <input type="radio" name="colorPresets" value="#00FF00">
             <span class="greenPreset"></span>
         </label>
         <label class="colorPresets">
-            <input type="radio" name="colorPresets" value="orange">
+            <input type="radio" name="colorPresets" value="#FFA500">
             <span class="orangePreset"></span>
         </label>
         <label class="colorPresets">
-            <input type="radio" name="colorPresets" value="purple">
+            <input type="radio" name="colorPresets" value="#A020F0">
             <span class="purplePreset"></span>
         </label>
         <label class="colorPresets customPreset">
@@ -43,7 +43,13 @@
             <input type="color" class="colorPicker" id="colorPicker">
         </label>
     </form>
+
+    <button id="submit" class="submit drawSubmit">SUBMIT</button>
     
+    <div>
+        <textarea name="output" id="outputBox" class="outputBox" cols="100" rows="12"></textarea>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
