@@ -45,9 +45,12 @@ textarea {
 }
 
 .snakeLabel {
-    margin-left: 20px;
     font-size: large;
     font-weight: 600;
+}
+
+.mainSnakeLabel {
+    margin-left: 20px;
 }
 
 .snakeBox {
@@ -69,6 +72,10 @@ textarea {
 
 .submit:hover {
     background-color: orange;
+}
+
+.drawModeLink {
+    margin: 10px;
 }
 
 /* DRAW MODE STYLES */
@@ -162,6 +169,35 @@ textarea {
     cursor: pointer;
 }
 
+.drawSubmitForm {
+    width: 650px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.drawSnakeLabel {
+    flex: 1;
+}
+
 .drawSubmit {
-    margin: 20px;
+    flex: 1;
+    justify-self: center;
+}
+
+.outputTypeLabel {
+    font-size: large;
+    font-weight: 600;
+    flex: 1;
+}
+
+.outputType {
+    width: 100px;
+    height: 30px;
+    font-size: large;
+    border: 3px solid black;
+    border-radius: 4px;
 }

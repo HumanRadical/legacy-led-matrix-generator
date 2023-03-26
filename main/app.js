@@ -1,7 +1,7 @@
 const inputBox = document.querySelector("#inputBox")
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
-const snake = document.querySelector("#snakeBox")
+const snakeBox = document.querySelector("#snakeBox")
 
 createGrid = (x, y) => {
     grid.innerHTML = ""
@@ -21,19 +21,16 @@ snakeGrid = (arr, x, y) => {
 
     for(let i = 0; i < y; i++) {
         const row = []
-
         for(let j = 0; j < x; j++) {
             row.push(arr[x * i + j])
         }
-
         if(i % 2 === 1) {
             row.reverse()
         }
-
         newArray.push(row)
     }
 
-    const finalArray = [].concat(...newArray);
+    const finalArray = [].concat(...newArray)
     return finalArray
 }
 
@@ -47,7 +44,7 @@ addGridColors = (event) => {
 
     let colorInput = JSON.parse(inputBox.value)
 
-    if (snake.checked) {
+    if (snakeBox.checked) {
         colorInput = snakeGrid(colorInput, x, y)
     }
 
