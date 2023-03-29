@@ -5,6 +5,7 @@ const submitForm = document.querySelector("#submitForm")
 const outputBox = document.querySelector("#outputBox")
 const snakeBox = document.querySelector("#snakeBox")
 const outputType = document.querySelector("#outputType")
+let mouseDown = false
 
 const createDrawGrid = (x, y) => {
     grid.innerHTML = ""
@@ -90,5 +91,16 @@ const erasePixel = (event) => {
     event.target.style.backgroundColor = "#000000"
 }
 
-grid.addEventListener("click", colorInPixel)
+const colorInPixelIfMouseDown = (event) => {
+    event.preventDefault
+
+    if (mouseDown) {
+        colorInPixel(event)
+    }
+}
+
+document.addEventListener("mousedown", () => {mouseDown = true})
+document.addEventListener("mouseup", () => {mouseDown = false})
+grid.addEventListener("mousemove", colorInPixelIfMouseDown)
+grid.addEventListener("mousedown", colorInPixel)
 submitForm.addEventListener("submit", outputCode)
