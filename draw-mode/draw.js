@@ -5,6 +5,7 @@ const submitForm = document.querySelector("#submitForm")
 const outputBox = document.querySelector("#outputBox")
 const snakeBox = document.querySelector("#snakeBox")
 const outputType = document.querySelector("#outputType")
+const resetButton = document.querySelector("#resetButton")
 let mouseDown = false
 
 const createDrawGrid = (x, y) => {
@@ -85,10 +86,12 @@ const outputCode = (event) => {
     outputBox.innerText = `[${pixelColors.toString()}]`
 }
 
-const erasePixel = (event) => {
+const resetGrid = (event) => {
     event.preventDefault()
 
-    event.target.style.backgroundColor = "#000000"
+    for (pixel of pixels) {
+        pixel.style.backgroundColor = "#000000"
+    }
 }
 
 const colorInPixelIfMouseDown = (event) => {
@@ -103,4 +106,7 @@ document.addEventListener("mousedown", () => {mouseDown = true})
 document.addEventListener("mouseup", () => {mouseDown = false})
 grid.addEventListener("mousemove", colorInPixelIfMouseDown)
 grid.addEventListener("mousedown", colorInPixel)
+
+resetButton.addEventListener("click", resetGrid)
+
 submitForm.addEventListener("submit", outputCode)

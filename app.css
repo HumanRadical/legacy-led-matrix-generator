@@ -90,6 +90,23 @@ textarea {
     border: 1px solid white;
 }
 
+.resetButton {
+    font-size: large;
+    font-weight: 600;
+    margin-bottom: 10px;
+    width: 100px;
+    height: 30px;
+    background-color: red;
+    border: 3px solid black;
+    border-radius: 5px;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.resetButton:hover {
+    background-color: rgb(255, 40, 40);
+}
+
 .colorPresetForm {
     margin: auto;
     padding-right: 35px;
