@@ -1,5 +1,15 @@
 {
+  "name": "led-matrix-generator",
+  "version": "1.0.0",
+  "description": "An LED matrix app made for testing LED colour code arrays.",
+  "main": "app.js",
   "devDependencies": {
     "vite": "^4.2.1"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite"
+  },
+  "author": "",
+  "license": "ISC"
 }
