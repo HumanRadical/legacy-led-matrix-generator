@@ -4,10 +4,11 @@
   "description": "An LED matrix app made for testing LED colour code arrays.",
   "main": "app.js",
   "devDependencies": {
-    "vite": "^4.2.1"
+    "vite": "^4.2.1",
+    "vitest": "^0.29.8"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "dev": "vite"
   },
   "author": "",
