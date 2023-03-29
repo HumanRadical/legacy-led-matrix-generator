@@ -68,6 +68,7 @@ textarea {
     border: 5px solid black;
     border-radius: 8px;
     transition-duration: 0.2s;
+    cursor: pointer;
 }
 
 .submit:hover {
@@ -136,12 +137,12 @@ textarea {
     background-color: #00FF00;
 }
 
-.orangePreset {
-    background-color: orange;
+.whitePreset {
+    background-color: white;
 }
 
-.purplePreset {
-    background-color: #A020F0;
+.blackPreset {
+    background-color: black;
 }
 
 .customPreset span {
