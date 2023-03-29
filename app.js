@@ -4,7 +4,7 @@ const grid = document.querySelector("#grid")
 const snake = document.querySelector("#snakeBox")
 const errorMessage = document.querySelector("#errorMessage")
 
-createGrid = (x, y) => {
+const createGrid = (x, y) => {
     grid.innerHTML = ""
 
     for (let i = 0; i < x * y; i++) {
@@ -16,7 +16,7 @@ createGrid = (x, y) => {
     }
 }
 
-snakeGrid = (arr, x, y) => {
+const snakeGrid = (arr, x, y) => {
     const newArray = []
 
     for(let i = 0; i < y; i++) {
@@ -37,7 +37,7 @@ snakeGrid = (arr, x, y) => {
     return finalArray
 }
 
-addGridColors = (e) => {
+const addGridColors = (e) => {
     e.preventDefault()
 
     const x = document.querySelector("#x-axis").value
