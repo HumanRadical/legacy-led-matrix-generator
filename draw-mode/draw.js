@@ -6,7 +6,7 @@ const outputBox = document.querySelector("#outputBox")
 const snakeBox = document.querySelector("#snakeBox")
 const outputType = document.querySelector("#outputType")
 
-createDrawGrid = (x, y) => {
+const createDrawGrid = (x, y) => {
     grid.innerHTML = ""
 
     for (let i = 0; i < x * y; i++) {
@@ -24,7 +24,7 @@ createDrawGrid = (x, y) => {
 createDrawGrid(16, 16)
 const pixels = document.querySelectorAll(".pixel")
 
-colorInPixel = (event) => {
+const colorInPixel = (event) => {
     event.preventDefault()
 
     if (event.target.id !== "grid"){
@@ -36,7 +36,7 @@ colorInPixel = (event) => {
     }
 }
 
-snakeGrid = (arr, x, y) => {
+const snakeGrid = (arr, x, y) => {
     const newArray = []
 
     for(let i = 0; i < y; i++) {
@@ -54,7 +54,7 @@ snakeGrid = (arr, x, y) => {
     return finalArray
 }
 
-convertToHex = (color) => {
+const convertToHex = (color) => {
     color = color.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
     return (color && color.length === 4) ? 
         ("0" + parseInt(color[1],10).toString(16)).slice(-2) +
@@ -62,7 +62,7 @@ convertToHex = (color) => {
         ("0" + parseInt(color[3],10).toString(16)).slice(-2) : ''
 }
 
-outputCode = (event) => {
+const outputCode = (event) => {
     event.preventDefault()
     outputBox.innerText = ""
     let pixelColors = []
@@ -84,7 +84,7 @@ outputCode = (event) => {
     outputBox.innerText = `[${pixelColors.toString()}]`
 }
 
-erasePixel = (event) => {
+const erasePixel = (event) => {
     event.preventDefault()
 
     event.target.style.backgroundColor = "#000000"
