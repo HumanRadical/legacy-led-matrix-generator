@@ -102,7 +102,7 @@ const colorInPixelIfMouseDown = (event) => {
     }
 }
 
-document.addEventListener("mousedown", () => {mouseDown = true})
+grid.addEventListener("mousedown", () => {mouseDown = true})
 document.addEventListener("mouseup", () => {mouseDown = false})
 grid.addEventListener("mousemove", colorInPixelIfMouseDown)
 grid.addEventListener("mousedown", colorInPixel)
