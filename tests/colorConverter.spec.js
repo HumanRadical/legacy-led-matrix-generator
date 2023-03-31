@@ -1,5 +1,5 @@
-function sanitizeColourArrayIntoHex(array) {
-    const newArray = array.replaceAll(/0x([\da-f]+)/ig, '"#$1"')
+function sanitizeColourArrayIntoHex(array, prefix = "#") {
+    const newArray = array.replaceAll(/0x([\da-f]+)/ig, `"${prefix}$1"`)
     const newerArray = JSON.parse(newArray)
     return newerArray
 }
@@ -17,7 +17,7 @@ describe("Color Converter Test", () => {
         expect(actualSanitizedArray).toEqual(expectedSanitizedArray)
     })
 
-    test.skip("It accepts predefied prefixes for the sanitized colour", () => {
+    test("It accepts predefied prefixes for the sanitized colour", () => {
         // Arrange 
         const rawColourArray = "[0x000000, 0xFF00BB]"
         const expectedSanitizedArray = ["0x000000", "0xFF00BB"]
