@@ -1,3 +1,5 @@
+import { sanitizeColourArrayIntoHex } from "./src/sanitizeColourArrayIntoHex"
+
 const inputBox = document.querySelector("#inputBox")
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
@@ -81,7 +83,7 @@ const addGridColors = (event) => {
     createGrid(x, y)
     const pixels = document.querySelectorAll(".pixel")
 
-    let colorInput = JSON.parse(inputBox.value.replaceAll(/0x([\dA-F]+)/gi, '\"#$1\"'))
+    let colorInput = sanitizeColourArrayIntoHex(inputBox.value)
     
     outputArduinoCode(colorInput)
 
