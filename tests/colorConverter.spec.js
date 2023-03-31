@@ -1,8 +1,4 @@
-function sanitizeColourArrayIntoHex(array, prefix = "#") {
-    const newArray = array.replaceAll(/0x([\da-f]+)/ig, `"${prefix}$1"`)
-    const newerArray = JSON.parse(newArray)
-    return newerArray
-}
+import { sanitizeColourArrayIntoHex } from "../src/sanitizeColourArrayIntoHex"
 
 describe("Color Converter Test", () => {
     test("If color is a hex code beginning with 0x, change it to a hex string without 0x", () => {
