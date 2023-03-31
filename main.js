@@ -3,7 +3,7 @@ const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
 const snakeBox = document.querySelector("#snakeBox")
 
-createGrid = (x, y) => {
+const createGrid = (x, y) => {
     grid.innerHTML = ""
 
     for (let i = 0; i < x * y; i++) {
@@ -16,7 +16,7 @@ createGrid = (x, y) => {
     }
 }
 
-snakeGrid = (arr, x, y) => {
+const snakeGrid = (arr, x, y) => {
     const newArray = []
 
     for(let i = 0; i < y; i++) {
@@ -30,11 +30,11 @@ snakeGrid = (arr, x, y) => {
         newArray.push(row)
     }
 
-    const finalArray = [].concat(...newArray)
+    const finalArray = [].concat(...newArray) 
     return finalArray
 }
 
-addGridColors = (event) => {
+const addGridColors = (event) => {
     event.preventDefault()
 
     const x = document.querySelector("#x-axis").value
