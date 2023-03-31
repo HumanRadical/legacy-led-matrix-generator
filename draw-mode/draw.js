@@ -73,9 +73,9 @@ const outputCode = (event) => {
         const color = pixel.style.backgroundColor
 
         if (outputType.value === "hex") {
-            pixelColors[index] = `"${convertToHex(color)}"`
+            pixelColors[index] = `0x${convertToHex(color)}`
         } else {
-            pixelColors[index] = `"${color}"`
+            pixelColors[index] = `${color}`
         }
     })
 
