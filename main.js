@@ -42,7 +42,7 @@ const addGridColors = (event) => {
     createGrid(x, y)
     const pixels = document.querySelectorAll(".pixel")
 
-    let colorInput = JSON.parse(inputBox.value)
+    let colorInput = JSON.parse(inputBox.value.replaceAll(/0x([\dA-F]+)/gi, '\"#$1\"'))
 
     if (snakeBox.checked) {
         colorInput = snakeGrid(colorInput, x, y)
@@ -50,7 +50,11 @@ const addGridColors = (event) => {
 
     colorInput.forEach((color, index) => {
         const pixel = pixels[index]
-        pixel.style.backgroundColor = `#${color}`
+        // if (typeof color === "number") {
+        //     color = color.toString(16)
+        //     console.log(color)
+        // }
+        pixel.style.backgroundColor = color
     })
 }
 
