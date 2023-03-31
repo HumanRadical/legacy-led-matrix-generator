@@ -83,7 +83,12 @@ const outputCode = (event) => {
         pixelColors = snakeGrid(pixelColors, 16, 16)
     }
 
-    outputBox.innerText = `[${pixelColors.toString()}]`
+    const colorString = `[${pixelColors.toString()}]`
+    outputBox.innerText = colorString
+    
+    navigator.clipboard.writeText(colorString)
+    clipboardMessage.innerHTML = "<em>Copied to clipboard.</em>"
+
 }
 
 const resetGrid = (event) => {
