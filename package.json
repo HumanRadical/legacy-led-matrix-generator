@@ -4,12 +4,14 @@
   "description": "An LED matrix app made for testing LED colour code arrays.",
   "main": "app.js",
   "devDependencies": {
+    "cypress": "^12.9.0",
     "vite": "^4.2.1",
     "vitest": "^0.29.8"
   },
   "scripts": {
     "test": "vitest",
-    "dev": "vite"
+    "dev": "vite",
+    "test:e2e": "cypress open"
   },
   "author": "",
   "license": "ISC"
