@@ -6,6 +6,7 @@ const grid = document.querySelector("#grid")
 const snakeBox = document.querySelector("#snakeBox")
 const outputBox = document.querySelector("#outputBox")
 const clipboardMessage = document.querySelector("#clipboardMessage")
+const errorMessage = document.querySelector('#errorMessage')
 
 const createGrid = (x, y) => {
     grid.innerHTML = ""
@@ -92,10 +93,6 @@ const addGridColors = (event) => {
 
     colorInput.forEach((color, index) => {
         const pixel = pixels[index]
-        // if (typeof color === "number") {
-        //     color = color.toString(16)
-        //     console.log(color)
-        // }
         pixel.style.backgroundColor = color
     })
 
