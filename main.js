@@ -1,3 +1,5 @@
+import { sanitizeColourArrayIntoHex } from "./src/sanitizeColourArrayIntoHex"
+
 const inputBox = document.querySelector("#inputBox")
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
@@ -53,7 +55,7 @@ const outputArduinoCode = (colors) => {
         // Create the array of retro arcade characters and store it in Flash memory
         const long Display[] PROGMEM =
         {
-            ${colors.map((color) => color.replace("#", "0x"))}
+            ${sanitizeColourArrayIntoHex(inputBox.value, "0x")}
         };
         void setup() { 
         FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
@@ -80,10 +82,9 @@ const addGridColors = (event) => {
     const y = document.querySelector("#y-axis").value
     createGrid(x, y)
     const pixels = document.querySelectorAll(".pixel")
-
-    let colorInput = JSON.parse(inputBox.value.replaceAll(/0x([\dA-F]+)/gi, '\"#$1\"'))
+    let colorInput = sanitizeColourArrayIntoHex(inputBox.value)
     
-    outputArduinoCode(colorInput)
+    outputArduinoCode()
 
     if (snakeBox.checked) {
         colorInput = snakeGrid(colorInput, x, y)
