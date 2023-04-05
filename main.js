@@ -84,6 +84,12 @@ const addGridColors = (event) => {
     createGrid(x, y)
     const pixels = document.querySelectorAll(".pixel")
     let colorInput = sanitizeColourArrayIntoHex(inputBox.value)
+
+    if (colorInput.length !== x * y) {
+        errorMessage.textContent = 'The number of colours does not match the number of pixels.'
+    } else {
+        errorMessage.textContent = ''
+    }
     
     outputArduinoCode()
 
