@@ -51,7 +51,7 @@ describe('Main page tests', () => {
     it('Outputs an error when the number of colours does not match the number of pixels', () => {
         cy.get('#inputBox').clear().type('[0xff0000, 0x00ff00, 0x0000ff]')
         cy.get('.submit').click()
-        cy.get('#errorMessage').should('have.textContent', 'The number of colours does not match the number of pixels.')
+        cy.get('#errorMessage').contains('The number of colours does not match the number of pixels.')
     })
 
     it('Prints out the correct string to the output box', () => {
