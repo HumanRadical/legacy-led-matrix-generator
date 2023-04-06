@@ -4,8 +4,7 @@ export function sanitizeColourArrayIntoHex(allColoursInString, prefix = '#') {
     .split(',')
     .map(colour => {
       const hexColourRegEx = /0x([\da-f]+)/ig
-      const isValidHexColour = colour.match(hexColourRegEx);
-      if (!isValidHexColour) {
+      if (!hexColourRegEx.test(colour)) {
         return '<Error>';
       }
 
