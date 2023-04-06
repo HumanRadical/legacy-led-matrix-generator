@@ -10,6 +10,7 @@ const clipboardMessage = document.querySelector("#clipboardMessage")
 const errorMessage = document.querySelector('#errorMessage')
 
 const createGrid = (x, y) => {
+    errorMessage.innerHTML = ""
     grid.innerHTML = ""
 
     for (let i = 0; i < x * y; i++) {
@@ -87,9 +88,9 @@ const addGridColors = (event) => {
     let colorInput = sanitizeColourArrayIntoHex(inputBox.value)
 
     if (colorInput.length !== x * y) {
-        errorMessage.textContent = 'The number of colours does not match the number of pixels.'
-    } else {
-        errorMessage.textContent = ''
+        const newError = document.createElement("li")
+        newError.textContent = "The number of colours does not match the number of pixels."
+        errorMessage.appendChild(newError)
     }
     
     outputArduinoCode()
@@ -105,11 +106,18 @@ const addGridColors = (event) => {
             errorIcon.classList.add("errorIcon")
             errorIcon.src = errorIconImg
             pixel.appendChild(errorIcon)
+
             return;
         }
 
         pixel.style.backgroundColor = color
     })
+
+    if(colorInput.some(color => color === '<Error>')) {
+        const newError = document.createElement("li")
+        newError.textContent = 'One or more pixels has an invalid colour.'
+        errorMessage.appendChild(newError)
+    }
 
 }
 

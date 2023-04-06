@@ -46,7 +46,7 @@ describe('Main page tests', () => {
     it('Outputs an error message when one or more pixel has an invalid color', () => {
         cy.get('#inputBox').clear().type('[0xff0000, 0x00ff00, 0x0000ff, foobar]')
         cy.get('.submit').click()
-        cy.get('#errorMessage').should('have.text', 'One or more pixels has an invalid colour.')
+        cy.get('#errorMessage').should('contain.text', 'One or more pixels has an invalid colour.')
     })
 
     it('Displays an error pixel on the correct pixel it has an invalid colour', () => {
@@ -58,7 +58,7 @@ describe('Main page tests', () => {
     it('Outputs an error when the number of colours does not match the number of pixels', () => {
         cy.get('#inputBox').clear().type('[0xff0000, 0x00ff00, 0x0000ff]')
         cy.get('.submit').click()
-        cy.get('#errorMessage').should('have.text', 'The number of colours does not match the number of pixels.')
+        cy.get('#errorMessage').should('contain.text', 'The number of colours does not match the number of pixels.')
     })
 
     it('Prints out the correct string to the output box', () => {
