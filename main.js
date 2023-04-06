@@ -1,4 +1,5 @@
 import { sanitizeColourArrayIntoHex } from "./src/sanitizeColourArrayIntoHex"
+import errorIconImg from "./img/error_icon.svg"
 
 const inputBox = document.querySelector("#inputBox")
 const submitForm = document.querySelector("#submitForm")
@@ -100,8 +101,9 @@ const addGridColors = (event) => {
     colorInput.forEach((color, index) => {
         const pixel = pixels[index]
         if(color === '<Error>') {
-            const errorIcon = document.createElement("div")
+            const errorIcon = document.createElement("img")
             errorIcon.classList.add("errorIcon")
+            errorIcon.src = errorIconImg
             pixel.appendChild(errorIcon)
             return;
         }
