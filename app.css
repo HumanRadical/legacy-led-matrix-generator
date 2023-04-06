@@ -36,7 +36,12 @@ h1 {
     background-color: white;
 }
 
-.pixel img {
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.errorIcon {
     width: 100%;
     height: 100%;
 }
