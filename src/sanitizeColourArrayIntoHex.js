@@ -1,8 +1,7 @@
 export function sanitizeColourArrayIntoHex(allColoursInString, prefix = '#') {
   const output = [];
-    allColoursInString.replaceAll('[', '')
-      .replaceAll(']', '')
-      .replaceAll(' ', '')
+    allColoursInString
+      .replaceAll(/[ \[\]]/ig, '')
       .split(',')
       .forEach(colour => {
           let sanitizedColour = '<Error>';
