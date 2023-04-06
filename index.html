@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./app.css">
-    <title>LED Matrix Generator</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./app.css">
+  <title>LED Matrix Generator</title>
 </head>
 <body>
-    <h1>LED Matrix Generator</h1>
+<h1>LED Matrix Generator</h1>
 
-    <section class="container">
-        <div class="inputContainer">
-            <h2>Input</h2>
-            <form id="submitForm" action="#">
+<section class="container">
+  <div class="inputContainer">
+    <h2>Input</h2>
+    <form id="submitForm" action="#">
                 <textarea id="inputBox" class="textbox" cols="50" rows="20" wrap="soft">[0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000,
                     0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000,
                     0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0xcccccc,
@@ -36,34 +36,33 @@
                     0xcccccc, 0xcccccc, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000,
                     0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000,
                     0x000000, 0x000000, 0x000000, 0x000000]</textarea>
-                <div class="settings">
-                    <div class="size"></div>
-                    <label class="sizeLabel" for="x-axis">Size:</label>
-                    <input id="x-axis" class="sizeBox" type="text" value="16"> x <input id="y-axis" class="sizeBox" type="text"
-                        value="16">
-                    <label class="snakeLabel" for="snakeBox">Snake mode:</label>
-                    <input id="snakeBox" class="snakeBox" type="checkbox" checked>
-                </div>
-                <button class="submit">SUBMIT</button>
-            </form>
-        </div>
-        
-        <div class="gridContainer">
-            <div id="grid" class="grid"></div>
-            <p id="errorMessage" class="errorMessage"></p>
-        </div>
+      <div class="settings">
+        <div class="size"></div>
+        <label class="sizeLabel" for="x-axis">Size:</label>
+        <input id="x-axis" class="sizeBox" type="text" value="16"> x <input id="y-axis" class="sizeBox" type="text"
+                                                                            value="16"
+      >
+        <label class="snakeLabel" for="snakeBox">Snake mode:</label>
+        <input id="snakeBox" class="snakeBox" type="checkbox" checked>
+      </div>
+      <button class="submit">SUBMIT</button>
+    </form>
+  </div>
 
-        <div class="outputContainer">
-            <h2>Output</h2>
-            <form id="submitForm" action="#">
-                <textarea id="outputBox" class="textbox" cols="50" rows="30" wrap="soft" readonly></textarea>
-            </form>
-            <p class="clipboardMessage" id="clipboardMessage"></p>
-        </div>
-    </section>
+  <div class="gridContainer">
+    <div id="grid" class="grid"></div>
+    <ul id="errorMessage" class="errorMessage"></ul>
+  </div>
 
-    <a class="drawModeLink" href="./draw-mode/draw.html">Drawing mode</a>
+  <div class="outputContainer">
+    <h2>Output</h2>
+    <textarea id="outputBox" class="textbox" cols="50" rows="30" wrap="soft" readonly></textarea>
+    <p class="clipboardMessage" id="clipboardMessage"></p>
+  </div>
+</section>
 
-    <script type="module" src="main.js"></script>
+<a class="drawModeLink" href="./draw-mode/draw.html">Drawing mode</a>
+
+<script type="module" src="main.js"></script>
 </body>
 </html>

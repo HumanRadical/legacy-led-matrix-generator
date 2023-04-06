@@ -11,6 +11,7 @@
   "scripts": {
     "test": "vitest",
     "dev": "vite",
+    "prod": "vite build && vite preview",
     "test:e2e": "cypress open"
   },
   "author": "",
