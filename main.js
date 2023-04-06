@@ -99,6 +99,13 @@ const addGridColors = (event) => {
 
     colorInput.forEach((color, index) => {
         const pixel = pixels[index]
+        if(color === '<Error>') {
+            const errorIcon = document.createElement("div")
+            errorIcon.classList.add("errorIcon")
+            pixel.appendChild(errorIcon)
+            return;
+        }
+
         pixel.style.backgroundColor = color
     })
 
