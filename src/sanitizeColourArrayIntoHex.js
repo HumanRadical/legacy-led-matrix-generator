@@ -3,11 +3,12 @@ export function sanitizeColourArrayIntoHex(allColoursInString, prefix = '#') {
     .replaceAll(/[ \[\]]/ig, '')
     .split(',')
     .map(colour => {
-      const isValidHexColour = colour.match(/^0x[\da-f]+$/ig);
+      const hexColourRegEx = /0x([\da-f]+)/ig
+      const isValidHexColour = colour.match(hexColourRegEx);
       if (!isValidHexColour) {
         return '<Error>';
       }
 
-      return colour.replaceAll(/0x([\da-f]+)/ig, `${prefix}$1`);
+      return colour.replaceAll(hexColourRegEx, `${prefix}$1`);
     });
 }
