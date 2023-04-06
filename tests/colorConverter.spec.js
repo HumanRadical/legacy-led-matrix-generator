@@ -1,7 +1,7 @@
 import { sanitizeColourArrayIntoHex } from "../src/sanitizeColourArrayIntoHex"
 
-describe("Color Converter Test", () => {
-    test("If color is a hex code beginning with 0x, change it to a hex string without 0x", () => {
+describe("Colour Converter Test", () => {
+    test("If colour is a hex code beginning with 0x, change it to a hex string without 0x", () => {
         // Arrange 
         const rawColourArray = "[0x000000, 0xFF00BB]"
         const expectedSanitizedArray = ["#000000", "#FF00BB"]
@@ -13,7 +13,7 @@ describe("Color Converter Test", () => {
         expect(actualSanitizedArray).toEqual(expectedSanitizedArray)
     })
 
-    test("It accepts predefied prefixes for the sanitized colour", () => {
+    test("It accepts predefined prefixes for the sanitized colour", () => {
         // Arrange 
         const rawColourArray = "[0x000000, 0xFF00BB]"
         const expectedSanitizedArray = ["0x000000", "0xFF00BB"]
@@ -22,6 +22,15 @@ describe("Color Converter Test", () => {
         const actualSanitizedArray = sanitizeColourArrayIntoHex(rawColourArray, "0x");
 
         // Assert
+        expect(actualSanitizedArray).toEqual(expectedSanitizedArray)
+    })
+
+    test("It replaces any invalid hex colours with <Error>", () => {
+        const rawColourArray = "[0x000000, Foobar]"
+        const expectedSanitizedArray = ["#000000", "<Error>"]
+
+        const actualSanitizedArray = sanitizeColourArrayIntoHex(rawColourArray);
+
         expect(actualSanitizedArray).toEqual(expectedSanitizedArray)
     })
 })

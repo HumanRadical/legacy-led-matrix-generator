@@ -1,5 +1,17 @@
-export function sanitizeColourArrayIntoHex(array, prefix = "#") {
-    const newArray = array.replaceAll(/0x([\da-f]+)/ig, `"${prefix}$1"`)
-    const newerArray = JSON.parse(newArray)
-    return newerArray
+export function sanitizeColourArrayIntoHex(allColoursInString, prefix = '#') {
+  const output = [];
+    allColoursInString.replaceAll('[', '')
+      .replaceAll(']', '')
+      .replaceAll(' ', '')
+      .split(',')
+      .forEach(colour => {
+          let sanitizedColour = '<Error>';
+          const isValidHexColour = colour.match(/^0x[\da-f]+$/ig);
+          if (isValidHexColour) {
+              sanitizedColour = colour.replaceAll(/0x([\da-f]+)/ig, `${prefix}$1`);
+          }
+
+          output.push(sanitizedColour);
+      });
+    return output;
 }
