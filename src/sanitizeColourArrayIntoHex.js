@@ -1,16 +1,13 @@
 export function sanitizeColourArrayIntoHex(allColoursInString, prefix = '#') {
-  const output = [];
-    allColoursInString
+    return allColoursInString
       .replaceAll(/[ \[\]]/ig, '')
       .split(',')
-      .forEach(colour => {
-          let sanitizedColour = '<Error>';
+      .map(colour => {
           const isValidHexColour = colour.match(/^0x[\da-f]+$/ig);
           if (isValidHexColour) {
-              sanitizedColour = colour.replaceAll(/0x([\da-f]+)/ig, `${prefix}$1`);
+              return colour.replaceAll(/0x([\da-f]+)/ig, `${prefix}$1`);
           }
 
-          output.push(sanitizedColour);
+          return '<Error>';
       });
-    return output;
 }
