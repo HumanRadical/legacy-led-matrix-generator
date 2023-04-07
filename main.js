@@ -86,12 +86,6 @@ const addGridColors = (event) => {
     createGrid(x, y)
     const pixels = document.querySelectorAll(".pixel")
     let colorInput = sanitizeColourArrayIntoHex(inputBox.value)
-
-    if (colorInput.length !== x * y) {
-        const newError = document.createElement("li")
-        newError.textContent = "The number of colours does not match the number of pixels."
-        errorMessage.appendChild(newError)
-    }
     
     outputArduinoCode()
 
@@ -113,12 +107,20 @@ const addGridColors = (event) => {
         pixel.style.backgroundColor = color
     })
 
-    if(colorInput.some(color => color === '<Error>')) {
+    handleInputErrors(colorInput, x, y)
+}
+
+submitForm.addEventListener("submit", addGridColors)
+
+function handleInputErrors(colorInput, x, y) {
+    if (colorInput.length !== x * y) {
+        const newError = document.createElement("li")
+        newError.textContent = "The number of colours does not match the number of pixels."
+        errorMessage.appendChild(newError)
+    }
+    if (colorInput.some(color => color === '<Error>')) {
         const newError = document.createElement("li")
         newError.textContent = 'One or more pixels has an invalid colour.'
         errorMessage.appendChild(newError)
     }
-
 }
-
-submitForm.addEventListener("submit", addGridColors)

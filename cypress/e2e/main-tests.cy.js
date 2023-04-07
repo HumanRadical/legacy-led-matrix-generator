@@ -22,11 +22,11 @@ describe('Main page tests', () => {
         //     .its('state').then(cy.log)
     })
 
-    it('Sets the grid to the correct size', () => {
+    it('Sets the pixel grid to the correct size', () => {
         cy.get('.pixel').should('have.length', 4)
     })
 
-    it('Sets the pixels to the right colour', () => {
+    it('Sets the pixels to the correct colour', () => {
         cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
         cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 255, 0)')
         cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(0, 0, 255)')
@@ -34,7 +34,7 @@ describe('Main page tests', () => {
         cy.get('.errorIcon').should('not.exist')
     })
 
-    it('Snakes the display grid when snake mode is enabled', () => {
+    it('Snakes the pixel grid when snake mode is enabled', () => {
         cy.get('#snakeBox').click()
         cy.get('.submit').click()
         cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
@@ -43,21 +43,28 @@ describe('Main page tests', () => {
         cy.get('.pixel').eq(3).should('have.css', 'background-color', 'rgb(0, 0, 255)')
     })
 
-    it('Outputs an error message when one or more pixel has an invalid color', () => {
+    it('Displays an error icon on the correct pixel when it has an invalid colour', () => {
+        cy.get('#inputBox').clear().type('[0xff0000, 0x00ff00, 0x0000ff, foobar]')
+        cy.get('.submit').click()
+        cy.get('.pixel').last().get('.errorIcon').should('exist')
+    })
+    
+    it('Outputs correct error message when one or more pixel has an invalid color', () => {
         cy.get('#inputBox').clear().type('[0xff0000, 0x00ff00, 0x0000ff, foobar]')
         cy.get('.submit').click()
         cy.get('#errorMessage').should('contain.text', 'One or more pixels has an invalid colour.')
     })
 
-    it('Displays an error pixel on the correct pixel it has an invalid colour', () => {
-        cy.get('#inputBox').clear().type('[0xff0000, 0x00ff00, 0x0000ff, foobar]')
-        cy.get('.submit').click()
-        cy.get('.pixel').last().get('.errorIcon').should('exist')
-    })
-
-    it('Outputs an error when the number of colours does not match the number of pixels', () => {
+    it('Outputs correct error message when the number of colours does not match the number of pixels', () => {
         cy.get('#inputBox').clear().type('[0xff0000, 0x00ff00, 0x0000ff]')
         cy.get('.submit').click()
+        cy.get('#errorMessage').should('contain.text', 'The number of colours does not match the number of pixels.')
+    })
+
+    it('Outputs both error messages at the same time', () => {
+        cy.get('#inputBox').clear().type('[0xff0000, 0x00ff00, foobar]')
+        cy.get('.submit').click()
+        cy.get('#errorMessage').should('contain.text', 'One or more pixels has an invalid colour.')
         cy.get('#errorMessage').should('contain.text', 'The number of colours does not match the number of pixels.')
     })
 
