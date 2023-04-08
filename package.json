@@ -12,7 +12,7 @@
     "test": "vitest",
     "dev": "vite",
     "prod": "vite build && vite preview",
-    "test:e2e": "cypress open"
+    "cytest": "cypress open"
   },
   "author": "",
   "license": "ISC"
