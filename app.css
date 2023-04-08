@@ -211,7 +211,7 @@ textarea {
 .drawSettings {
     display: flex;
     justify-content: space-between;
-    width: 600px;
+    width: 560px;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 15px;

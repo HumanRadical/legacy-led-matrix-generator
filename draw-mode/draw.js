@@ -6,6 +6,9 @@ const outputBox = document.querySelector("#outputBox")
 const snakeBox = document.querySelector("#snakeBox")
 const outputType = document.querySelector("#outputType")
 const resetButton = document.querySelector("#resetButton")
+const x = document.querySelector("#x-axis")
+const y = document.querySelector("#y-axis")
+let pixels = []
 let mouseDown = false
 
 const createDrawGrid = (x, y) => {
@@ -24,7 +27,6 @@ const createDrawGrid = (x, y) => {
 }
 
 createDrawGrid(16, 16)
-const pixels = document.querySelectorAll(".pixel")
 
 const colorInPixel = (event) => {
     event.preventDefault()
@@ -66,6 +68,8 @@ const convertToHex = (color) => {
 
 const outputCode = (event) => {
     event.preventDefault()
+    pixels = document.querySelectorAll(".pixel")
+
     outputBox.innerText = ""
     let pixelColors = []
 
@@ -80,7 +84,7 @@ const outputCode = (event) => {
     })
 
     if (snakeBox.checked) {
-        pixelColors = snakeGrid(pixelColors, 16, 16)
+        pixelColors = snakeGrid(pixelColors, x.value, y.value)
     }
 
     const colorString = `[${pixelColors.toString()}]`
@@ -93,6 +97,7 @@ const outputCode = (event) => {
 
 const resetGrid = (event) => {
     event.preventDefault()
+    pixels = document.querySelectorAll(".pixel")
 
     for (pixel of pixels) {
         pixel.style.backgroundColor = "#000000"
@@ -113,5 +118,6 @@ grid.addEventListener("mousemove", colorInPixelIfMouseDown)
 grid.addEventListener("mousedown", colorInPixel)
 
 resetButton.addEventListener("click", resetGrid)
-
 submit.addEventListener("click", outputCode)
+x.addEventListener("change", () => createDrawGrid(x.value, y.value))
+y.addEventListener("change", () => createDrawGrid(x.value, y.value))
