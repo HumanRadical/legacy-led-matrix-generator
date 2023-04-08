@@ -8,6 +8,8 @@ const snakeBox = document.querySelector("#snakeBox")
 const outputBox = document.querySelector("#outputBox")
 const clipboardMessage = document.querySelector("#clipboardMessage")
 const errorMessage = document.querySelector('#errorMessage')
+const x = document.querySelector("#x-axis")
+const y = document.querySelector("#y-axis")
 
 const createGrid = (x, y) => {
     errorMessage.innerHTML = ""
@@ -81,16 +83,14 @@ const outputArduinoCode = (colors) => {
 const addGridColors = (event) => {
     event.preventDefault()
 
-    const x = document.querySelector("#x-axis").value
-    const y = document.querySelector("#y-axis").value
-    createGrid(x, y)
+    createGrid(x.value, y.value)
     const pixels = document.querySelectorAll(".pixel")
     let colorInput = sanitizeColourArrayIntoHex(inputBox.value)
     
     outputArduinoCode()
 
     if (snakeBox.checked) {
-        colorInput = snakeGrid(colorInput, x, y)
+        colorInput = snakeGrid(colorInput, x.value, y.value)
     }
 
     colorInput.forEach((color, index) => {
@@ -107,7 +107,7 @@ const addGridColors = (event) => {
         pixel.style.backgroundColor = color
     })
 
-    handleInputErrors(colorInput, x, y)
+    handleInputErrors(colorInput, x.value, y.value)
 }
 
 submitForm.addEventListener("submit", addGridColors)

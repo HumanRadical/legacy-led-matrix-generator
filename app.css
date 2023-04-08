@@ -208,7 +208,7 @@ textarea {
     cursor: pointer;
 }
 
-.settings {
+.drawSettings {
     display: flex;
     justify-content: space-between;
     width: 600px;
