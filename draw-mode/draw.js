@@ -1,7 +1,7 @@
 const grid = document.querySelector("#grid")
 const colorPicker = document.querySelector("#colorPicker")
 const colorPresetForm = document.querySelector("#colorPresetForm")
-const submitForm = document.querySelector("#submitForm")
+const submit = document.querySelector("#submit")
 const outputBox = document.querySelector("#outputBox")
 const snakeBox = document.querySelector("#snakeBox")
 const outputType = document.querySelector("#outputType")
@@ -114,4 +114,4 @@ grid.addEventListener("mousedown", colorInPixel)
 
 resetButton.addEventListener("click", resetGrid)
 
-submitForm.addEventListener("submit", outputCode)
+submit.addEventListener("click", outputCode)

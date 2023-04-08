@@ -11,8 +11,7 @@
     <h1>Drawing Mode</h1>
 
     <div id="grid" class="grid drawGrid"></div>
-
-    <button class="resetButton" id="resetButton">Reset</button>
+    
     <form class="colorPresetForm" id="colorPresetForm" action="#">
         <label class="colorPresets">
             <input type="radio" name="colorPresets" value="#FF0000" checked>
@@ -45,14 +44,7 @@
         </label>
     </form>
 
-    <form action="#" class="submitForm drawSubmitForm" id="submitForm">
-        <label class="snakeLabel drawSnakeLabel" for="snakeBox">
-            Snake mode:
-            <input class="snakeBox" id="snakeBox" type="checkbox" checked>
-        </label>
-
-        <button id="submit" class="submit drawSubmit">SUBMIT</button>
-
+    <div class="settings">        
         <label for="outputType" class="outputTypeLabel">
             Colour type:
             <select name="outputType" id="outputType" class="outputType">
@@ -60,7 +52,23 @@
                 <option value="rgb">RGB</option>
             </select>
         </label>
-    </form>
+
+        <div class="size">
+            <label class="sizeLabel" for="x-axis">Size:</label>
+            <input id="x-axis" class="sizeBox" type="text" value="16"> 
+            x 
+            <input id="y-axis" class="sizeBox" type="text" value="16">
+        </div>
+
+        <label class="snakeLabel drawSnakeLabel" for="snakeBox">
+            Snake mode:
+            <input class="snakeBox" id="snakeBox" type="checkbox" checked>
+        </label>
+
+        <button class="resetButton" id="resetButton">Reset</button>
+    </div>
+
+    <button id="submit" class="submit drawSubmit">SUBMIT</button>
     
     <div>
         <textarea name="output" id="outputBox" class="outputBox" cols="100" rows="12"></textarea>

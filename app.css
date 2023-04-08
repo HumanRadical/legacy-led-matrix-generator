@@ -63,6 +63,11 @@ textarea {
     margin: 30px;
 }
 
+.size {
+    display: inline-block;
+    /* margin-right: 10px; */
+}
+
 .sizeLabel {
     font-size: large;
     font-weight: 600;
@@ -81,10 +86,6 @@ textarea {
     font-weight: 600;
 }
 
-.mainSnakeLabel {
-    margin-left: 20px;
-}
-
 .snakeBox {
     width: 1rem;
     height: 1rem;
@@ -93,7 +94,6 @@ textarea {
 .submit {
     font-size: x-large;
     font-weight: 600;
-    margin-top: 8px;
     width: 200px;
     height: 50px;
     background-color: orangered;
@@ -126,25 +126,10 @@ textarea {
     border: 1px solid white;
 }
 
-.resetButton {
-    font-size: large;
-    font-weight: 600;
-    margin: 10px;
-    width: 100px;
-    height: 30px;
-    background-color: red;
-    border: 3px solid black;
-    border-radius: 5px;
-    transition-duration: 0.1s;
-    cursor: pointer;
-}
-
-.resetButton:hover {
-    background-color: rgb(255, 40, 40);
-}
 
 .colorPresetForm {
     margin: auto;
+    margin-top: 20px;
     padding-right: 35px;
     width: 600px;
     display: flex;
@@ -223,29 +208,37 @@ textarea {
     cursor: pointer;
 }
 
-.drawSubmitForm {
-    width: 650px;
+.settings {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
     margin: auto;
     margin-top: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.drawSnakeLabel {
-    flex: 1;
-}
-
-.drawSubmit {
-    flex: 1;
-    justify-self: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
 .outputTypeLabel {
     font-size: large;
     font-weight: 600;
-    flex: 1;
+}
+
+.resetButton {
+    font-size: large;
+    font-weight: 600;
+    margin: auto;
+    margin-top: 12px;
+    width: 120px;
+    height: 40px;
+    background-color: red;
+    border: 4px solid black;
+    border-radius: 5px;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.resetButton:hover {
+    background-color: rgb(255, 40, 40);
 }
 
 .outputType {
@@ -254,4 +247,8 @@ textarea {
     font-size: large;
     border: 3px solid black;
     border-radius: 4px;
+}
+
+.drawSubmit {
+    margin-bottom: 20px;
 }
