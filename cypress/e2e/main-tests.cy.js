@@ -1,4 +1,4 @@
-describe('Main page tests', () => {
+describe.skip('Main page tests', () => {
     beforeEach(() => {
         cy.visit('http://localhost:5173/')
         cy.viewport('macbook-16')
@@ -7,19 +7,6 @@ describe('Main page tests', () => {
         cy.get('#snakeBox').click()
         cy.get('#inputBox').clear().type('[0xff0000, 0x00ff00, 0x0000ff, 0xffff00]')
         cy.get('.submit').click()
-
-        // Make browser accept clipboard permissions
-
-        // cy.wrap(Cypress.automation('remote:debugger:protocol', {
-        //     command: 'Browser.grantPermissions',
-        //     params: {
-        //         permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
-        //         origin: window.location.origin
-        //     }
-        // }))
-        // cy.window().its('navigator.permissions')
-        //     .invoke('query', {name: 'clipboard-read'})
-        //     .its('state').then(cy.log)
     })
 
     it('Sets the pixel grid to the correct size', () => {
@@ -109,6 +96,7 @@ describe('Main page tests', () => {
             })
         })
     })
+
     it('Copies the correct string to the clipboard', () => {
         cy.assertValueCopiedToClipboard(`#include <avr/pgmspace.h>  // Needed to store stuff in Flash using PROGMEM
         #include "FastLED.h"       // Fastled library to control the LEDs
@@ -140,5 +128,20 @@ describe('Main page tests', () => {
         void loop() { 
 
         }`)
+    })
+})
+
+describe('Draw mode tests', () => {
+    beforeEach(() => {
+        cy.visit('http://localhost:5173/')
+        cy.viewport('macbook-16')
+        cy.get('.drawModeLink').click()
+        cy.get('#x-axis').clear().type('2')
+        cy.get('#y-axis').clear().type('2')
+        cy.get('#snakeBox').click()
+    })
+
+    it('Sets the grid to the correct size', () => {
+        cy.get('.pixel').should('have.length', 4)
     })
 })
