@@ -117,5 +117,5 @@ grid.addEventListener("mousedown", colorInPixel)
 
 resetButton.addEventListener("click", resetGrid)
 submit.addEventListener("click", outputCode)
-x.addEventListener("change", () => createDrawGrid())
-y.addEventListener("change", () => createDrawGrid())
+x.addEventListener("change", createDrawGrid)
+y.addEventListener("change", createDrawGrid)
