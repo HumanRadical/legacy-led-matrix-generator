@@ -1,4 +1,4 @@
-describe.skip('Main page tests', () => {
+describe('Main page tests', () => {
     beforeEach(() => {
         cy.visit('http://localhost:5173/')
         cy.viewport('macbook-16')
@@ -130,7 +130,7 @@ describe.skip('Main page tests', () => {
     })
 })
 
-describe.skip('Draw mode tests', () => {
+describe('Draw mode tests', () => {
     beforeEach(() => {
         cy.visit('http://localhost:5173/')
         cy.viewport('macbook-16')
