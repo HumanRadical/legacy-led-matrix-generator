@@ -92,7 +92,6 @@ const outputCode = (event) => {
     
     navigator.clipboard.writeText(colorString)
     clipboardMessage.innerHTML = "<em>Copied to clipboard.</em>"
-
 }
 
 const resetGrid = (event) => {

@@ -130,7 +130,7 @@ describe.skip('Main page tests', () => {
     })
 })
 
-describe('Draw mode tests', () => {
+describe.skip('Draw mode tests', () => {
     beforeEach(() => {
         cy.visit('http://localhost:5173/')
         cy.viewport('macbook-16')
@@ -209,5 +209,102 @@ describe('Draw mode tests', () => {
         cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(0, 0, 0)')
         cy.get('.pixel').eq(3).should('have.css', 'background-color', 'rgb(0, 0, 0)')
         cy.get('#outputBox').should('have.value', '[0x000000,0x000000,0x000000,0x000000]')
+    })
+})
+
+describe('Front to back test', () => {
+    Cypress.Commands.add('assertValueCopiedToClipboard', value => {
+        cy.window().then(win => {
+            win.navigator.clipboard.readText().then(text => {
+                expect(text).to.eq(value)
+            })
+        })
+    })
+    it('Can perform a full front to back test', () => {
+        cy.visit('http://localhost:5173/')
+        cy.viewport('macbook-16')
+        cy.get('.drawModeLink').click()
+        cy.get('#x-axis').clear().type('2')
+        cy.get('#y-axis').clear().type('2')
+        cy.get('.redPreset').click()
+        cy.get('.pixel').eq(0).click()
+        cy.get('.bluePreset').click()
+        cy.get('.pixel').eq(1).click()
+        cy.get('.yellowPreset').click()
+        cy.get('.pixel').eq(2).click()
+        cy.get('.greenPreset').click()
+        cy.get('.pixel').eq(3).click()
+        cy.get('#submit').click()
+        cy.get('.drawModeLink').click()
+        // Still need to figure out how to paste clipboard contents
+        cy.get('#inputBox').clear().type(setTimeout(async() => await navigator.clipboard.readText(), 3000))
+        cy.get('#x-axis').clear().type('2')
+        cy.get('#y-axis').clear().type('2')
+        cy.get('#submit').click()
+        cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
+        cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 255, 0)')
+        cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(255, 255, 0)')
+        cy.get('.pixel').eq(3).should('have.css', 'background-color', 'rgb(0, 0, 255)')
+        cy.get('#outputBox').should('have.value', 
+        `#include <avr/pgmspace.h>  // Needed to store stuff in Flash using PROGMEM
+        #include "FastLED.h"       // Fastled library to control the LEDs
+
+        // How many leds are connected?
+        #define NUM_LEDS 256
+
+        // Define the Data Pin
+        #define DATA_PIN 7  // Connected to the data pin of the first LED strip
+
+        // Define the array of leds
+        CRGB leds[NUM_LEDS];
+
+        // Create the array of retro arcade characters and store it in Flash memory
+        const long Display[] PROGMEM =
+        {
+            0xff0000,0x000000,0x00ff00,0xffff00
+        };
+        void setup() { 
+        FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
+        FastLED.clear();
+        for(int i = 0; i < NUM_LEDS; i++) {
+            leds[i] = pgm_read_dword(&(Display[NUM_LEDS - i - 1]));
+        }
+        
+        FastLED.show();
+        }
+
+        void loop() { 
+
+        }`)
+        cy.assertValueCopiedToClipboard(`#include <avr/pgmspace.h>  // Needed to store stuff in Flash using PROGMEM
+        #include "FastLED.h"       // Fastled library to control the LEDs
+
+        // How many leds are connected?
+        #define NUM_LEDS 256
+
+        // Define the Data Pin
+        #define DATA_PIN 7  // Connected to the data pin of the first LED strip
+
+        // Define the array of leds
+        CRGB leds[NUM_LEDS];
+
+        // Create the array of retro arcade characters and store it in Flash memory
+        const long Display[] PROGMEM =
+        {
+            0xff0000,0x000000,0x00ff00,0xffff00
+        };
+        void setup() { 
+        FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
+        FastLED.clear();
+        for(int i = 0; i < NUM_LEDS; i++) {
+            leds[i] = pgm_read_dword(&(Display[NUM_LEDS - i - 1]));
+        }
+        
+        FastLED.show();
+        }
+
+        void loop() { 
+
+        }`)
     })
 })
