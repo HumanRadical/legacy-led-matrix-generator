@@ -11,13 +11,13 @@ const y = document.querySelector("#y-axis")
 let pixels = []
 let mouseDown = false
 
-const createDrawGrid = (x = 16, y = 16) => {
+const createDrawGrid = () => {
     grid.innerHTML = ""
 
-    for (let i = 0; i < x * y; i++) {
+    for (let i = 0; i < x.value * y.value; i++) {
         const pixel = document.createElement("div")
-        pixel.style.width = `${550 / x - 2}px`
-        pixel.style.height = `${550 / y - 2}px`
+        pixel.style.width = `${550 / x.value - 2}px`
+        pixel.style.height = `${550 / y.value - 2}px`
         pixel.style.display = "inline-block"
         pixel.style.backgroundColor = "#000000"
         pixel.classList.add("pixel")
@@ -117,5 +117,5 @@ grid.addEventListener("mousedown", colorInPixel)
 
 resetButton.addEventListener("click", resetGrid)
 submit.addEventListener("click", outputCode)
-x.addEventListener("change", () => createDrawGrid(x.value, y.value))
-y.addEventListener("change", () => createDrawGrid(x.value, y.value))
+x.addEventListener("change", () => createDrawGrid())
+y.addEventListener("change", () => createDrawGrid())
