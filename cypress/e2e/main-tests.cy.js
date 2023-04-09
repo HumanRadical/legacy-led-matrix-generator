@@ -96,8 +96,7 @@ describe.skip('Main page tests', () => {
             })
         })
     })
-
-    it('Copies the correct string to the clipboard', () => {
+    it('Copies the correct value to the clipboard', () => {
         cy.assertValueCopiedToClipboard(`#include <avr/pgmspace.h>  // Needed to store stuff in Flash using PROGMEM
         #include "FastLED.h"       // Fastled library to control the LEDs
 
@@ -139,6 +138,14 @@ describe('Draw mode tests', () => {
         cy.get('#x-axis').clear().type('2')
         cy.get('#y-axis').clear().type('2')
         cy.get('#snakeBox').click()
+        cy.get('.pixel').eq(0).click()
+        cy.get('.bluePreset').click()
+        cy.get('.pixel').eq(1).click()
+        cy.get('.yellowPreset').click()
+        cy.get('.pixel').eq(2).click()
+        cy.get('.greenPreset').click()
+        cy.get('.pixel').eq(3).click()
+        cy.get('#submit').click()
     })
 
     it('Sets the grid to the correct size', () => {
@@ -146,30 +153,61 @@ describe('Draw mode tests', () => {
     })
 
     it('Colours in pixels with the correct colours', () => {
-        cy.get('.pixel').eq(0).click()
         cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
-        cy.get('.bluePreset').click()
-        cy.get('.pixel').eq(1).click()
         cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 0, 255)')
-        cy.get('.yellowPreset').click()
-        cy.get('.pixel').eq(2).click()
         cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(255, 255, 0)')
-        cy.get('.greenPreset').click()
-        cy.get('.pixel').eq(3).click()
         cy.get('.pixel').eq(3).should('have.css', 'background-color', 'rgb(0, 255, 0)')
     })
 
     it('Can colour a pixel in multiple times', () => {
-        cy.get('.pixel').first().click()
-        cy.get('.pixel').first().should('have.css', 'background-color', 'rgb(255, 0, 0)')
         cy.get('.bluePreset').click()
-        cy.get('.pixel').first().click()
-        cy.get('.pixel').first().should('have.css', 'background-color', 'rgb(0, 0, 255)')
+        cy.get('.pixel').first().click().should('have.css', 'background-color', 'rgb(0, 0, 255)')
         cy.get('.yellowPreset').click()
-        cy.get('.pixel').first().click()
-        cy.get('.pixel').first().should('have.css', 'background-color', 'rgb(255, 255, 0)')
+        cy.get('.pixel').first().click().should('have.css', 'background-color', 'rgb(255, 255, 0)')
         cy.get('.greenPreset').click()
-        cy.get('.pixel').first().click()
-        cy.get('.pixel').first().should('have.css', 'background-color', 'rgb(0, 255, 0)')
+        cy.get('.pixel').first().click().should('have.css', 'background-color', 'rgb(0, 255, 0)')
+    })
+
+    it('Can select and use a custom colour', () => {
+        cy.get('#colorPicker').invoke('val', '#ffa500').trigger('change')
+        cy.get('.customPreset').click()
+        cy.get('.pixel').first().click().should('have.css', 'background-color', 'rgb(255, 165, 0)')
+    })
+
+    it('Outputs the correct colours', () => {
+        cy.get('#outputBox').should('have.value', '[0xff0000,0x0000ff,0xffff00,0x00ff00]')
+    })
+
+    Cypress.Commands.add('assertValueCopiedToClipboard', value => {
+        cy.window().then(win => {
+            win.navigator.clipboard.readText().then(text => {
+                expect(text).to.eq(value)
+            })
+        })
+    })
+    it('Copies the correct value to the clipboard', () => {
+        cy.assertValueCopiedToClipboard('[0xff0000,0x0000ff,0xffff00,0x00ff00]')
+    })
+
+    it('Changes the output type to RGB when RGB mode is selected', () => {
+        cy.get('#outputType').select('rgb')
+        cy.get('#submit').click()
+        cy.get('#outputBox').should('have.value', '[rgb(255, 0, 0),rgb(0, 0, 255),rgb(255, 255, 0),rgb(0, 255, 0)]')
+    })
+
+    it('Snakes the output when snake mode is selected', () => {
+        cy.get('#snakeBox').click()
+        cy.get('#submit').click()
+        cy.get('#outputBox').should('have.value', '[0xff0000,0x0000ff,0x00ff00,0xffff00]')
+    })
+
+    it('Resets the grid when the reset button is clicked', () => {
+        cy.get('#resetButton').click()
+        cy.get('#submit').click()
+        cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(0, 0, 0)')
+        cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 0, 0)')
+        cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(0, 0, 0)')
+        cy.get('.pixel').eq(3).should('have.css', 'background-color', 'rgb(0, 0, 0)')
+        cy.get('#outputBox').should('have.value', '[0x000000,0x000000,0x000000,0x000000]')
     })
 })
