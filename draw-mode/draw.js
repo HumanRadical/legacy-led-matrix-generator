@@ -11,7 +11,7 @@ const y = document.querySelector("#y-axis")
 let pixels = []
 let mouseDown = false
 
-const createDrawGrid = (x, y) => {
+const createDrawGrid = (x = 16, y = 16) => {
     grid.innerHTML = ""
 
     for (let i = 0; i < x * y; i++) {
@@ -26,7 +26,7 @@ const createDrawGrid = (x, y) => {
     }
 }
 
-createDrawGrid(16, 16)
+createDrawGrid()
 
 const colorInPixel = (event) => {
     event.preventDefault()
@@ -97,10 +97,9 @@ const outputCode = (event) => {
 const resetGrid = (event) => {
     event.preventDefault()
     pixels = document.querySelectorAll(".pixel")
-
-    for (pixel of pixels) {
-        pixel.style.backgroundColor = "#000000"
-    }
+    x.value = 16
+    y.value = 16
+    createDrawGrid()
 }
 
 const colorInPixelIfMouseDown = (event) => {
