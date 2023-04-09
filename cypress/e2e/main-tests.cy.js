@@ -144,4 +144,32 @@ describe('Draw mode tests', () => {
     it('Sets the grid to the correct size', () => {
         cy.get('.pixel').should('have.length', 4)
     })
+
+    it('Colours in pixels with the correct colours', () => {
+        cy.get('.pixel').eq(0).click()
+        cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
+        cy.get('.bluePreset').click()
+        cy.get('.pixel').eq(1).click()
+        cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 0, 255)')
+        cy.get('.yellowPreset').click()
+        cy.get('.pixel').eq(2).click()
+        cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(255, 255, 0)')
+        cy.get('.greenPreset').click()
+        cy.get('.pixel').eq(3).click()
+        cy.get('.pixel').eq(3).should('have.css', 'background-color', 'rgb(0, 255, 0)')
+    })
+
+    it('Can colour a pixel in multiple times', () => {
+        cy.get('.pixel').first().click()
+        cy.get('.pixel').first().should('have.css', 'background-color', 'rgb(255, 0, 0)')
+        cy.get('.bluePreset').click()
+        cy.get('.pixel').first().click()
+        cy.get('.pixel').first().should('have.css', 'background-color', 'rgb(0, 0, 255)')
+        cy.get('.yellowPreset').click()
+        cy.get('.pixel').first().click()
+        cy.get('.pixel').first().should('have.css', 'background-color', 'rgb(255, 255, 0)')
+        cy.get('.greenPreset').click()
+        cy.get('.pixel').first().click()
+        cy.get('.pixel').first().should('have.css', 'background-color', 'rgb(0, 255, 0)')
+    })
 })
