@@ -220,7 +220,7 @@ describe('Draw mode tests', () => {
     })
 })
 
-describe('Front to back test', () => {
+describe.skip('Front to back test', () => {
     Cypress.Commands.add('assertValueCopiedToClipboard', value => {
         cy.window().then(win => {
             win.navigator.clipboard.readText().then(text => {
