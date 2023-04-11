@@ -87,7 +87,7 @@ const outputCode = (event) => {
         pixelColors = snakeGrid(pixelColors, x.value, y.value)
     }
 
-    const colorString = `[${pixelColors.toString()}]`
+    const colorString = `${pixelColors.toString()}`
     outputBox.innerText = colorString
     
     navigator.clipboard.writeText(colorString)
