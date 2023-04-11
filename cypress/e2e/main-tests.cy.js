@@ -21,6 +21,14 @@ describe('Main page tests', () => {
         cy.get('.errorIcon').should('not.exist')
     })
 
+    it('Accepts RGB value inputs', () => {
+        cy.get('#inputBox').clear().type('[rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255), rgb(255, 255, 0)')
+        cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
+        cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 255, 0)')
+        cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(0, 0, 255)')
+        cy.get('.pixel').eq(3).should('have.css', 'background-color', 'rgb(255, 255, 0)')
+    })
+
     it('Snakes the pixel grid when snake mode is enabled', () => {
         cy.get('#snakeBox').click()
         cy.get('.submit').click()
