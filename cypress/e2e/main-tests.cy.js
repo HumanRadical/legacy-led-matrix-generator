@@ -22,7 +22,7 @@ describe('Main page tests', () => {
     })
 
     it('Accepts RGB value inputs', () => {
-        cy.get('#inputBox').clear().type('[rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255), rgb(255, 255, 0)')
+        cy.get('#inputBox').clear().type('[rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255), rgb(255, 255, 0)]')
         cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
         cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 255, 0)')
         cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(0, 0, 255)')
