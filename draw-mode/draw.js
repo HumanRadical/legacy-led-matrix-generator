@@ -91,15 +91,16 @@ const outputCode = (event) => {
     outputBox.innerText = colorString
     
     navigator.clipboard.writeText(colorString)
-    clipboardMessage.innerHTML = "<em>Copied to clipboard.</em>"
+    clipboardMessage.innerText = "Copied to clipboard."
 }
 
-const resetGrid = (event) => {
+const reset = (event) => {
     event.preventDefault()
-    pixels = document.querySelectorAll(".pixel")
     x.value = 16
     y.value = 16
     createDrawGrid()
+    outputBox.innerText = ""
+    clipboardMessage.innerText = ""
 }
 
 const colorInPixelIfMouseDown = (event) => {
@@ -115,7 +116,7 @@ document.addEventListener("mouseup", () => {mouseDown = false})
 grid.addEventListener("mousemove", colorInPixelIfMouseDown)
 grid.addEventListener("mousedown", colorInPixel)
 
-resetButton.addEventListener("click", resetGrid)
+resetButton.addEventListener("click", reset)
 submit.addEventListener("click", outputCode)
 x.addEventListener("change", createDrawGrid)
 y.addEventListener("change", createDrawGrid)

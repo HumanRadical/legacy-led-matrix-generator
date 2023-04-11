@@ -10,6 +10,7 @@ const clipboardMessage = document.querySelector("#clipboardMessage")
 const errorMessage = document.querySelector('#errorMessage')
 const x = document.querySelector("#x-axis")
 const y = document.querySelector("#y-axis")
+const resetButton = document.querySelector("#resetButton")
 
 const createGrid = (x, y) => {
     errorMessage.innerHTML = ""
@@ -110,8 +111,6 @@ const addGridColors = (event) => {
     handleInputErrors(colorInput, x.value, y.value)
 }
 
-submitForm.addEventListener("submit", addGridColors)
-
 function handleInputErrors(colorInput, x, y) {
     if (colorInput.length !== x * y) {
         const newError = document.createElement("li")
@@ -124,3 +123,13 @@ function handleInputErrors(colorInput, x, y) {
         errorMessage.appendChild(newError)
     }
 }
+
+const reset = (event) => {
+    event.preventDefault()
+    grid.innerHTML = ""
+    outputBox.value = ""
+    clipboardMessage.innerText = ""
+}
+
+resetButton.addEventListener("click", reset)
+submitForm.addEventListener("submit", addGridColors)
