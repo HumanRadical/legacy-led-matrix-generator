@@ -69,7 +69,7 @@ describe('Main page tests', () => {
         #include "FastLED.h"       // Fastled library to control the LEDs
 
         // How many leds are connected?
-        #define NUM_LEDS 256
+        #define NUM_LEDS 4
 
         // Define the Data Pin
         #define DATA_PIN 7  // Connected to the data pin of the first LED strip
@@ -109,7 +109,7 @@ describe('Main page tests', () => {
         #include "FastLED.h"       // Fastled library to control the LEDs
 
         // How many leds are connected?
-        #define NUM_LEDS 256
+        #define NUM_LEDS 4
 
         // Define the Data Pin
         #define DATA_PIN 7  // Connected to the data pin of the first LED strip
