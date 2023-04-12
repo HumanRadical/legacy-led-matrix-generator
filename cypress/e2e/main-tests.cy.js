@@ -146,6 +146,15 @@ describe('Main page tests', () => {
         cy.get('#addFrameButton').click().click()
         cy.get('.textbox').should('have.length', 4)
     })
+
+    it('Resets correctly when reset button is clicked', () => {
+        cy.get('#addFrameButton').click()
+        cy.get('#resetButton').click()
+        cy.get('.textbox').should('have.length', 2)
+        cy.get('#inputBox1').should('have.text', '')
+        cy.get('#outputBox').should('have.text', '')
+        cy.get('.pixel').should('not.exist')
+    })
 })
 
 describe('Draw mode tests', () => {
