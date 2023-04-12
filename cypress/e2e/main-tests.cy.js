@@ -5,7 +5,7 @@ describe('Main page tests', () => {
         cy.get('#x-axis').clear().type('2')
         cy.get('#y-axis').clear().type('2')
         cy.get('#snakeBox').click()
-        cy.get('#inputBox').clear().type('0xff0000, 0x00ff00, 0x0000ff, 0xffff00')
+        cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff, 0xffff00')
         cy.get('.submit').click()
     })
 
@@ -22,7 +22,7 @@ describe('Main page tests', () => {
     })
 
     it('Accepts RGB value inputs', () => {
-        cy.get('#inputBox').clear().type('rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255), rgb(255, 255, 0)')
+        cy.get('#inputBox1').clear().type('rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255), rgb(255, 255, 0)')
         cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
         cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 255, 0)')
         cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(0, 0, 255)')
@@ -39,25 +39,25 @@ describe('Main page tests', () => {
     })
 
     it('Displays an error icon on the correct pixel when it has an invalid colour', () => {
-        cy.get('#inputBox').clear().type('0xff0000, 0x00ff00, 0x0000ff, foobar')
+        cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff, foobar')
         cy.get('.submit').click()
         cy.get('.pixel').last().get('.errorIcon').should('exist')
     })
     
     it('Outputs correct error message when one or more pixel has an invalid color', () => {
-        cy.get('#inputBox').clear().type('0xff0000, 0x00ff00, 0x0000ff, foobar')
+        cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff, foobar')
         cy.get('.submit').click()
         cy.get('#errorMessage').should('contain.text', 'One or more pixels has an invalid colour.')
     })
 
     it('Outputs correct error message when the number of colours does not match the number of pixels', () => {
-        cy.get('#inputBox').clear().type('0xff0000, 0x00ff00, 0x0000ff')
+        cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff')
         cy.get('.submit').click()
         cy.get('#errorMessage').should('contain.text', 'The number of colours does not match the number of pixels.')
     })
 
     it('Outputs both error messages at the same time', () => {
-        cy.get('#inputBox').clear().type('0xff0000, 0x00ff00, foobar')
+        cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, foobar')
         cy.get('.submit').click()
         cy.get('#errorMessage').should('contain.text', 'One or more pixels has an invalid colour.')
         cy.get('#errorMessage').should('contain.text', 'The number of colours does not match the number of pixels.')
@@ -140,6 +140,11 @@ describe('Main page tests', () => {
     it.only('Adds a text box when add frame button is pressed', () => {
         cy.get('#addFrameButton').click()
         cy.get('.textbox').should('have.length', 3)
+    })
+
+    it.only('Can add more than one frame', () => {
+        cy.get('#addFrameButton').click().click()
+        cy.get('.textbox').should('have.length', 4)
     })
 })
 
@@ -250,7 +255,7 @@ describe.skip('Front to back test', () => {
         cy.get('#submit').click()
         cy.get('.drawModeLink').click()
         // Still need to figure out how to paste clipboard contents
-        cy.get('#inputBox').clear().type(setTimeout(async() => await navigator.clipboard.readText(), 3000))
+        cy.get('#inputBox1').clear().type(setTimeout(async() => await navigator.clipboard.readText(), 3000))
         cy.get('#x-axis').clear().type('2')
         cy.get('#y-axis').clear().type('2')
         cy.get('#submit').click()

@@ -1,7 +1,7 @@
 import { sanitizeColourArrayIntoHex } from "./src/sanitizeColourArrayIntoHex"
 import errorIconImg from "./img/error_icon.svg"
 
-const inputBox = document.querySelector("#inputBox")
+const inputBox1 = document.querySelector("#inputBox1")
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
 const snakeBox = document.querySelector("#snakeBox")
@@ -64,7 +64,7 @@ const outputArduinoCode = (colors) => {
         // Create the array of retro arcade characters and store it in Flash memory
         const long Display[] PROGMEM =
         {
-            ${sanitizeColourArrayIntoHex(inputBox.value, "0x")}
+            ${sanitizeColourArrayIntoHex(inputBox1.value, "0x")}
         };
         void setup() { 
         FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
@@ -89,7 +89,7 @@ const addGridColors = (event) => {
 
     createGrid(x.value, y.value)
     const pixels = document.querySelectorAll(".pixel")
-    let colorInput = sanitizeColourArrayIntoHex(inputBox.value)
+    let colorInput = sanitizeColourArrayIntoHex(inputBox1.value)
     
     outputArduinoCode()
 
@@ -129,12 +129,18 @@ function handleInputErrors(colorInput, x, y) {
 
 const addFrame = (event) => {
     event.preventDefault()
+
+    frameCount++
+
+    const newFrameLabel = document.createElement("label")
+    newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${frameCount}:</h3>`
+    frameBoxes.append(newFrameLabel)
+
     const newFrame = document.createElement("textarea")
     newFrame.classList.add("textbox")
     newFrame.setAttribute("id", `inputBox${frameCount}`)
     newFrame.setAttribute("cols", "50")
     newFrame.setAttribute("rows", "20")
-    frameCount++
     frameBoxes.append(newFrame)
 }
 
