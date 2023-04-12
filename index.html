@@ -15,7 +15,9 @@
     <h2>Input</h2>
     <form id="submitForm" action="#">
       <div id="frameBoxes" class="frameBoxes">
-        <label for="inputBox1"><h3 class="frameLabel">Frame 1:</h3></label>
+        <label for="inputBox1">
+          <h3 class="frameLabel">Frame 1:</h3>
+        </label>
         <textarea id="inputBox1" class="textbox" cols="50" rows="20" wrap="soft">
         0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000,
         0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000,
@@ -49,8 +51,10 @@
           x 
           <input id="y-axis" class="sizeBox" type="number" value="16" min="1" max="99">
         </div>
-        <label class="snakeLabel" for="snakeBox">Snake mode:</label>
-        <input id="snakeBox" class="snakeBox" type="checkbox" checked>
+        <div class="snake">
+          <label class="snakeLabel" for="snakeBox">Snake mode:</label>
+          <input id="snakeBox" class="snakeBox" type="checkbox" checked>
+        </div>
       </div>
 
       <div>

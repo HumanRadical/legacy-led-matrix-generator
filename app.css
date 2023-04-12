@@ -60,12 +60,16 @@ textarea {
 }
 
 .settings {
-    margin: 16px;
+    margin: auto;
+    margin-top: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    width: 330px;
+    justify-content: space-between;
 }
 
 .size {
     display: inline-block;
-    /* margin-right: 10px; */
 }
 
 .sizeLabel {
@@ -125,6 +129,22 @@ textarea {
 
 .submit:hover {
     background-color: orange;
+}
+
+.addFrameButton {
+    width: 2em;
+    height: 2em;
+    margin-top: 8px;
+    border: 2px solid black;
+    border-radius: 50%;
+    background-color: rgb(0, 184, 245);
+    font-size: x-large;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.addFrameButton:hover {
+    background-color: rgb(0, 170, 255);
 }
 
 .drawModeLink {
