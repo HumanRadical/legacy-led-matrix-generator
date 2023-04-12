@@ -11,6 +11,9 @@ const errorMessage = document.querySelector('#errorMessage')
 const x = document.querySelector("#x-axis")
 const y = document.querySelector("#y-axis")
 const resetButton = document.querySelector("#resetButton")
+const frameBoxes = document.querySelector("#frameBoxes")
+const addFrameButton = document.querySelector("#addFrameButton")
+let frameCount = 1
 
 const createGrid = (x, y) => {
     errorMessage.innerHTML = ""
@@ -124,6 +127,17 @@ function handleInputErrors(colorInput, x, y) {
     }
 }
 
+const addFrame = (event) => {
+    event.preventDefault()
+    const newFrame = document.createElement("textarea")
+    newFrame.classList.add("textbox")
+    newFrame.setAttribute("id", `inputBox${frameCount}`)
+    newFrame.setAttribute("cols", "50")
+    newFrame.setAttribute("rows", "20")
+    frameCount++
+    frameBoxes.append(newFrame)
+}
+
 const reset = (event) => {
     event.preventDefault()
     grid.innerHTML = ""
@@ -131,5 +145,6 @@ const reset = (event) => {
     clipboardMessage.innerText = ""
 }
 
+addFrameButton.addEventListener("click", addFrame)
 resetButton.addEventListener("click", reset)
 submitForm.addEventListener("submit", addGridColors)

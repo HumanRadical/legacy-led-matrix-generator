@@ -136,6 +136,11 @@ describe('Main page tests', () => {
 
         }`)
     })
+
+    it.only('Adds a text box when add frame button is pressed', () => {
+        cy.get('#addFrameButton').click()
+        cy.get('.textbox').should('have.length', 3)
+    })
 })
 
 describe('Draw mode tests', () => {
