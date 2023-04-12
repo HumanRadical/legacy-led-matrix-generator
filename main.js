@@ -1,7 +1,7 @@
 import { sanitizeColourArrayIntoHex } from "./src/sanitizeColourArrayIntoHex"
 import errorIconImg from "./img/error_icon.svg"
 
-const inputBox1 = document.querySelector("#inputBox1")
+let inputBox1 = document.querySelector("#inputBox1")
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
 const snakeBox = document.querySelector("#snakeBox")
@@ -128,7 +128,9 @@ function handleInputErrors(colorInput, x, y) {
 }
 
 const addFrame = (event) => {
-    event.preventDefault()
+    if(event) {
+        event.preventDefault()
+    }
 
     frameCount++
 
@@ -146,9 +148,14 @@ const addFrame = (event) => {
 
 const reset = (event) => {
     event.preventDefault()
+
     grid.innerHTML = ""
     outputBox.value = ""
     clipboardMessage.innerText = ""
+    frameCount = 0
+    frameBoxes.innerHTML = ""
+    addFrame()
+    inputBox1 = document.querySelector("#inputBox1")
 }
 
 addFrameButton.addEventListener("click", addFrame)
