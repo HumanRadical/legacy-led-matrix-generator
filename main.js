@@ -31,20 +31,24 @@ const createGrid = () => {
 
 const snakeGrid = (colorInput) => {
     const newArray = []
-
-    for(let i = 0; i < y.value; i++) {
-        const row = []
-        for(let j = 0; j < x.value; j++) {
-            row.push(colorInput[x.value * i + j])
+    let row = []
+    colorInput.forEach((color, index) => {
+        if(index !== 0 && index % x.value === 0) {
+            if (newArray.length % 2 === 1) {
+                row.reverse()
+            }
+            newArray.push(row)
+            row = []
         }
-        if(i % 2 === 1) {
-            row.reverse()
-        }
-        newArray.push(row)
+        row.push(color)
+    })
+    if (newArray.length % 2 === 1) {
+        row.reverse()
     }
+    newArray.push(row)
 
     const finalArray = [].concat(...newArray)
-    return finalArray.filter(Boolean)
+    return finalArray
 }
 
 const outputArduinoCode = (colors) => {
@@ -107,15 +111,15 @@ const addGridColors = (event) => {
 
             return
         }
-
-        pixel.style.backgroundColor = color
+        if (pixel) {
+            pixel.style.backgroundColor = color
+        }
     })
 
     handleInputErrors(colorInput)
 }
 
 function handleInputErrors(colorInput) {
-    debugger
     if (colorInput.length !== x.value * y.value) {
         const lengthError = document.createElement("li")
         lengthError.textContent = "The number of colours does not match the number of pixels."
