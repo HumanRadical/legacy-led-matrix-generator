@@ -84,7 +84,7 @@ const outputArduinoCode = (colors) => {
 
         }`
     navigator.clipboard.writeText(arduinoCode)
-    clipboardMessage.innerHTML = "<em>Copied to clipboard.</em>"
+    clipboardMessage.innerHTML = "Copied to clipboard."
     outputBox.value = arduinoCode
 }
 
