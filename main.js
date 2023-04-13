@@ -7,7 +7,7 @@ const grid = document.querySelector("#grid")
 const snakeBox = document.querySelector("#snakeBox")
 const outputBox = document.querySelector("#outputBox")
 const clipboardMessage = document.querySelector("#clipboardMessage")
-const errorMessage = document.querySelector('#errorMessage')
+const errorMessages = document.querySelector('#errorMessages')
 const x = document.querySelector("#x-axis")
 const y = document.querySelector("#y-axis")
 const resetButton = document.querySelector("#resetButton")
@@ -16,7 +16,7 @@ const addFrameButton = document.querySelector("#addFrameButton")
 let frameCount = 1
 
 const createGrid = (x, y) => {
-    errorMessage.innerHTML = ""
+    errorMessages.innerHTML = ""
     grid.innerHTML = ""
 
     for (let i = 0; i < x * y; i++) {
@@ -118,12 +118,12 @@ function handleInputErrors(colorInput, x, y) {
     if (colorInput.length !== x * y) {
         const newError = document.createElement("li")
         newError.textContent = "The number of colours does not match the number of pixels."
-        errorMessage.appendChild(newError)
+        errorMessages.appendChild(newError)
     }
     if (colorInput.some(color => color === '<Error>')) {
         const newError = document.createElement("li")
         newError.textContent = 'One or more pixels has an invalid colour.'
-        errorMessage.appendChild(newError)
+        errorMessages.appendChild(newError)
     }
 }
 
@@ -152,6 +152,7 @@ const reset = (event) => {
     grid.innerHTML = ""
     outputBox.value = ""
     clipboardMessage.innerText = ""
+    errorMessages.innerHTML = ""
     frameCount = 0
     frameBoxes.innerHTML = ""
     addFrame()

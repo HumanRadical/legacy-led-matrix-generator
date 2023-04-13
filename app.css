@@ -46,7 +46,7 @@ ul {
     height: 100%;
 }
 
-.errorMessage {
+.errorMessages {
     color: red;
     font-size: large;
     font-weight: 600;
