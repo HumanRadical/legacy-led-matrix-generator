@@ -15,27 +15,27 @@ const frameBoxes = document.querySelector("#frameBoxes")
 const addFrameButton = document.querySelector("#addFrameButton")
 let frameCount = 1
 
-const createGrid = (x, y) => {
+const createGrid = () => {
     errorMessages.innerHTML = ""
     grid.innerHTML = ""
 
-    for (let i = 0; i < x * y; i++) {
+    for (let i = 0; i < x.value * y.value; i++) {
         const pixel = document.createElement("div")
-        pixel.style.width = `${500 / x}px`
-        pixel.style.height = `${500 / y}px`
+        pixel.style.width = `${500 / x.value}px`
+        pixel.style.height = `${500 / y.value}px`
         pixel.style.display = "inline-block"
         pixel.classList.add("pixel")
         grid.append(pixel)
     }
 }
 
-const snakeGrid = (arr, x, y) => {
+const snakeGrid = (colorInput) => {
     const newArray = []
 
-    for(let i = 0; i < y; i++) {
+    for(let i = 0; i < y.value; i++) {
         const row = []
-        for(let j = 0; j < x; j++) {
-            row.push(arr[x * i + j])
+        for(let j = 0; j < x.value; j++) {
+            row.push(colorInput[x.value * i + j])
         }
         if(i % 2 === 1) {
             row.reverse()
@@ -43,8 +43,8 @@ const snakeGrid = (arr, x, y) => {
         newArray.push(row)
     }
 
-    const finalArray = [].concat(...newArray) 
-    return finalArray
+    const finalArray = [].concat(...newArray)
+    return finalArray.filter(Boolean)
 }
 
 const outputArduinoCode = (colors) => {
@@ -87,14 +87,14 @@ const outputArduinoCode = (colors) => {
 const addGridColors = (event) => {
     event.preventDefault()
 
-    createGrid(x.value, y.value)
+    createGrid()
     const pixels = document.querySelectorAll(".pixel")
     let colorInput = sanitizeColourArrayIntoHex(inputBox1.value)
     
     outputArduinoCode()
 
     if (snakeBox.checked) {
-        colorInput = snakeGrid(colorInput, x.value, y.value)
+        colorInput = snakeGrid(colorInput)
     }
 
     colorInput.forEach((color, index) => {
@@ -105,25 +105,26 @@ const addGridColors = (event) => {
             errorIcon.src = errorIconImg
             pixel.appendChild(errorIcon)
 
-            return;
+            return
         }
 
         pixel.style.backgroundColor = color
     })
 
-    handleInputErrors(colorInput, x.value, y.value)
+    handleInputErrors(colorInput)
 }
 
-function handleInputErrors(colorInput, x, y) {
-    if (colorInput.length !== x * y) {
-        const newError = document.createElement("li")
-        newError.textContent = "The number of colours does not match the number of pixels."
-        errorMessages.appendChild(newError)
+function handleInputErrors(colorInput) {
+    debugger
+    if (colorInput.length !== x.value * y.value) {
+        const lengthError = document.createElement("li")
+        lengthError.textContent = "The number of colours does not match the number of pixels."
+        errorMessages.appendChild(lengthError)
     }
     if (colorInput.some(color => color === '<Error>')) {
-        const newError = document.createElement("li")
-        newError.textContent = 'One or more pixels has an invalid colour.'
-        errorMessages.appendChild(newError)
+        const invalidColourError = document.createElement("li")
+        invalidColourError.textContent = 'One or more pixels has an invalid colour.'
+        errorMessages.appendChild(invalidColourError)
     }
 }
 
