@@ -29,7 +29,7 @@ const createGrid = () => {
     }
 }
 
-const snakeGrid = (colorInput) => {
+const snakeColors = (colorInput) => {
     const newArray = []
     let row = []
     colorInput.forEach((color, index) => {
@@ -108,6 +108,9 @@ const colorInPixels = (colorInput) => {
         const pixels = document.querySelectorAll(".pixel")
 
         let inputBoxColors = sanitizeColorArrayIntoHex(inputBoxes[inputBoxIndex].value)
+        if (snakeBox.checked) {
+            inputBoxColors = snakeColors(inputBoxColors)
+        }
         inputBoxColors.forEach((color, pixelIndex) => {
             const pixel = pixels[pixelIndex]
             if (color === "<Error>") {
@@ -155,7 +158,7 @@ const addGridColors = (event) => {
 
     let colorInput = sanitizeColorArrayIntoHex(inputBox1.value)
     if (snakeBox.checked) {
-        colorInput = snakeGrid(colorInput)
+        colorInput = snakeColors(colorInput)
     }
 
     outputArduinoCode()
