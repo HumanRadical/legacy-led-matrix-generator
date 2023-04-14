@@ -74,7 +74,7 @@ textarea {
     display: inline-block;
 }
 
-.sizeLabel {
+.settingLabel {
     font-size: large;
     font-weight: 600;
 }
@@ -93,11 +93,6 @@ textarea {
     font-size: medium;
     text-align: center;
     width: 50px;
-}
-
-.snakeLabel {
-    font-size: large;
-    font-weight: 600;
 }
 
 .snakeBox {

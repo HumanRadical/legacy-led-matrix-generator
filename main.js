@@ -190,7 +190,7 @@ const appendAnimationInterval = () => {
     const animationIntervalLabel = document.createElement("label")
     const animationIntervalInput = document.createElement("input")
 
-    animationIntervalLabel.classList.add("sizeLabel")
+    animationIntervalLabel.classList.add("settingLabel")
     animationIntervalLabel.setAttribute("for", "animationInterval")
     animationIntervalLabel.innerText = 'Animation Interval (ms): '
 
@@ -207,7 +207,7 @@ const appendAnimationInterval = () => {
     frameBoxes.append(animationSettingsDiv)
 }
 
-function appendNewFrame() {
+const appendNewFrame = () => {
     const newFrameLabel = document.createElement("label")
     newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${frameCount}:</h3>`
     frameBoxes.append(newFrameLabel)
@@ -232,9 +232,7 @@ const addFrame = (event) => {
     if (frameCount === 2) {
         appendAnimationInterval();
     }
-
     appendNewFrame()
-
     if (frameCount !== 1) {
         appendAnimationInterval();
     }
