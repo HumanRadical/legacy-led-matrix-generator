@@ -53,14 +53,31 @@ const snakeGrid = (colorInput) => {
 
 const outputArduinoCode = (colors) => {
     const inputBoxes = document.querySelectorAll(".inputBox")
-    const displays = () => {
-        let displayString = ""
+
+    const setupDisplay = () => {
+        let setupString = ""
         inputBoxes.forEach((box, index) => {
-            displayString += `const long Frame${index + 1}[] PROGMEM = { ${sanitizeColourArrayIntoHex(box.value, "0x")} };\n\n`
+         setupString += `const long Frame${index + 1}[] PROGMEM = 
+            { 
+                ${sanitizeColourArrayIntoHex(box.value, "0x")} 
+            };\n\n`
         })
-        debugger
-        return displayString
+        return setupString
     }
+
+    const showDisplay = () => {
+        let showString = ""
+        inputBoxes.forEach((box, index) => {
+            showString += `FastLED.clear();
+            for(int i = 0; i < NUM_LEDS; i++) {
+                leds[i] = pgm_read_dword(&(Frame${index + 1}[NUM_LEDS - i - 1]));
+            }
+            FastLED.show();
+            delay(500);\n\n`
+        })
+        return showString
+    }
+
     const arduinoCode = 
         `#include <avr/pgmspace.h>
         #include "FastLED.h"  
@@ -71,19 +88,13 @@ const outputArduinoCode = (colors) => {
 
         CRGB leds[NUM_LEDS];
 
-        ${displays()}
-
+        ${setupDisplay()}
         void setup() { 
         FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
         }
-        
-        FastLED.show();
 
         void loop() { 
-            FastLED.clear();
-            for(int i = 0; i < NUM_LEDS; i++) {
-                leds[i] = pgm_read_dword(&(Display[NUM_LEDS - i - 1]));
-            }
+            ${showDisplay()}
         }`
     navigator.clipboard.writeText(arduinoCode)
     clipboardMessage.innerHTML = "Copied to clipboard."
