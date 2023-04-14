@@ -183,35 +183,6 @@ const addGridColors = (event) => {
     colorInPixels()
 }
 
-const addFrame = (event) => {
-    if(event) {
-        event.preventDefault()
-    }
-
-    frameCount++
-
-    if (frameCount === 2) {
-        appendAnimationInterval();
-    }
-
-    const newFrameLabel = document.createElement("label")
-    newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${frameCount}:</h3>`
-    frameBoxes.append(newFrameLabel)
-
-    const newFrame = document.createElement("textarea")
-    newFrame.classList.add("inputBox")
-    newFrame.classList.add("textbox")
-    newFrame.setAttribute("id", `inputBox${frameCount}`)
-    newFrame.setAttribute("cols", "50")
-    newFrame.setAttribute("rows", "20")
-
-    frameBoxes.append(newFrame)
-
-    if (frameCount !== 1) {
-        appendAnimationInterval();
-    }
-}
-
 const appendAnimationInterval = () => {
     const animationSettingsDiv = document.createElement("div")
     animationSettingsDiv.classList.add("animationSettings")
@@ -234,6 +205,39 @@ const appendAnimationInterval = () => {
     animationSettingsDiv.appendChild(animationIntervalInput)
 
     frameBoxes.append(animationSettingsDiv)
+}
+
+function appendNewFrame() {
+    const newFrameLabel = document.createElement("label")
+    newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${frameCount}:</h3>`
+    frameBoxes.append(newFrameLabel)
+
+    const newFrame = document.createElement("textarea")
+    newFrame.classList.add("inputBox")
+    newFrame.classList.add("textbox")
+    newFrame.setAttribute("id", `inputBox${frameCount}`)
+    newFrame.setAttribute("cols", "50")
+    newFrame.setAttribute("rows", "20")
+
+    frameBoxes.append(newFrame)
+}
+
+const addFrame = (event) => {
+    if(event) {
+        event.preventDefault()
+    }
+
+    frameCount++
+
+    if (frameCount === 2) {
+        appendAnimationInterval();
+    }
+
+    appendNewFrame()
+
+    if (frameCount !== 1) {
+        appendAnimationInterval();
+    }
 }
 
 const reset = (event) => {
