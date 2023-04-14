@@ -1,4 +1,4 @@
-import { sanitizecolorArrayIntoHex } from "./src/sanitizeColorArrayIntoHex"
+import { sanitizeColorArrayIntoHex } from "./src/sanitizeColorArrayIntoHex"
 import errorIconImg from "./img/error_icon.svg"
 
 let inputBox1 = document.querySelector("#inputBox1")
@@ -59,7 +59,7 @@ const outputArduinoCode = (colors) => {
         inputBoxes.forEach((box, index) => {
          setupString += `\nconst long Frame${index + 1}[] PROGMEM = 
             { 
-                ${sanitizecolorArrayIntoHex(box.value, "0x")} 
+                ${sanitizeColorArrayIntoHex(box.value, "0x")} 
             };\n`
         })
         return setupString
@@ -106,7 +106,7 @@ const addGridColors = (event) => {
 
     createGrid()
     const pixels = document.querySelectorAll(".pixel")
-    let colorInput = sanitizecolorArrayIntoHex(inputBox1.value)
+    let colorInput = sanitizeColorArrayIntoHex(inputBox1.value)
     
     outputArduinoCode()
 
