@@ -53,6 +53,11 @@ ul {
     margin-bottom: 12px;
 }
 
+.frameLabel {
+    font-size: x-large;
+    margin-bottom: 4px;
+}
+
 textarea {
     border: 5px solid black;
     font-size: medium;
