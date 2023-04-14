@@ -14,6 +14,7 @@ const resetButton = document.querySelector("#resetButton")
 const frameBoxes = document.querySelector("#frameBoxes")
 const addFrameButton = document.querySelector("#addFrameButton")
 let frameCount = 1
+let animationSequence = null
 
 const createGrid = () => {
     errorMessages.innerHTML = ""
@@ -136,7 +137,7 @@ const colorInPixels = () => {
     } else {
         inputBoxCount = 0
     }
-    setInterval(() => {
+    animationSequence = setInterval(() => {
         displayCurrentFrame(inputBoxCount)
         if (inputBoxCount < inputBoxes.length - 1) {
             inputBoxCount++
@@ -201,6 +202,7 @@ const addFrame = (event) => {
 const reset = (event) => {
     event.preventDefault()
 
+    clearInterval(animationSequence)
     grid.innerHTML = ""
     outputBox.value = ""
     clipboardMessage.innerText = ""
