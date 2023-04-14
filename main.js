@@ -101,7 +101,7 @@ const outputArduinoCode = (colors) => {
     outputBox.value = arduinoCode
 }
 
-const colorInPixels = (colorInput) => {
+const colorInPixels = () => {
     const inputBoxes = document.querySelectorAll(".inputBox")
     const displayCurrentFrame = (inputBoxIndex) => {
         createGrid()
@@ -162,7 +162,7 @@ const addGridColors = (event) => {
     }
 
     outputArduinoCode()
-    colorInPixels(colorInput)
+    colorInPixels()
     handleInputErrors(colorInput)
 }
 
