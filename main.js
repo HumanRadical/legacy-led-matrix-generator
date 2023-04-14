@@ -190,6 +190,10 @@ const addFrame = (event) => {
 
     frameCount++
 
+    if (frameCount === 2) {
+        appendAnimationInterval();
+    }
+
     const newFrameLabel = document.createElement("label")
     newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${frameCount}:</h3>`
     frameBoxes.append(newFrameLabel)
@@ -200,7 +204,36 @@ const addFrame = (event) => {
     newFrame.setAttribute("id", `inputBox${frameCount}`)
     newFrame.setAttribute("cols", "50")
     newFrame.setAttribute("rows", "20")
+
     frameBoxes.append(newFrame)
+
+    if (frameCount !== 1) {
+        appendAnimationInterval();
+    }
+}
+
+const appendAnimationInterval = () => {
+    const animationSettingsDiv = document.createElement("div")
+    animationSettingsDiv.classList.add("animationSettings")
+
+    const animationIntervalLabel = document.createElement("label")
+    const animationIntervalInput = document.createElement("input")
+
+    animationIntervalLabel.classList.add("sizeLabel")
+    animationIntervalLabel.setAttribute("for", "animationInterval")
+    animationIntervalLabel.innerText = 'Animation Interval (ms): '
+
+    animationIntervalInput.classList.add("animationBox")
+    animationIntervalInput.setAttribute("id", "animationInterval")
+    animationIntervalInput.setAttribute("type", "number")
+    animationIntervalInput.setAttribute("value", "500")
+    animationIntervalInput.setAttribute("min", "0")
+    animationIntervalInput.setAttribute("step", "100")
+
+    animationSettingsDiv.appendChild(animationIntervalLabel)
+    animationSettingsDiv.appendChild(animationIntervalInput)
+
+    frameBoxes.append(animationSettingsDiv)
 }
 
 const reset = (event) => {
