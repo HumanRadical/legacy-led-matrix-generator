@@ -139,14 +139,17 @@ const colorInPixels = () => {
     } else {
         inputBoxCount = 0
     }
-    animationSequence = setInterval(() => {
-        displayCurrentFrame(inputBoxCount)
-        if (inputBoxCount < inputBoxes.length - 1) {
-            inputBoxCount++
-        } else {
-            inputBoxCount = 0
-        }
-    }, animationInterval1.value)
+    
+    if (animationInterval1) {
+        animationSequence = setInterval(() => {
+            displayCurrentFrame(inputBoxCount)
+            if (inputBoxCount < inputBoxes.length - 1) {
+                inputBoxCount++
+            } else {
+                inputBoxCount = 0
+            }
+        }, animationInterval1.value)
+    }
 }
 
 const handleInputErrors = () => {
