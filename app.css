@@ -67,6 +67,7 @@ textarea {
     display: flex;
     width: 330px;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .size {
@@ -84,6 +85,14 @@ textarea {
     font-size: medium;
     text-align: center;
     width: 40px;
+}
+
+.animationBox {
+    border: 3px solid black;
+    border-radius: 4px;
+    font-size: medium;
+    text-align: center;
+    width: 50px;
 }
 
 .snakeLabel {

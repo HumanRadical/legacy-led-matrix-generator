@@ -13,6 +13,7 @@ const y = document.querySelector("#y-axis")
 const resetButton = document.querySelector("#resetButton")
 const frameBoxes = document.querySelector("#frameBoxes")
 const addFrameButton = document.querySelector("#addFrameButton")
+const animationInterval = document.querySelector("#animationInterval")
 let frameCount = 1
 let animationSequence = null
 
@@ -74,7 +75,7 @@ const outputArduinoCode = (colors) => {
                 leds[i] = pgm_read_dword(&(Frame${index + 1}[NUM_LEDS - i - 1]));
             }
             FastLED.show();
-            delay(500);\n`
+            delay(${animationInterval.value});\n`
         })
         return showString
     }
@@ -131,6 +132,7 @@ const colorInPixels = () => {
 
     let inputBoxCount = 0
 
+    clearInterval(animationSequence)
     displayCurrentFrame(inputBoxCount)
     if (inputBoxCount < inputBoxes.length - 1) {
         inputBoxCount++
@@ -144,7 +146,7 @@ const colorInPixels = () => {
         } else {
             inputBoxCount = 0
         }
-    }, 500)
+    }, animationInterval.value)
 }
 
 const handleInputErrors = () => {
