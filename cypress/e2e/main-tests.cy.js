@@ -13,7 +13,7 @@ describe('Main page tests', () => {
         cy.get('.pixel').should('have.length', 4)
     })
 
-    it('Sets the pixels to the correct colour', () => {
+    it('Sets the pixels to the correct color', () => {
         cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
         cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 255, 0)')
         cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(0, 0, 255)')
@@ -38,7 +38,7 @@ describe('Main page tests', () => {
         cy.get('.pixel').eq(3).should('have.css', 'background-color', 'rgb(0, 0, 255)')
     })
 
-    it('Displays an error icon on the correct pixel when it has an invalid colour', () => {
+    it('Displays an error icon on the correct pixel when it has an invalid color', () => {
         cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff, foobar')
         cy.get('.submit').click()
         cy.get('.pixel').last().get('.errorIcon').should('exist')
@@ -47,20 +47,20 @@ describe('Main page tests', () => {
     it('Outputs correct error message when one or more pixel has an invalid color', () => {
         cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff, foobar')
         cy.get('.submit').click()
-        cy.get('#errorMessages').should('have.text', 'One or more pixels has an invalid colour.')
+        cy.get('#errorMessages').should('have.text', 'One or more pixels has an invalid color.')
     })
 
-    it('Outputs correct error message when the number of colours does not match the number of pixels', () => {
+    it('Outputs correct error message when the number of colors does not match the number of pixels', () => {
         cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff')
         cy.get('.submit').click()
-        cy.get('#errorMessages').should('have.text', 'The number of colours does not match the number of pixels.')
+        cy.get('#errorMessages').should('have.text', 'The number of colors does not match the number of pixels.')
     })
 
     it('Outputs both error messages at the same time', () => {
         cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, foobar')
         cy.get('.submit').click()
-        cy.get('#errorMessages').should('contain.text', 'One or more pixels has an invalid colour.')
-        cy.get('#errorMessages').should('contain.text', 'The number of colours does not match the number of pixels.')
+        cy.get('#errorMessages').should('contain.text', 'One or more pixels has an invalid color.')
+        cy.get('#errorMessages').should('contain.text', 'The number of colors does not match the number of pixels.')
     })
 
     it('Prints out the correct string to the output box', () => {
@@ -177,14 +177,14 @@ describe('Draw mode tests', () => {
         cy.get('.pixel').should('have.length', 4)
     })
 
-    it('Colours in pixels with the correct colours', () => {
+    it('Colors in pixels with the correct colors', () => {
         cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
         cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 0, 255)')
         cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(255, 255, 0)')
         cy.get('.pixel').eq(3).should('have.css', 'background-color', 'rgb(0, 255, 0)')
     })
 
-    it('Can colour a pixel in multiple times', () => {
+    it('Can color a pixel in multiple times', () => {
         cy.get('.bluePreset').click()
         cy.get('.pixel').first().click().should('have.css', 'background-color', 'rgb(0, 0, 255)')
         cy.get('.yellowPreset').click()
@@ -193,13 +193,13 @@ describe('Draw mode tests', () => {
         cy.get('.pixel').first().click().should('have.css', 'background-color', 'rgb(0, 255, 0)')
     })
 
-    it('Can select and use a custom colour', () => {
+    it('Can select and use a custom color', () => {
         cy.get('#colorPicker').invoke('val', '#ffa500').trigger('change')
         cy.get('.customPreset').click()
         cy.get('.pixel').first().click().should('have.css', 'background-color', 'rgb(255, 165, 0)')
     })
 
-    it('Outputs the correct colours', () => {
+    it('Outputs the correct colors', () => {
         cy.get('#outputBox').should('have.value', '0xff0000,0x0000ff,0xffff00,0x00ff00')
     })
 

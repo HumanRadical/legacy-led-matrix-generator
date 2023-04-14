@@ -1,4 +1,4 @@
-import { sanitizeColourArrayIntoHex } from "./src/sanitizeColourArrayIntoHex"
+import { sanitizecolorArrayIntoHex } from "./src/sanitizeColorArrayIntoHex"
 import errorIconImg from "./img/error_icon.svg"
 
 let inputBox1 = document.querySelector("#inputBox1")
@@ -59,7 +59,7 @@ const outputArduinoCode = (colors) => {
         inputBoxes.forEach((box, index) => {
          setupString += `\nconst long Frame${index + 1}[] PROGMEM = 
             { 
-                ${sanitizeColourArrayIntoHex(box.value, "0x")} 
+                ${sanitizecolorArrayIntoHex(box.value, "0x")} 
             };\n`
         })
         return setupString
@@ -106,7 +106,7 @@ const addGridColors = (event) => {
 
     createGrid()
     const pixels = document.querySelectorAll(".pixel")
-    let colorInput = sanitizeColourArrayIntoHex(inputBox1.value)
+    let colorInput = sanitizecolorArrayIntoHex(inputBox1.value)
     
     outputArduinoCode()
 
@@ -114,9 +114,15 @@ const addGridColors = (event) => {
         colorInput = snakeGrid(colorInput)
     }
 
+    colorInPixels(colorInput, pixels)
+
+    handleInputErrors(colorInput)
+}
+
+function colorInPixels(colorInput, pixels) {
     colorInput.forEach((color, index) => {
         const pixel = pixels[index]
-        if(color === '<Error>') {
+        if (color === '<Error>') {
             const errorIcon = document.createElement("img")
             errorIcon.classList.add("errorIcon")
             errorIcon.src = errorIconImg
@@ -128,20 +134,18 @@ const addGridColors = (event) => {
             pixel.style.backgroundColor = color
         }
     })
-
-    handleInputErrors(colorInput)
 }
 
 function handleInputErrors(colorInput) {
     if (colorInput.length !== x.value * y.value) {
         const lengthError = document.createElement("li")
-        lengthError.textContent = "The number of colours does not match the number of pixels."
+        lengthError.textContent = "The number of colors does not match the number of pixels."
         errorMessages.appendChild(lengthError)
     }
     if (colorInput.some(color => color === '<Error>')) {
-        const invalidColourError = document.createElement("li")
-        invalidColourError.textContent = 'One or more pixels has an invalid colour.'
-        errorMessages.appendChild(invalidColourError)
+        const invalidcolorError = document.createElement("li")
+        invalidcolorError.textContent = 'One or more pixels has an invalid color.'
+        errorMessages.appendChild(invalidcolorError)
     }
 }
 

@@ -71,23 +71,23 @@ const outputCode = (event) => {
     pixels = document.querySelectorAll(".pixel")
 
     outputBox.innerText = ""
-    let pixelColors = []
+    let pixelcolors = []
 
     pixels.forEach((pixel, index) => {
         const color = pixel.style.backgroundColor
 
         if (outputType.value === "hex") {
-            pixelColors[index] = `0x${convertToHex(color)}`
+            pixelcolors[index] = `0x${convertToHex(color)}`
         } else {
-            pixelColors[index] = `${color}`
+            pixelcolors[index] = `${color}`
         }
     })
 
     if (snakeBox.checked) {
-        pixelColors = snakeGrid(pixelColors, x.value, y.value)
+        pixelcolors = snakeGrid(pixelcolors, x.value, y.value)
     }
 
-    const colorString = `${pixelColors.toString()}`
+    const colorString = `${pixelcolors.toString()}`
     outputBox.innerText = colorString
     
     navigator.clipboard.writeText(colorString)
