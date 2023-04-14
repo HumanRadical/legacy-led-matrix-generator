@@ -105,6 +105,7 @@ const colorInPixels = () => {
     const inputBoxes = document.querySelectorAll(".inputBox")
     const displayCurrentFrame = (inputBoxIndex) => {
         createGrid()
+        handleInputErrors()
         const pixels = document.querySelectorAll(".pixel")
 
         let inputBoxColors = sanitizeColorArrayIntoHex(inputBoxes[inputBoxIndex].value)
@@ -128,6 +129,13 @@ const colorInPixels = () => {
     }
 
     let inputBoxCount = 0
+
+    displayCurrentFrame(inputBoxCount)
+    if (inputBoxCount < inputBoxes.length - 1) {
+        inputBoxCount++
+    } else {
+        inputBoxCount = 0
+    }
     setInterval(() => {
         displayCurrentFrame(inputBoxCount)
         if (inputBoxCount < inputBoxes.length - 1) {
@@ -138,16 +146,21 @@ const colorInPixels = () => {
     }, 500)
 }
 
-const handleInputErrors = (colorInput) => {
-    if (colorInput.length !== x.value * y.value) {
-        const lengthError = document.createElement("li")
-        lengthError.textContent = "The number of colors does not match the number of pixels."
-        errorMessages.appendChild(lengthError)
-    }
-    if (colorInput.some(color => color === "<Error>")) {
-        const invalidcolorError = document.createElement("li")
-        invalidcolorError.textContent = "One or more pixels has an invalid color."
-        errorMessages.appendChild(invalidcolorError)
+const handleInputErrors = () => {
+    const inputBoxes = document.querySelectorAll(".inputBox")
+
+    for (let inputBox of inputBoxes) {
+        inputBox = sanitizeColorArrayIntoHex(inputBox.value)
+        if (inputBox.length !== x.value * y.value) {
+            const lengthError = document.createElement("li")
+            lengthError.textContent = "The number of colors in atleast one frame does not match the number of pixels."
+            errorMessages.appendChild(lengthError)
+        }
+        if (inputBox.some(color => color === "<Error>")) {
+            const invalidcolorError = document.createElement("li")
+            invalidcolorError.textContent = "One or more pixels in atleast one frame has an invalid color."
+            errorMessages.appendChild(invalidcolorError)
+        }
     }
 }
 
@@ -163,7 +176,6 @@ const addGridColors = (event) => {
 
     outputArduinoCode()
     colorInPixels()
-    handleInputErrors(colorInput)
 }
 
 const addFrame = (event) => {
