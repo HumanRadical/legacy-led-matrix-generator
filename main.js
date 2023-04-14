@@ -150,19 +150,21 @@ const colorInPixels = () => {
 const handleInputErrors = () => {
     const inputBoxes = document.querySelectorAll(".inputBox")
 
-    for (let inputBox of inputBoxes) {
+    inputBoxes.forEach((inputBox, index) => {
         inputBox = sanitizeColorArrayIntoHex(inputBox.value)
         if (inputBox.length !== x.value * y.value) {
             const lengthError = document.createElement("li")
-            lengthError.textContent = "The number of colors in atleast one frame does not match the number of pixels."
+            lengthError.classList.add("errorMessage")
+            lengthError.textContent = `The number of colors in Frame ${index + 1} does not match the number of pixels.`
             errorMessages.appendChild(lengthError)
         }
         if (inputBox.some(color => color === "<Error>")) {
             const invalidcolorError = document.createElement("li")
-            invalidcolorError.textContent = "One or more pixels in atleast one frame has an invalid color."
+            invalidcolorError.classList.add("errorMessage")
+            invalidcolorError.textContent = `One or more pixels in Frame ${index + 1} have an invalid color.`
             errorMessages.appendChild(invalidcolorError)
         }
-    }
+    })
 }
 
 const addGridColors = (event) => {

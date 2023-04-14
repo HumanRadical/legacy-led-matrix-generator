@@ -46,10 +46,11 @@ ul {
     height: 100%;
 }
 
-.errorMessages {
+.errorMessage {
     color: red;
     font-size: large;
     font-weight: 600;
+    margin-bottom: 12px;
 }
 
 textarea {
