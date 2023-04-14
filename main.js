@@ -52,36 +52,38 @@ const snakeGrid = (colorInput) => {
 }
 
 const outputArduinoCode = (colors) => {
+    const inputBoxes = document.querySelectorAll(".inputBox")
+    const displays = () => {
+        let displayString = ""
+        inputBoxes.forEach((box, index) => {
+            displayString += `const long Frame${index + 1}[] PROGMEM = { ${sanitizeColourArrayIntoHex(box.value, "0x")} };\n\n`
+        })
+        debugger
+        return displayString
+    }
     const arduinoCode = 
-        `#include <avr/pgmspace.h>  // Needed to store stuff in Flash using PROGMEM
-        #include "FastLED.h"       // Fastled library to control the LEDs
+        `#include <avr/pgmspace.h>
+        #include "FastLED.h"  
 
-        // How many leds are connected?
         #define NUM_LEDS ${x.value * y.value}
 
-        // Define the Data Pin
-        #define DATA_PIN 7  // Connected to the data pin of the first LED strip
+        #define DATA_PIN 7 
 
-        // Define the array of leds
         CRGB leds[NUM_LEDS];
 
-        // Create the array of retro arcade characters and store it in Flash memory
-        const long Display[] PROGMEM =
-        {
-            ${sanitizeColourArrayIntoHex(inputBox1.value, "0x")}
-        };
+        ${displays()}
+
         void setup() { 
         FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
-        FastLED.clear();
-        for(int i = 0; i < NUM_LEDS; i++) {
-            leds[i] = pgm_read_dword(&(Display[NUM_LEDS - i - 1]));
         }
         
         FastLED.show();
-        }
 
         void loop() { 
-
+            FastLED.clear();
+            for(int i = 0; i < NUM_LEDS; i++) {
+                leds[i] = pgm_read_dword(&(Display[NUM_LEDS - i - 1]));
+            }
         }`
     navigator.clipboard.writeText(arduinoCode)
     clipboardMessage.innerHTML = "Copied to clipboard."
@@ -144,6 +146,7 @@ const addFrame = (event) => {
     frameBoxes.append(newFrameLabel)
 
     const newFrame = document.createElement("textarea")
+    newFrame.classList.add("inputBox")
     newFrame.classList.add("textbox")
     newFrame.setAttribute("id", `inputBox${frameCount}`)
     newFrame.setAttribute("cols", "50")
