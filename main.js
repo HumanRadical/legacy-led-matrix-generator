@@ -101,52 +101,66 @@ const outputArduinoCode = (colors) => {
     outputBox.value = arduinoCode
 }
 
-const addGridColors = (event) => {
-    event.preventDefault()
+const colorInPixels = (colorInput) => {
+    const inputBoxes = document.querySelectorAll(".inputBox")
+    const displayCurrentFrame = (inputBoxIndex) => {
+        createGrid()
+        const pixels = document.querySelectorAll(".pixel")
 
-    createGrid()
-    const pixels = document.querySelectorAll(".pixel")
-    let colorInput = sanitizeColorArrayIntoHex(inputBox1.value)
-    
-    outputArduinoCode()
+        let inputBoxColors = sanitizeColorArrayIntoHex(inputBoxes[inputBoxIndex].value)
+        inputBoxColors.forEach((color, pixelIndex) => {
+            const pixel = pixels[pixelIndex]
+            if (color === "<Error>") {
+                const errorIcon = document.createElement("img")
+                errorIcon.classList.add("errorIcon")
+                errorIcon.src = errorIconImg
+                pixel.appendChild(errorIcon)
 
-    if (snakeBox.checked) {
-        colorInput = snakeGrid(colorInput)
+                return
+            }
+            if (pixel) {
+                pixel.style.backgroundColor = color
+            }
+        })
     }
 
-    colorInPixels(colorInput, pixels)
-
-    handleInputErrors(colorInput)
+    let inputBoxCount = 0
+    setInterval(() => {
+        displayCurrentFrame(inputBoxCount)
+        if (inputBoxCount < inputBoxes.length - 1) {
+            inputBoxCount++
+        } else {
+            inputBoxCount = 0
+        }
+    }, 500)
 }
 
-function colorInPixels(colorInput, pixels) {
-    colorInput.forEach((color, index) => {
-        const pixel = pixels[index]
-        if (color === '<Error>') {
-            const errorIcon = document.createElement("img")
-            errorIcon.classList.add("errorIcon")
-            errorIcon.src = errorIconImg
-            pixel.appendChild(errorIcon)
-
-            return
-        }
-        if (pixel) {
-            pixel.style.backgroundColor = color
-        }
-    })
-}
-
-function handleInputErrors(colorInput) {
+const handleInputErrors = (colorInput) => {
     if (colorInput.length !== x.value * y.value) {
         const lengthError = document.createElement("li")
         lengthError.textContent = "The number of colors does not match the number of pixels."
         errorMessages.appendChild(lengthError)
     }
-    if (colorInput.some(color => color === '<Error>')) {
+    if (colorInput.some(color => color === "<Error>")) {
         const invalidcolorError = document.createElement("li")
-        invalidcolorError.textContent = 'One or more pixels has an invalid color.'
+        invalidcolorError.textContent = "One or more pixels has an invalid color."
         errorMessages.appendChild(invalidcolorError)
     }
+}
+
+const addGridColors = (event) => {
+    event.preventDefault()
+
+    createGrid()
+
+    let colorInput = sanitizeColorArrayIntoHex(inputBox1.value)
+    if (snakeBox.checked) {
+        colorInput = snakeGrid(colorInput)
+    }
+
+    outputArduinoCode()
+    colorInPixels(colorInput)
+    handleInputErrors(colorInput)
 }
 
 const addFrame = (event) => {
