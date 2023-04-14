@@ -1,4 +1,4 @@
-export function sanitizecolorArrayIntoHex(allColorsInString, prefix = '#') {
+export function sanitizeColorArrayIntoHex(allColorsInString, prefix = '#') {
   return allColorsInString
     .replaceAll(' ', '')
     .split(',')
