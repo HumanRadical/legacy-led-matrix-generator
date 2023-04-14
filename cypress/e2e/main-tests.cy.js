@@ -65,34 +65,33 @@ describe('Main page tests', () => {
 
     it('Prints out the correct string to the output box', () => {
         cy.get('#outputBox').should('have.value', 
-        `#include <avr/pgmspace.h>  // Needed to store stuff in Flash using PROGMEM
-        #include "FastLED.h"       // Fastled library to control the LEDs
+        `#include <avr/pgmspace.h>
+        #include "FastLED.h"  
 
-        // How many leds are connected?
         #define NUM_LEDS 4
 
-        // Define the Data Pin
-        #define DATA_PIN 7  // Connected to the data pin of the first LED strip
+        #define DATA_PIN 7 
 
-        // Define the array of leds
         CRGB leds[NUM_LEDS];
 
-        // Create the array of retro arcade characters and store it in Flash memory
-        const long Display[] PROGMEM =
-        {
-            0xff0000,0x00ff00,0x0000ff,0xffff00
-        };
+        
+const long Frame1[] PROGMEM = 
+            { 
+                0xff0000,0x00ff00,0x0000ff,0xffff00 
+            };
+
         void setup() { 
         FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
-        FastLED.clear();
-        for(int i = 0; i < NUM_LEDS; i++) {
-            leds[i] = pgm_read_dword(&(Display[NUM_LEDS - i - 1]));
-        }
-        
-        FastLED.show();
         }
 
         void loop() { 
+            
+FastLED.clear();
+            for(int i = 0; i < NUM_LEDS; i++) {
+                leds[i] = pgm_read_dword(&(Frame1[NUM_LEDS - i - 1]));
+            }
+            FastLED.show();
+            delay(500);
 
         }`)
     })
@@ -105,34 +104,33 @@ describe('Main page tests', () => {
         })
     })
     it('Copies the correct value to the clipboard', () => {
-        cy.assertValueCopiedToClipboard(`#include <avr/pgmspace.h>  // Needed to store stuff in Flash using PROGMEM
-        #include "FastLED.h"       // Fastled library to control the LEDs
+        cy.assertValueCopiedToClipboard(`#include <avr/pgmspace.h>
+        #include "FastLED.h"  
 
-        // How many leds are connected?
         #define NUM_LEDS 4
 
-        // Define the Data Pin
-        #define DATA_PIN 7  // Connected to the data pin of the first LED strip
+        #define DATA_PIN 7 
 
-        // Define the array of leds
         CRGB leds[NUM_LEDS];
 
-        // Create the array of retro arcade characters and store it in Flash memory
-        const long Display[] PROGMEM =
-        {
-            0xff0000,0x00ff00,0x0000ff,0xffff00
-        };
+        
+const long Frame1[] PROGMEM = 
+            { 
+                0xff0000,0x00ff00,0x0000ff,0xffff00 
+            };
+
         void setup() { 
         FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
-        FastLED.clear();
-        for(int i = 0; i < NUM_LEDS; i++) {
-            leds[i] = pgm_read_dword(&(Display[NUM_LEDS - i - 1]));
-        }
-        
-        FastLED.show();
         }
 
         void loop() { 
+            
+FastLED.clear();
+            for(int i = 0; i < NUM_LEDS; i++) {
+                leds[i] = pgm_read_dword(&(Frame1[NUM_LEDS - i - 1]));
+            }
+            FastLED.show();
+            delay(500);
 
         }`)
     })
