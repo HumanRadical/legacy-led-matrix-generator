@@ -13,7 +13,7 @@ const y = document.querySelector("#y-axis")
 const resetButton = document.querySelector("#resetButton")
 const frameBoxes = document.querySelector("#frameBoxes")
 const addFrameButton = document.querySelector("#addFrameButton")
-const animationInterval1 = document.querySelector("#animationInterval1")
+let animationInterval1 = document.querySelector("#animationInterval1")
 let frameCount = 1
 let animationSequence = null
 
@@ -131,6 +131,7 @@ const colorInPixels = () => {
     }
 
     let inputBoxCount = 0
+    animationInterval1 = document.querySelector('#animationInterval1')
 
     clearInterval(animationSequence)
     displayCurrentFrame(inputBoxCount)
@@ -140,7 +141,7 @@ const colorInPixels = () => {
         inputBoxCount = 0
     }
     
-    if (animationInterval1) {
+    if (frameCount > 1) {
         animationSequence = setInterval(() => {
             displayCurrentFrame(inputBoxCount)
             if (inputBoxCount < inputBoxes.length - 1) {
@@ -230,11 +231,12 @@ const addFrame = (event) => {
         event.preventDefault()
     }
 
-    frameCount++
-
-    if (frameCount === 2) {
+    if (frameCount === 1) {
         appendAnimationInterval();
     }
+
+    frameCount++
+
     appendNewFrame()
     if (frameCount !== 1) {
         appendAnimationInterval();
