@@ -17,23 +17,21 @@ const addFrameButton = document.querySelector("#addFrameButton")
 let frameCount = 1
 let animationSequence = null
 
-// const frames = [
-//     {
-//         count: 1,
-//         value: "",
-//         interval: 500
-//     },
-//     {
-//         count: 2,
-//         value: "",
-//         interval: 500
-//     }
-// ]
+const frames = [
+    {
+        count: 1,
+        value: "",
+        interval: 500
+    },
+    {
+        count: 2,
+        value: "",
+        interval: 500
+    }
+]
 
-// for(let frame of frames) {
-//     appendNewFrame()
-//     appendAnimationInterval()
-// }
+for(let frame of frames) {
+}
 
 const createGrid = () => {
     errorMessages.innerHTML = ""
@@ -96,7 +94,6 @@ const outputArduinoCode = (colors) => {
 
             FastLED.show();
             ${(currentAnimationInterval ? `delay(${currentAnimationInterval.value});\n` : "")}`
-        debugger
         })
         return showString
     }
@@ -200,7 +197,7 @@ const addGridColors = (event) => {
     colorInPixels()
 }
 
-const appendAnimationInterval = () => {
+const appendAnimationInterval = (value = 500) => {
     const animationSettingsDiv = document.createElement("div")
     animationSettingsDiv.classList.add("animationSettings")
 
@@ -214,7 +211,7 @@ const appendAnimationInterval = () => {
     animationIntervalInput.classList.add("animationBox")
     animationIntervalInput.setAttribute("id", `animationInterval${frameCount}`)
     animationIntervalInput.setAttribute("type", "number")
-    animationIntervalInput.setAttribute("value", "500")
+    animationIntervalInput.setAttribute("value", value)
     animationIntervalInput.setAttribute("min", "0")
     animationIntervalInput.setAttribute("step", "100")
 
