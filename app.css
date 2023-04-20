@@ -46,10 +46,16 @@ ul {
     height: 100%;
 }
 
-.errorMessages {
+.errorMessage {
     color: red;
     font-size: large;
     font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.frameLabel {
+    font-size: x-large;
+    margin-bottom: 4px;
 }
 
 textarea {
@@ -66,13 +72,14 @@ textarea {
     display: flex;
     width: 330px;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .size {
     display: inline-block;
 }
 
-.sizeLabel {
+.settingLabel {
     font-size: large;
     font-weight: 600;
 }
@@ -85,9 +92,12 @@ textarea {
     width: 40px;
 }
 
-.snakeLabel {
-    font-size: large;
-    font-weight: 600;
+.animationBox {
+    border: 3px solid black;
+    border-radius: 4px;
+    font-size: medium;
+    text-align: center;
+    width: 50px;
 }
 
 .snakeBox {

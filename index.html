@@ -23,13 +23,15 @@
       <button id="addFrameButton" class="addFrameButton">+</button>
       <div class="settings">
         <div class="size">
-          <label class="sizeLabel" for="x-axis">Size:</label>
+          <label class="settingLabel" for="x-axis">Size:</label>
           <input id="x-axis" class="sizeBox" type="number" value="16" min="1" max="99"> 
           x 
           <input id="y-axis" class="sizeBox" type="number" value="16" min="1" max="99">
         </div>
-        <label class="snakeLabel" for="snakeBox">Snake mode:</label>
+        <label class="settingLabel" for="snakeBox">Snake mode:</label>
         <input id="snakeBox" class="snakeBox" type="checkbox" checked>
+        <div class="animationSettings">
+        </div>
       </div>
 
       <div>
@@ -42,7 +44,7 @@
 
   <div class="gridContainer">
     <div id="grid" class="grid"></div>
-    <ul id="errorMessages" class="errorMessages"></ul>
+    <ul id="errorMessages"></ul>
     <a class="drawModeLink" href="./draw-mode/draw.html">Drawing mode</a>
   </div>
 
