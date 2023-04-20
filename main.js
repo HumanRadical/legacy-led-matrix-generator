@@ -70,12 +70,14 @@ const outputArduinoCode = (colors) => {
     const showDisplay = () => {
         let showString = ""
         inputBoxes.forEach((box, index) => {
+            const currentAnimationInterval = document.querySelector(`#animationInterval${index + 1}`)
             showString += `\nFastLED.clear();
             for(int i = 0; i < NUM_LEDS; i++) {
                 leds[i] = pgm_read_dword(&(Frame${index + 1}[NUM_LEDS - i - 1]));
             }
             FastLED.show();
-            delay(${(animationInterval1 ? animationInterval1.value : "500")});\n`
+            delay(${(currentAnimationInterval ? currentAnimationInterval.value : "500")});\n`
+        debugger
         })
         return showString
     }
