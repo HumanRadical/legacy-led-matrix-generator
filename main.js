@@ -17,23 +17,7 @@ const addFrameButton = document.querySelector("#addFrameButton")
 let frameCount = 1
 let animationSequence = null
 
-// const frames = [
-//     {
-//         count: 1,
-//         value: "",
-//         interval: 500
-//     },
-//     {
-//         count: 2,
-//         value: "",
-//         interval: 500
-//     }
-// ]
-
-// for(let frame of frames) {
-//     appendNewFrame()
-//     appendAnimationInterval()
-// }
+const frames = []
 
 const createGrid = () => {
     errorMessages.innerHTML = ""
@@ -199,7 +183,7 @@ const addGridColors = (event) => {
     colorInPixels()
 }
 
-const appendAnimationInterval = () => {
+const appendAnimationInterval = (value = 500) => {
     const animationSettingsDiv = document.createElement("div")
     animationSettingsDiv.classList.add("animationSettings")
 
@@ -213,7 +197,7 @@ const appendAnimationInterval = () => {
     animationIntervalInput.classList.add("animationBox")
     animationIntervalInput.setAttribute("id", `animationInterval${frameCount}`)
     animationIntervalInput.setAttribute("type", "number")
-    animationIntervalInput.setAttribute("value", "500")
+    animationIntervalInput.setAttribute("value", value)
     animationIntervalInput.setAttribute("min", "0")
     animationIntervalInput.setAttribute("step", "100")
 
@@ -223,15 +207,15 @@ const appendAnimationInterval = () => {
     frameBoxes.append(animationSettingsDiv)
 }
 
-const appendNewFrame = () => {
+const appendNewFrame = (count = 1) => {
     const newFrameLabel = document.createElement("label")
-    newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${frameCount}:</h3>`
+    newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${count}:</h3>`
     frameBoxes.append(newFrameLabel)
 
     const newFrame = document.createElement("textarea")
     newFrame.classList.add("inputBox")
     newFrame.classList.add("textbox")
-    newFrame.setAttribute("id", `inputBox${frameCount}`)
+    newFrame.setAttribute("id", `inputBox${count}`)
     newFrame.setAttribute("cols", "50")
     newFrame.setAttribute("rows", "20")
 
@@ -243,15 +227,17 @@ const addFrame = (event) => {
         event.preventDefault()
     }
 
-    if (frameCount === 1) {
-        appendAnimationInterval();
-    }
+    frames.push({
+        count: frameCount,
+        value: "",
+        interval: 500
+    })
 
-    frameCount++
+    frameBoxes.innerHTML = ""
 
-    appendNewFrame()
-    if (frameCount !== 1) {
-        appendAnimationInterval();
+    for(let frame of frames) {
+        appendNewFrame(frame.count)
+        appendAnimationInterval(frame.interval)
     }
 }
 
