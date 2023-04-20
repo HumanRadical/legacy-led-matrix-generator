@@ -13,10 +13,16 @@ const y = document.querySelector("#y-axis")
 const resetButton = document.querySelector("#resetButton")
 const frameBoxDiv = document.querySelector("#frameBoxDiv")
 const addFrameButton = document.querySelector("#addFrameButton")
-let frameCount = 0
+let frameCount = 1
 let animationSequence = null
 
-let frameBoxes = []
+let frameBoxes = [
+    {
+        count: 1,
+        value: "0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0066cc, 0x000000, 0x0066cc, 0x000000, 0x0066cc, 0x0066cc, 0x0066cc, 0x0066cc, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0x0066cc, 0x0066cc, 0x0066cc, 0x0066cc, 0x000000, 0x0066cc, 0x000000, 0x0066cc, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0066cc, 0x0066cc, 0x0066cc, 0x0066cc, 0x0066cc, 0x0066cc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0x000000, 0x0066cc, 0x0066cc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0xff0000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0xff0000, 0xff0000, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0x0066cc, 0x0066cc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0xff0000, 0xff0000, 0xff0000, 0x0066cc, 0x0066cc, 0x0066cc, 0x0066cc, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0xff0000, 0x000000, 0x000000, 0x000000, 0xff0000, 0xff0000, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0x0066cc, 0x0066cc, 0x0066cc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0xff0000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0xcccccc, 0xcccccc, 0xcccccc, 0xcccccc, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000",
+        interval: 500
+    }
+]
 
 const createGrid = () => {
     errorMessages.innerHTML = ""
@@ -104,14 +110,12 @@ const outputArduinoCode = (colors) => {
 }
 
 const colorInPixels = () => {
-    inputBoxes = document.querySelectorAll(".inputBox")
-    
     const displayCurrentFrame = (inputBoxIndex) => {
         createGrid()
         handleInputErrors()
         const pixels = document.querySelectorAll(".pixel")
 
-        let inputBoxColors = sanitizeColorArrayIntoHex(inputBoxes[inputBoxIndex].value)
+        let inputBoxColors = sanitizeColorArrayIntoHex(frameBoxes[inputBoxIndex].value)
         if (snakeBox.checked) {
             inputBoxColors = snakeColors(inputBoxColors)
         }
@@ -132,7 +136,7 @@ const colorInPixels = () => {
     }
 
     let inputBoxCount = 0
-    let currentAnimationInterval = document.querySelector(`#animationInterval1`)
+    let currentAnimationInterval = frameBoxes[0].interval
 
     clearInterval(animationSequence)
     displayCurrentFrame(inputBoxCount)
@@ -141,13 +145,12 @@ const colorInPixels = () => {
     if (frameCount > 1) {
         animationSequence = setInterval(() => {
             displayCurrentFrame(inputBoxCount)
-            currentAnimationInterval = document.querySelector(`#animationInterval${inputBoxCount}`)
             if (inputBoxCount < inputBoxes.length - 1) {
                 inputBoxCount++
             } else {
                 inputBoxCount = 0
             }
-        }, currentAnimationInterval.value)
+        }, currentAnimationInterval)
     }
 }
 
@@ -179,7 +182,7 @@ const addGridColors = (event) => {
     colorInPixels()
 }
 
-const appendAnimationInterval = (value = 500) => {
+const appendAnimationInterval = (value) => {
     const animationSettingsDiv = document.createElement("div")
     animationSettingsDiv.classList.add("animationSettings")
 
@@ -190,7 +193,7 @@ const appendAnimationInterval = (value = 500) => {
     animationIntervalLabel.setAttribute("for", "animationInterval")
     animationIntervalLabel.innerText = 'Animation Interval (ms): '
 
-    animationIntervalInput.classList.add("animationBox")
+    animationIntervalInput.classList.add("intervalBox")
     animationIntervalInput.setAttribute("id", `animationInterval${frameCount}`)
     animationIntervalInput.setAttribute("type", "number")
     animationIntervalInput.setAttribute("value", value)
@@ -203,7 +206,7 @@ const appendAnimationInterval = (value = 500) => {
     frameBoxDiv.append(animationSettingsDiv)
 }
 
-const appendNewFrame = (count = 1) => {
+const appendNewFrame = (count, value) => {
     const newFrameLabel = document.createElement("label")
     newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${count}:</h3>`
     frameBoxDiv.append(newFrameLabel)
@@ -211,6 +214,7 @@ const appendNewFrame = (count = 1) => {
     const newFrame = document.createElement("textarea")
     newFrame.classList.add("inputBox")
     newFrame.classList.add("textbox")
+    newFrame.innerText = value
     newFrame.setAttribute("id", count)
     newFrame.setAttribute("cols", "50")
     newFrame.setAttribute("rows", "20")
@@ -230,6 +234,18 @@ const updateFrameValue = (event) => {
     }
 }
 
+const updateFrameInterval = (event) => {
+    event.preventDefault()
+
+    const boxId = event.target.id
+    const boxValue = event.target.value
+    for(let frame of frameBoxes) {
+        if(frame.count = boxId) {
+            frame.interval = boxValue
+        }
+    }
+}
+
 const addFrame = (event) => {
     if(event) {
         event.preventDefault()
@@ -245,13 +261,18 @@ const addFrame = (event) => {
     frameBoxDiv.innerHTML = ""
 
     for(let frame of frameBoxes) {
-        appendNewFrame(frame.count)
+        appendNewFrame(frame.count, frame.value)
         appendAnimationInterval(frame.interval)
     }
 
     inputBoxes = document.querySelectorAll('.inputBox') 
     for(let inputBox of inputBoxes) {
         inputBox.addEventListener("input", updateFrameValue)
+    }
+
+    intervalBoxes = document.querySelectorAll('.intervalBox') 
+    for(let intervalBox of intervalBoxes) {
+        intervalBox.addEventListener("change", updateFrameInterval)
     }
 }
 
@@ -265,8 +286,15 @@ const reset = (event) => {
     errorMessages.innerHTML = ""
     frameCount = 0
     frameBoxDiv.innerHTML = ""
-    frameBoxDiv = []
+    frameBoxes = []
     addFrame()
+}
+
+window.onload = () => {
+    for(let frame of frameBoxes) {
+        appendNewFrame(frame.count, frame.value)
+        appendAnimationInterval(frame.interval)
+    }
 }
 
 addFrameButton.addEventListener("click", addFrame)
