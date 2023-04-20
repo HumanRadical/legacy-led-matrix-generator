@@ -138,11 +138,7 @@ const colorInPixels = () => {
 
     clearInterval(animationSequence)
     displayCurrentFrame(inputBoxCount)
-    if (inputBoxCount < inputBoxes.length - 1) {
-        inputBoxCount++
-    } else {
-        inputBoxCount = 0
-    }
+    inputBoxCount++
     
     if (frameCount > 1) {
         animationSequence = setInterval(() => {
