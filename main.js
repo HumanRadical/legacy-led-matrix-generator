@@ -75,8 +75,9 @@ const outputArduinoCode = (colors) => {
             for(int i = 0; i < NUM_LEDS; i++) {
                 leds[i] = pgm_read_dword(&(Frame${index + 1}[NUM_LEDS - i - 1]));
             }
+
             FastLED.show();
-            delay(${(currentAnimationInterval ? currentAnimationInterval.value : "500")});\n`
+            ${(currentAnimationInterval ? `delay(${currentAnimationInterval.value});\n` : "")}`
         debugger
         })
         return showString
