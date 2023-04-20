@@ -96,7 +96,6 @@ const outputArduinoCode = (colors) => {
 
             FastLED.show();
             ${(currentAnimationInterval ? `delay(${currentAnimationInterval.value});\n` : "")}`
-        debugger
         })
         return showString
     }
