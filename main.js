@@ -55,31 +55,28 @@ const snakeColors = (colorInput) => {
 }
 
 const outputArduinoCode = (colors) => {
-    inputBoxes = document.querySelectorAll(".inputBox")
-
     const setupDisplay = () => {
         let setupString = ""
-        inputBoxes.forEach((box, index) => {
-         setupString += `\nconst long Frame${index + 1}[] PROGMEM = 
+        for(let frame of frameBoxes) {
+         setupString += `\nconst long Frame${frame.count}[] PROGMEM = 
             { 
-                ${sanitizeColorArrayIntoHex(box.value, "0x")} 
+                ${sanitizeColorArrayIntoHex(frame.value, "0x")} 
             };\n`
-        })
+        }
         return setupString
     }
 
     const showDisplay = () => {
         let showString = ""
-        inputBoxes.forEach((box, index) => {
-            const currentAnimationInterval = document.querySelector(`#animationInterval${index + 1}`)
+        for(let frame of frameBoxes) {
             showString += `\nFastLED.clear();
             for(int i = 0; i < NUM_LEDS; i++) {
-                leds[i] = pgm_read_dword(&(Frame${index + 1}[NUM_LEDS - i - 1]));
-            }
+                leds[i] = pgm_read_dword(&(Frame${frame.count}[NUM_LEDS - i - 1]));
+            } 
 
             FastLED.show();
-            ${(currentAnimationInterval ? `delay(${currentAnimationInterval.value});\n` : "")}`
-        })
+            ${(frame.interval ? `delay(${frame.interval});\n` : "")}`
+        }
         return showString
     }
 
@@ -231,7 +228,6 @@ const updateFrameValue = (event) => {
             frame.value = boxValue
         }
     }
-    console.log(frameBoxes)
 }
 
 const addFrame = (event) => {
