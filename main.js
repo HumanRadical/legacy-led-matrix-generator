@@ -2,6 +2,7 @@ import { sanitizeColorArrayIntoHex } from "./src/sanitizeColorArrayIntoHex"
 import errorIconImg from "./img/error_icon.svg"
 
 let inputBox1 = document.querySelector("#inputBox1")
+let inputBoxes = document.querySelectorAll('.inputBox')
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
 const snakeBox = document.querySelector("#snakeBox")
@@ -13,9 +14,26 @@ const y = document.querySelector("#y-axis")
 const resetButton = document.querySelector("#resetButton")
 const frameBoxes = document.querySelector("#frameBoxes")
 const addFrameButton = document.querySelector("#addFrameButton")
-let animationInterval1 = document.querySelector("#animationInterval1")
 let frameCount = 1
 let animationSequence = null
+
+// const frames = [
+//     {
+//         count: 1,
+//         value: "",
+//         interval: 500
+//     },
+//     {
+//         count: 2,
+//         value: "",
+//         interval: 500
+//     }
+// ]
+
+// for(let frame of frames) {
+//     appendNewFrame()
+//     appendAnimationInterval()
+// }
 
 const createGrid = () => {
     errorMessages.innerHTML = ""
@@ -54,7 +72,7 @@ const snakeColors = (colorInput) => {
 }
 
 const outputArduinoCode = (colors) => {
-    const inputBoxes = document.querySelectorAll(".inputBox")
+    inputBoxes = document.querySelectorAll(".inputBox")
 
     const setupDisplay = () => {
         let setupString = ""
@@ -107,7 +125,8 @@ const outputArduinoCode = (colors) => {
 }
 
 const colorInPixels = () => {
-    const inputBoxes = document.querySelectorAll(".inputBox")
+    inputBoxes = document.querySelectorAll(".inputBox")
+    
     const displayCurrentFrame = (inputBoxIndex) => {
         createGrid()
         handleInputErrors()
@@ -134,7 +153,7 @@ const colorInPixels = () => {
     }
 
     let inputBoxCount = 0
-    animationInterval1 = document.querySelector('#animationInterval1')
+    let currentAnimationInterval = document.querySelector(`#animationInterval1`)
 
     clearInterval(animationSequence)
     displayCurrentFrame(inputBoxCount)
@@ -143,17 +162,18 @@ const colorInPixels = () => {
     if (frameCount > 1) {
         animationSequence = setInterval(() => {
             displayCurrentFrame(inputBoxCount)
+            currentAnimationInterval = document.querySelector(`#animationInterval${inputBoxCount}`)
             if (inputBoxCount < inputBoxes.length - 1) {
                 inputBoxCount++
             } else {
                 inputBoxCount = 0
             }
-        }, animationInterval1.value)
+        }, currentAnimationInterval.value)
     }
 }
 
 const handleInputErrors = () => {
-    const inputBoxes = document.querySelectorAll(".inputBox")
+    inputBoxes = document.querySelectorAll(".inputBox")
 
     inputBoxes.forEach((inputBox, index) => {
         inputBox = sanitizeColorArrayIntoHex(inputBox.value)
@@ -176,12 +196,6 @@ const addGridColors = (event) => {
     event.preventDefault()
 
     createGrid()
-
-    let colorInput = sanitizeColorArrayIntoHex(inputBox1.value)
-    if (snakeBox.checked) {
-        colorInput = snakeColors(colorInput)
-    }
-
     outputArduinoCode()
     colorInPixels()
 }
