@@ -1,7 +1,6 @@
 import { sanitizeColorArrayIntoHex } from "./src/sanitizeColorArrayIntoHex"
 import errorIconImg from "./img/error_icon.svg"
 
-let inputBox1 = document.querySelector("#inputBox1")
 let inputBoxes = document.querySelectorAll('.inputBox')
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
@@ -12,12 +11,12 @@ const errorMessages = document.querySelector('#errorMessages')
 const x = document.querySelector("#x-axis")
 const y = document.querySelector("#y-axis")
 const resetButton = document.querySelector("#resetButton")
-const frameBoxes = document.querySelector("#frameBoxes")
+const frameBoxDiv = document.querySelector("#frameBoxDiv")
 const addFrameButton = document.querySelector("#addFrameButton")
-let frameCount = 1
+let frameCount = 0
 let animationSequence = null
 
-const frames = []
+let frameBoxes = []
 
 const createGrid = () => {
     errorMessages.innerHTML = ""
@@ -204,22 +203,35 @@ const appendAnimationInterval = (value = 500) => {
     animationSettingsDiv.appendChild(animationIntervalLabel)
     animationSettingsDiv.appendChild(animationIntervalInput)
 
-    frameBoxes.append(animationSettingsDiv)
+    frameBoxDiv.append(animationSettingsDiv)
 }
 
 const appendNewFrame = (count = 1) => {
     const newFrameLabel = document.createElement("label")
     newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${count}:</h3>`
-    frameBoxes.append(newFrameLabel)
+    frameBoxDiv.append(newFrameLabel)
 
     const newFrame = document.createElement("textarea")
     newFrame.classList.add("inputBox")
     newFrame.classList.add("textbox")
-    newFrame.setAttribute("id", `inputBox${count}`)
+    newFrame.setAttribute("id", count)
     newFrame.setAttribute("cols", "50")
     newFrame.setAttribute("rows", "20")
 
-    frameBoxes.append(newFrame)
+    frameBoxDiv.append(newFrame)
+}
+
+const updateFrameValue = (event) => {
+    event.preventDefault()
+
+    const boxId = event.target.id
+    const boxValue = event.target.value
+    for(let frame of frameBoxes) {
+        if(frame.count = boxId) {
+            frame.value = boxValue
+        }
+    }
+    console.log(frameBoxes)
 }
 
 const addFrame = (event) => {
@@ -227,17 +239,23 @@ const addFrame = (event) => {
         event.preventDefault()
     }
 
-    frames.push({
+    frameCount++
+    frameBoxes.push({
         count: frameCount,
         value: "",
         interval: 500
     })
 
-    frameBoxes.innerHTML = ""
+    frameBoxDiv.innerHTML = ""
 
-    for(let frame of frames) {
+    for(let frame of frameBoxes) {
         appendNewFrame(frame.count)
         appendAnimationInterval(frame.interval)
+    }
+
+    inputBoxes = document.querySelectorAll('.inputBox') 
+    for(let inputBox of inputBoxes) {
+        inputBox.addEventListener("input", updateFrameValue)
     }
 }
 
@@ -250,9 +268,9 @@ const reset = (event) => {
     clipboardMessage.innerText = ""
     errorMessages.innerHTML = ""
     frameCount = 0
-    frameBoxes.innerHTML = ""
+    frameBoxDiv.innerHTML = ""
+    frameBoxDiv = []
     addFrame()
-    inputBox1 = document.querySelector("#inputBox1")
 }
 
 addFrameButton.addEventListener("click", addFrame)
