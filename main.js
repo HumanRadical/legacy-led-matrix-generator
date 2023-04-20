@@ -1,7 +1,6 @@
 import { sanitizeColorArrayIntoHex } from "./src/sanitizeColorArrayIntoHex"
 import errorIconImg from "./img/error_icon.svg"
 
-let inputBoxes = document.querySelectorAll('.inputBox')
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
 const snakeBox = document.querySelector("#snakeBox")
@@ -145,7 +144,7 @@ const colorInPixels = () => {
     if (frameCount > 1) {
         animationSequence = setInterval(() => {
             displayCurrentFrame(inputBoxCount)
-            if (inputBoxCount < inputBoxes.length - 1) {
+            if (inputBoxCount < frameBoxes.length - 1) {
                 inputBoxCount++
             } else {
                 inputBoxCount = 0
@@ -155,23 +154,21 @@ const colorInPixels = () => {
 }
 
 const handleInputErrors = () => {
-    inputBoxes = document.querySelectorAll(".inputBox")
-
-    inputBoxes.forEach((inputBox, index) => {
-        inputBox = sanitizeColorArrayIntoHex(inputBox.value)
-        if (inputBox.length !== x.value * y.value) {
+    for(let frame of frameBoxes) {
+        const frameValue = sanitizeColorArrayIntoHex(frame.value)
+        if (frameValue.length !== x.value * y.value) {
             const lengthError = document.createElement("li")
             lengthError.classList.add("errorMessage")
-            lengthError.textContent = `The number of colors in Frame ${index + 1} does not match the number of pixels.`
+            lengthError.textContent = `The number of colors in Frame ${frame.count} does not match the number of pixels.`
             errorMessages.appendChild(lengthError)
         }
-        if (inputBox.some(color => color === "<Error>")) {
-            const invalidcolorError = document.createElement("li")
-            invalidcolorError.classList.add("errorMessage")
-            invalidcolorError.textContent = `One or more pixels in Frame ${index + 1} have an invalid color.`
-            errorMessages.appendChild(invalidcolorError)
+        if (frameValue.some(color => color === "<Error>")) {
+            const invalidColorError = document.createElement("li")
+            invalidColorError.classList.add("errorMessage")
+            invalidColorError.textContent = `One or more pixels in Frame ${frame.count} have an invalid color.`
+            errorMessages.appendChild(invalidColorError)
         }
-    })
+    }
 }
 
 const addGridColors = (event) => {
@@ -265,12 +262,12 @@ const addFrame = (event) => {
         appendAnimationInterval(frame.interval)
     }
 
-    inputBoxes = document.querySelectorAll('.inputBox') 
+    const inputBoxes = document.querySelectorAll('.inputBox') 
     for(let inputBox of inputBoxes) {
         inputBox.addEventListener("input", updateFrameValue)
     }
 
-    intervalBoxes = document.querySelectorAll('.intervalBox') 
+    const intervalBoxes = document.querySelectorAll('.intervalBox') 
     for(let intervalBox of intervalBoxes) {
         intervalBox.addEventListener("change", updateFrameInterval)
     }
