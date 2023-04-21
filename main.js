@@ -173,7 +173,7 @@ const addGridColors = (event) => {
     colorInPixels()
 }
 
-const appendAnimationInterval = (value) => {
+const appendAnimationInterval = (count, value) => {
     const animationSettingsDiv = document.createElement("div")
     animationSettingsDiv.classList.add("animationSettings")
 
@@ -185,7 +185,7 @@ const appendAnimationInterval = (value) => {
     animationIntervalLabel.innerText = 'Animation Interval (ms): '
 
     animationIntervalInput.classList.add("intervalBox")
-    animationIntervalInput.setAttribute("id", `animationInterval${frameCount}`)
+    animationIntervalInput.setAttribute("id", `animationInterval${count}`)
     animationIntervalInput.setAttribute("type", "number")
     animationIntervalInput.setAttribute("value", value)
     animationIntervalInput.setAttribute("min", "0")
@@ -206,7 +206,7 @@ const appendNewFrame = (count, value) => {
     newFrame.classList.add("inputBox")
     newFrame.classList.add("textbox")
     newFrame.innerText = value
-    newFrame.setAttribute("id", count)
+    newFrame.setAttribute("id", `frameBox${count}`)
     newFrame.setAttribute("cols", "50")
     newFrame.setAttribute("rows", "20")
 
@@ -219,7 +219,7 @@ const updateFrameValue = (event) => {
     const boxId = event.target.id
     const boxValue = event.target.value
     for (let frame of frameBoxes) {
-        if (frame.count = boxId) {
+        if (`frameBox${frame.count}` === boxId) {
             frame.value = boxValue
         }
     }
@@ -231,7 +231,7 @@ const updateFrameInterval = (event) => {
     const boxId = event.target.id
     const boxValue = event.target.value
     for (let frame of frameBoxes) {
-        if (frame.count = boxId) {
+        if (`animationInterval${frame.count}` === boxId) {
             frame.interval = boxValue
         }
     }
@@ -259,7 +259,7 @@ const addFrame = (event) => {
     for (let frame of frameBoxes) {
         appendNewFrame(frame.count, frame.value)
         if (frame.interval) {
-            appendAnimationInterval(frame.interval)
+            appendAnimationInterval(frame.count, frame.interval)
         }
     }
 
