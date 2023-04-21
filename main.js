@@ -1,4 +1,4 @@
-import { sanitizeColorArrayIntoHex } from "./src/sanitizeColorArrayIntoHex"
+import {sanitizeColorArrayIntoHex} from "./src/sanitizeColorArrayIntoHex"
 import errorIconImg from "./img/error_icon.svg"
 
 const submitForm = document.querySelector("#submitForm")
@@ -58,7 +58,7 @@ const outputArduinoCode = (colors) => {
     const setupDisplay = () => {
         let setupString = ""
         frameBoxes.forEach((frame, idx) => {
-         setupString += `\nconst long Frame${idx + 1}[] PROGMEM = 
+            setupString += `\nconst long Frame${idx + 1}[] PROGMEM = 
             { 
                 ${sanitizeColorArrayIntoHex(frame.value, "0x")} 
             };\n`
@@ -80,7 +80,7 @@ const outputArduinoCode = (colors) => {
         return showString
     }
 
-    const arduinoCode = 
+    const arduinoCode =
         `#include <avr/pgmspace.h>
         #include "FastLED.h"  
 
@@ -135,7 +135,7 @@ const colorInPixels = () => {
     clearInterval(animationSequence)
     displayCurrentFrame(inputBoxCount)
     inputBoxCount++
-    
+
     if (frameBoxes.length > 1) {
         animationSequence = setInterval(() => {
             displayCurrentFrame(inputBoxCount)
@@ -173,7 +173,9 @@ const handleInputErrors = () => {
 }
 
 const addGridColors = (event) => {
-    event.preventDefault()
+    if (event) {
+        event.preventDefault()
+    }
 
     createGrid()
     outputArduinoCode()
@@ -239,12 +241,10 @@ const loadAvailableSamples = async () => {
     frameBoxes = samples.digdug;
 }
 
-const initializeApplication = () => {
-    (async () => {
-        await loadAvailableSamples();
-        renderAvailableSampleOptions();
-        appendFrameBoxes();
-    })();
+const initializeApplication = async () => {
+    await loadAvailableSamples();
+    renderAvailableSampleOptions();
+    appendFrameBoxes();
 }
 
 const appendFrameBoxes = () => {
@@ -256,12 +256,12 @@ const appendFrameBoxes = () => {
     })
 
 
-    const inputBoxes = document.querySelectorAll('.inputBox') 
+    const inputBoxes = document.querySelectorAll('.inputBox')
     for (let inputBox of inputBoxes) {
         inputBox.addEventListener("input", updateFrameValue)
     }
 
-    const intervalBoxes = document.querySelectorAll('.intervalBox') 
+    const intervalBoxes = document.querySelectorAll('.intervalBox')
     for (let intervalBox of intervalBoxes) {
         intervalBox.addEventListener("change", updateFrameInterval)
     }
