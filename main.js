@@ -15,16 +15,7 @@ const frameBoxDiv = document.querySelector("#frameBoxDiv")
 const addFrameButton = document.querySelector("#addFrameButton")
 let animationSequence = null
 
-let frameBoxes = [
-    {
-        value: samples.qbert[0],
-        interval: 500
-    },
-    {
-        value: samples.qbert[1],
-        interval: 500
-    }
-]
+let frameBoxes = samples.digdug
 
 const createGrid = () => {
     errorMessages.innerHTML = ""
@@ -222,6 +213,18 @@ const appendNewFrame = (count, value) => {
     frameBoxDiv.append(newFrame)
 }
 
+const initializeApplication = () => {
+    appendFrameBoxes();
+
+    const sampleDropdown = document.getElementById("sampleSelection");
+    for (const sampleName of Object.keys(samples)) {
+        const sampleOption = document.createElement('option');
+        sampleOption.innerText = sampleName;
+        sampleOption.value = sampleName;
+        sampleDropdown.appendChild(sampleOption)
+    }
+}
+
 const appendFrameBoxes = () => {
     frameBoxes.forEach((frame, idx) => {
         appendNewFrame(idx + 1, frame.value)
@@ -302,4 +305,4 @@ const reset = (event) => {
 addFrameButton.addEventListener("click", addFrame)
 resetButton.addEventListener("click", reset)
 submitForm.addEventListener("submit", addGridColors)
-window.onload = appendFrameBoxes()
+window.onload = initializeApplication()
