@@ -220,15 +220,23 @@ const appendNewFrame = (count, value) => {
     frameBoxDiv.append(newFrame)
 }
 
-const initializeApplication = () => {
-    appendFrameBoxes();
-
+const renderAvailableSampleOptions = () => {
     for (const sampleName of Object.keys(samples)) {
         const sampleOption = document.createElement('option');
         sampleOption.innerText = sampleName;
         sampleOption.value = sampleName;
         sampleDropdown.appendChild(sampleOption)
     }
+}
+
+const loadAvailableSamples = () => {
+
+}
+
+const initializeApplication = () => {
+    loadAvailableSamples();
+    renderAvailableSampleOptions();
+    appendFrameBoxes();
 }
 
 const appendFrameBoxes = () => {
