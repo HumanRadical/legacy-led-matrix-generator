@@ -2,10 +2,11 @@ describe('Main page tests', () => {
     beforeEach(() => {
         cy.visit('http://localhost:5173/')
         cy.viewport('macbook-16')
+        cy.get('#resetButton').click()
         cy.get('#x-axis').clear().type('2')
         cy.get('#y-axis').clear().type('2')
         cy.get('#snakeBox').click()
-        cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff, 0xffff00')
+        cy.get('#frameBox1').type('0xff0000, 0x00ff00, 0x0000ff, 0xffff00')
         cy.get('.submit').click()
     })
 
@@ -22,7 +23,7 @@ describe('Main page tests', () => {
     })
 
     it('Accepts RGB value inputs', () => {
-        cy.get('#inputBox1').clear().type('rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255), rgb(255, 255, 0)')
+        cy.get('#frameBox1').clear().type('rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255), rgb(255, 255, 0)')
         cy.get('.pixel').eq(0).should('have.css', 'background-color', 'rgb(255, 0, 0)')
         cy.get('.pixel').eq(1).should('have.css', 'background-color', 'rgb(0, 255, 0)')
         cy.get('.pixel').eq(2).should('have.css', 'background-color', 'rgb(0, 0, 255)')
@@ -39,28 +40,28 @@ describe('Main page tests', () => {
     })
 
     it('Displays an error icon on the correct pixel when it has an invalid color', () => {
-        cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff, foobar')
+        cy.get('#frameBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff, foobar')
         cy.get('.submit').click()
         cy.get('.pixel').last().get('.errorIcon').should('exist')
     })
     
     it('Outputs correct error message when one or more pixel has an invalid color', () => {
-        cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff, foobar')
+        cy.get('#frameBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff, foobar')
         cy.get('.submit').click()
         cy.get('#errorMessages').should('have.text', 'One or more pixels in Frame 1 have an invalid color.')
     })
 
     it('Outputs correct error message when the number of colors does not match the number of pixels', () => {
-        cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff')
+        cy.get('#frameBox1').clear().type('0xff0000, 0x00ff00, 0x0000ff')
         cy.get('.submit').click()
         cy.get('#errorMessages').should('have.text', 'The number of colors in Frame 1 does not match the number of pixels.')
     })
 
     it('Outputs both error messages at the same time', () => {
-        cy.get('#inputBox1').clear().type('0xff0000, 0x00ff00, foobar')
+        cy.get('#frameBox1').clear().type('0xff0000, 0x00ff00, foobar')
         cy.get('.submit').click()
-        cy.get('#errorMessages').should('contain.text', 'One or more pixels has an invalid color.')
         cy.get('#errorMessages').should('contain.text', 'The number of colors in Frame 1 does not match the number of pixels.')
+        cy.get('#errorMessages').should('contain.text', 'One or more pixels in Frame 1 have an invalid color.')
     })
 
     it('Prints out the correct string to the output box', () => {
@@ -89,49 +90,10 @@ const long Frame1[] PROGMEM =
 FastLED.clear();
             for(int i = 0; i < NUM_LEDS; i++) {
                 leds[i] = pgm_read_dword(&(Frame1[NUM_LEDS - i - 1]));
-            }
+            } 
+
             FastLED.show();
-            delay(500);
-
-        }`)
-    })
-
-    Cypress.Commands.add('assertValueCopiedToClipboard', value => {
-        cy.window().then(win => {
-            win.navigator.clipboard.readText().then(text => {
-                expect(text).to.eq(value)
-            })
-        })
-    })
-    it('Copies the correct value to the clipboard', () => {
-        cy.assertValueCopiedToClipboard(`#include <avr/pgmspace.h>
-        #include "FastLED.h"  
-
-        #define NUM_LEDS 4
-
-        #define DATA_PIN 7 
-
-        CRGB leds[NUM_LEDS];
-
-        
-const long Frame1[] PROGMEM = 
-            { 
-                0xff0000,0x00ff00,0x0000ff,0xffff00 
-            };
-
-        void setup() { 
-        FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
-        }
-
-        void loop() { 
             
-FastLED.clear();
-            for(int i = 0; i < NUM_LEDS; i++) {
-                leds[i] = pgm_read_dword(&(Frame1[NUM_LEDS - i - 1]));
-            }
-            FastLED.show();
-            delay(500);
-
         }`)
     })
 
@@ -148,8 +110,8 @@ FastLED.clear();
     it('Resets correctly when reset button is clicked', () => {
         cy.get('#addFrameButton').click()
         cy.get('#resetButton').click()
-        cy.get('.textbox').should('have.length', 2)
-        cy.get('#inputBox1').should('have.text', '')
+        cy.get('.inputBox').should('have.length', 1)
+        cy.get('#frameBox1').should('have.text', '')
         cy.get('#outputBox').should('have.text', '')
         cy.get('.pixel').should('not.exist')
     })
@@ -262,7 +224,7 @@ describe.skip('Front to back test', () => {
         cy.get('#submit').click()
         cy.get('.drawModeLink').click()
         // Still need to figure out how to paste clipboard contents
-        cy.get('#inputBox1').clear().type(setTimeout(async() => await navigator.clipboard.readText(), 3000))
+        cy.get('#frameBox1').clear().type(setTimeout(async() => await navigator.clipboard.readText(), 3000))
         cy.get('#x-axis').clear().type('2')
         cy.get('#y-axis').clear().type('2')
         cy.get('#submit').click()

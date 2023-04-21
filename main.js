@@ -1,8 +1,7 @@
 import { sanitizeColorArrayIntoHex } from "./src/sanitizeColorArrayIntoHex"
 import errorIconImg from "./img/error_icon.svg"
+import samples from "./samples/retro.json"
 
-let inputBox1 = document.querySelector("#inputBox1")
-let inputBoxes = document.querySelectorAll('.inputBox')
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
 const snakeBox = document.querySelector("#snakeBox")
@@ -12,26 +11,23 @@ const errorMessages = document.querySelector('#errorMessages')
 const x = document.querySelector("#x-axis")
 const y = document.querySelector("#y-axis")
 const resetButton = document.querySelector("#resetButton")
-const frameBoxes = document.querySelector("#frameBoxes")
+const frameBoxDiv = document.querySelector("#frameBoxDiv")
 const addFrameButton = document.querySelector("#addFrameButton")
-let frameCount = 1
+let frameCount = 2
 let animationSequence = null
 
-const frames = [
+let frameBoxes = [
     {
         count: 1,
-        value: "",
+        value: samples.qbert1,
         interval: 500
     },
     {
         count: 2,
-        value: "",
+        value: samples.qbert2,
         interval: 500
     }
 ]
-
-for(let frame of frames) {
-}
 
 const createGrid = () => {
     errorMessages.innerHTML = ""
@@ -51,7 +47,7 @@ const snakeColors = (colorInput) => {
     const newArray = []
     let row = []
     colorInput.forEach((color, index) => {
-        if(index !== 0 && index % x.value === 0) {
+        if (index !== 0 && index % x.value === 0) {
             if (newArray.length % 2 === 1) {
                 row.reverse()
             }
@@ -70,31 +66,28 @@ const snakeColors = (colorInput) => {
 }
 
 const outputArduinoCode = (colors) => {
-    inputBoxes = document.querySelectorAll(".inputBox")
-
     const setupDisplay = () => {
         let setupString = ""
-        inputBoxes.forEach((box, index) => {
-         setupString += `\nconst long Frame${index + 1}[] PROGMEM = 
+        for (let frame of frameBoxes) {
+         setupString += `\nconst long Frame${frame.count}[] PROGMEM = 
             { 
-                ${sanitizeColorArrayIntoHex(box.value, "0x")} 
+                ${sanitizeColorArrayIntoHex(frame.value, "0x")} 
             };\n`
-        })
+        }
         return setupString
     }
 
     const showDisplay = () => {
         let showString = ""
-        inputBoxes.forEach((box, index) => {
-            const currentAnimationInterval = document.querySelector(`#animationInterval${index + 1}`)
+        for (let frame of frameBoxes) {
             showString += `\nFastLED.clear();
             for(int i = 0; i < NUM_LEDS; i++) {
-                leds[i] = pgm_read_dword(&(Frame${index + 1}[NUM_LEDS - i - 1]));
-            }
+                leds[i] = pgm_read_dword(&(Frame${frame.count}[NUM_LEDS - i - 1]));
+            } 
 
             FastLED.show();
-            ${(currentAnimationInterval ? `delay(${currentAnimationInterval.value});\n` : "")}`
-        })
+            ${(frame.interval ? `delay(${frame.interval});\n` : "")}`
+        }
         return showString
     }
 
@@ -122,14 +115,12 @@ const outputArduinoCode = (colors) => {
 }
 
 const colorInPixels = () => {
-    inputBoxes = document.querySelectorAll(".inputBox")
-    
     const displayCurrentFrame = (inputBoxIndex) => {
         createGrid()
         handleInputErrors()
         const pixels = document.querySelectorAll(".pixel")
 
-        let inputBoxColors = sanitizeColorArrayIntoHex(inputBoxes[inputBoxIndex].value)
+        let inputBoxColors = sanitizeColorArrayIntoHex(frameBoxes[inputBoxIndex].value)
         if (snakeBox.checked) {
             inputBoxColors = snakeColors(inputBoxColors)
         }
@@ -150,7 +141,7 @@ const colorInPixels = () => {
     }
 
     let inputBoxCount = 0
-    let currentAnimationInterval = document.querySelector(`#animationInterval1`)
+    let currentAnimationInterval = frameBoxes[0].interval
 
     clearInterval(animationSequence)
     displayCurrentFrame(inputBoxCount)
@@ -159,34 +150,31 @@ const colorInPixels = () => {
     if (frameCount > 1) {
         animationSequence = setInterval(() => {
             displayCurrentFrame(inputBoxCount)
-            currentAnimationInterval = document.querySelector(`#animationInterval${inputBoxCount}`)
-            if (inputBoxCount < inputBoxes.length - 1) {
+            if (inputBoxCount < frameBoxes.length - 1) {
                 inputBoxCount++
             } else {
                 inputBoxCount = 0
             }
-        }, currentAnimationInterval.value)
+        }, currentAnimationInterval)
     }
 }
 
 const handleInputErrors = () => {
-    inputBoxes = document.querySelectorAll(".inputBox")
-
-    inputBoxes.forEach((inputBox, index) => {
-        inputBox = sanitizeColorArrayIntoHex(inputBox.value)
-        if (inputBox.length !== x.value * y.value) {
+    for (let frame of frameBoxes) {
+        const frameValue = sanitizeColorArrayIntoHex(frame.value)
+        if (frameValue.length !== x.value * y.value) {
             const lengthError = document.createElement("li")
             lengthError.classList.add("errorMessage")
-            lengthError.textContent = `The number of colors in Frame ${index + 1} does not match the number of pixels.`
+            lengthError.textContent = `The number of colors in Frame ${frame.count} does not match the number of pixels.`
             errorMessages.appendChild(lengthError)
         }
-        if (inputBox.some(color => color === "<Error>")) {
-            const invalidcolorError = document.createElement("li")
-            invalidcolorError.classList.add("errorMessage")
-            invalidcolorError.textContent = `One or more pixels in Frame ${index + 1} have an invalid color.`
-            errorMessages.appendChild(invalidcolorError)
+        if (frameValue.some(color => color === "<Error>")) {
+            const invalidColorError = document.createElement("li")
+            invalidColorError.classList.add("errorMessage")
+            invalidColorError.textContent = `One or more pixels in Frame ${frame.count} have an invalid color.`
+            errorMessages.appendChild(invalidColorError)
         }
-    })
+    }
 }
 
 const addGridColors = (event) => {
@@ -197,7 +185,7 @@ const addGridColors = (event) => {
     colorInPixels()
 }
 
-const appendAnimationInterval = (value = 500) => {
+const appendAnimationInterval = (count, value) => {
     const animationSettingsDiv = document.createElement("div")
     animationSettingsDiv.classList.add("animationSettings")
 
@@ -208,8 +196,8 @@ const appendAnimationInterval = (value = 500) => {
     animationIntervalLabel.setAttribute("for", "animationInterval")
     animationIntervalLabel.innerText = 'Animation Interval (ms): '
 
-    animationIntervalInput.classList.add("animationBox")
-    animationIntervalInput.setAttribute("id", `animationInterval${frameCount}`)
+    animationIntervalInput.classList.add("intervalBox")
+    animationIntervalInput.setAttribute("id", `animationInterval${count}`)
     animationIntervalInput.setAttribute("type", "number")
     animationIntervalInput.setAttribute("value", value)
     animationIntervalInput.setAttribute("min", "0")
@@ -218,39 +206,88 @@ const appendAnimationInterval = (value = 500) => {
     animationSettingsDiv.appendChild(animationIntervalLabel)
     animationSettingsDiv.appendChild(animationIntervalInput)
 
-    frameBoxes.append(animationSettingsDiv)
+    frameBoxDiv.append(animationSettingsDiv)
 }
 
-const appendNewFrame = () => {
+const appendNewFrame = (count, value) => {
     const newFrameLabel = document.createElement("label")
-    newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${frameCount}:</h3>`
-    frameBoxes.append(newFrameLabel)
+    newFrameLabel.innerHTML = `<h3 class="frameLabel">Frame ${count}:</h3>`
+    frameBoxDiv.append(newFrameLabel)
 
     const newFrame = document.createElement("textarea")
     newFrame.classList.add("inputBox")
     newFrame.classList.add("textbox")
-    newFrame.setAttribute("id", `inputBox${frameCount}`)
+    newFrame.innerText = value
+    newFrame.setAttribute("id", `frameBox${count}`)
     newFrame.setAttribute("cols", "50")
     newFrame.setAttribute("rows", "20")
 
-    frameBoxes.append(newFrame)
+    frameBoxDiv.append(newFrame)
+}
+
+const appendFrameBoxes = () => {
+    for (let frame of frameBoxes) {
+        appendNewFrame(frame.count, frame.value)
+        if (frame.interval) {
+            appendAnimationInterval(frame.count, frame.interval)
+        }
+    }
+
+    const inputBoxes = document.querySelectorAll('.inputBox') 
+    for (let inputBox of inputBoxes) {
+        inputBox.addEventListener("input", updateFrameValue)
+    }
+
+    const intervalBoxes = document.querySelectorAll('.intervalBox') 
+    for (let intervalBox of intervalBoxes) {
+        intervalBox.addEventListener("change", updateFrameInterval)
+    }
+}
+
+const updateFrameValue = (event) => {
+    event.preventDefault()
+
+    const boxId = event.target.id
+    const boxValue = event.target.value
+    for (let frame of frameBoxes) {
+        if (`frameBox${frame.count}` === boxId) {
+            frame.value = boxValue
+        }
+    }
+}
+
+const updateFrameInterval = (event) => {
+    event.preventDefault()
+
+    const boxId = event.target.id
+    const boxValue = event.target.value
+    for (let frame of frameBoxes) {
+        if (`animationInterval${frame.count}` === boxId) {
+            frame.interval = boxValue
+        }
+    }
 }
 
 const addFrame = (event) => {
-    if(event) {
+    if (event) {
         event.preventDefault()
     }
 
-    if (frameCount === 1) {
-        appendAnimationInterval();
-    }
-
     frameCount++
-
-    appendNewFrame()
+    frameBoxes.push({
+        count: frameCount,
+        value: ""
+    })
     if (frameCount !== 1) {
-        appendAnimationInterval();
+        frameBoxes[frameCount - 1].interval = 500
     }
+    if (frameCount === 2) {
+        frameBoxes[0].interval = 500
+    }
+
+    frameBoxDiv.innerHTML = ""
+
+    appendFrameBoxes()
 }
 
 const reset = (event) => {
@@ -262,11 +299,12 @@ const reset = (event) => {
     clipboardMessage.innerText = ""
     errorMessages.innerHTML = ""
     frameCount = 0
-    frameBoxes.innerHTML = ""
+    frameBoxDiv.innerHTML = ""
+    frameBoxes = []
     addFrame()
-    inputBox1 = document.querySelector("#inputBox1")
 }
 
 addFrameButton.addEventListener("click", addFrame)
 resetButton.addEventListener("click", reset)
 submitForm.addEventListener("submit", addGridColors)
+window.onload = appendFrameBoxes()
