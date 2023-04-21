@@ -13,6 +13,7 @@ const y = document.querySelector("#y-axis")
 const resetButton = document.querySelector("#resetButton")
 const frameBoxDiv = document.querySelector("#frameBoxDiv")
 const addFrameButton = document.querySelector("#addFrameButton")
+const sampleDropdown = document.querySelector("#sampleSelection");
 let animationSequence = null
 
 let frameBoxes = samples.digdug
@@ -147,6 +148,12 @@ const colorInPixels = () => {
     }
 }
 
+const updateFrameBoxes = (event) => {
+    frameBoxes = samples[event.target.value];
+    frameBoxDiv.innerHTML = ""
+    appendFrameBoxes();
+}
+
 const handleInputErrors = () => {
     frameBoxes.forEach((frame, idx) => {
         const frameValue = sanitizeColorArrayIntoHex(frame.value)
@@ -216,7 +223,6 @@ const appendNewFrame = (count, value) => {
 const initializeApplication = () => {
     appendFrameBoxes();
 
-    const sampleDropdown = document.getElementById("sampleSelection");
     for (const sampleName of Object.keys(samples)) {
         const sampleOption = document.createElement('option');
         sampleOption.innerText = sampleName;
@@ -305,4 +311,5 @@ const reset = (event) => {
 addFrameButton.addEventListener("click", addFrame)
 resetButton.addEventListener("click", reset)
 submitForm.addEventListener("submit", addGridColors)
+sampleDropdown.addEventListener("change", updateFrameBoxes)
 window.onload = initializeApplication()
