@@ -1,6 +1,5 @@
 import { sanitizeColorArrayIntoHex } from "./src/sanitizeColorArrayIntoHex"
 import errorIconImg from "./img/error_icon.svg"
-import samples from "./samples/retro.json"
 
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
@@ -15,6 +14,7 @@ const frameBoxDiv = document.querySelector("#frameBoxDiv")
 const addFrameButton = document.querySelector("#addFrameButton")
 const sampleDropdown = document.querySelector("#sampleSelection");
 let animationSequence = null
+let samples = {};
 
 let frameBoxes = samples.digdug
 
@@ -229,14 +229,22 @@ const renderAvailableSampleOptions = () => {
     }
 }
 
-const loadAvailableSamples = () => {
-
+const loadAvailableSamples = async () => {
+    let availableSamples = localStorage.getItem("available-samples");
+    if (!availableSamples) {
+        availableSamples = (await import("./samples/retro.json")).default;
+        localStorage.setItem("available-samples", JSON.stringify(availableSamples))
+    }
+    samples = JSON.parse(availableSamples);
+    frameBoxes = samples.digdug;
 }
 
 const initializeApplication = () => {
-    loadAvailableSamples();
-    renderAvailableSampleOptions();
-    appendFrameBoxes();
+    (async () => {
+        await loadAvailableSamples();
+        renderAvailableSampleOptions();
+        appendFrameBoxes();
+    })();
 }
 
 const appendFrameBoxes = () => {
