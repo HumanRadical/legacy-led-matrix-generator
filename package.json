@@ -2,11 +2,16 @@
   "name": "led-matrix-generator",
   "version": "1.0.0",
   "description": "An LED matrix app made for testing LED colour code arrays.",
-  "main": "app.js",
+  "main": "main.js",
   "devDependencies": {
     "cypress": "^12.9.0",
     "vite": "^4.2.1",
     "vitest": "^0.29.8"
+  },
+  "nodemonConfig": {
+    "ext": "js", 
+    "ignore": ["*.json"], 
+    "delay": "2"
   },
   "scripts": {
     "test": "vitest",
@@ -15,5 +20,9 @@
     "cytest": "cypress open"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.22",
+    "vite-express": "^0.5.4"
+  }
 }
