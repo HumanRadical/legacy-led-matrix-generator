@@ -256,7 +256,6 @@ const appendFrameBoxes = () => {
         }
     })
 
-
     const inputBoxes = document.querySelectorAll('.inputBox')
     for (let inputBox of inputBoxes) {
         inputBox.addEventListener("input", updateFrameValue)

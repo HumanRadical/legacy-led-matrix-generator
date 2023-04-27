@@ -15,14 +15,22 @@ body {
     flex: 1;
 }
 
-h2 {
-    font-size: xx-large;
-}
-
 h1 {
     font-size: 2.5em;
     margin-top: 10px;
     margin-bottom: 8px;
+}
+
+h2 {
+    font-size: xx-large;
+}
+
+.sampleSelection {
+    border: 3px solid black;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    font-size: large;
 }
 
 .grid {
@@ -60,9 +68,8 @@ ul {
 
 textarea {
     border: 5px solid black;
+    border-radius: 5px;
     font-size: medium;
-    /* overflow: scroll;
-    white-space: nowrap; */
 }
 
 .settings {
