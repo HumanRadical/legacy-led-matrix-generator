@@ -2,7 +2,7 @@
   "name": "led-matrix-generator",
   "version": "1.0.0",
   "description": "An LED matrix app made for testing LED colour code arrays.",
-  "main": "main.js",
+  "main": "server.js",
   "devDependencies": {
     "cypress": "^12.9.0",
     "vite": "^4.2.1",
