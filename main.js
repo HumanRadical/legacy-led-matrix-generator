@@ -1,4 +1,4 @@
-import {sanitizeColorArrayIntoHex} from "./src/sanitizeColorArrayIntoHex"
+import {sanitizeColorArrayIntoHex} from "./src/sanitizeColorArrayIntoHex.js"
 import errorIconImg from "./img/error_icon.svg"
 
 const submitForm = document.querySelector("#submitForm")
