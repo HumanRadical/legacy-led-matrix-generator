@@ -9,8 +9,10 @@
     "vitest": "^0.29.8"
   },
   "nodemonConfig": {
-    "ext": "js", 
-    "ignore": ["*.json"], 
+    "ext": "js",
+    "ignore": [
+      "*.json"
+    ],
     "delay": "2"
   },
   "scripts": {
@@ -22,6 +24,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.9",
     "nodemon": "^2.0.22",
     "vite-express": "^0.5.4"
   }
