@@ -11,6 +11,12 @@ app.get('/main', (req, res) => {
 app.get('/main.js', (req, res) => {
     res.sendFile(__dirname + '/main.js')
 })
+app.get('/img/error_icon.svg', (req, res) => {
+    res.sendFile(__dirname + '/img/error_icon.svg')
+})
+app.get('/src/sanitizeColorArrayIntoHex.js', (req, res) => {
+    res.sendFile(__dirname + '/src/sanitizeColorArrayIntoHex.js')
+})
 
 app.get("/draw", (req, res) => {
     res.sendFile(__dirname + '/draw-mode/draw.html');
@@ -21,14 +27,6 @@ app.get('/draw.js', (req, res) => {
 
 app.get('/app.css', (req, res) => {
     res.sendFile(__dirname + '/app.css')
-})
-
-app.get('/img/error_icon.svg', (req, res) => {
-    res.sendFile(__dirname + '/img/error_icon.svg')
-})
-
-app.get('/src/sanitizeColorArrayIntoHex.js', (req, res) => {
-    res.sendFile(__dirname + '/src/sanitizeColorArrayIntoHex.js')
 })
 
 
