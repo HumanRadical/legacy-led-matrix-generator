@@ -1,5 +1,5 @@
 import {sanitizeColorArrayIntoHex} from "./src/sanitizeColorArrayIntoHex.js"
-import errorIconImg from "./img/error_icon.svg"
+//import errorIconImg from "../img/error_icon.svg"
 
 const submitForm = document.querySelector("#submitForm")
 const grid = document.querySelector("#grid")
@@ -118,7 +118,8 @@ const colorInPixels = () => {
             if (color === "<Error>") {
                 const errorIcon = document.createElement("img")
                 errorIcon.classList.add("errorIcon")
-                errorIcon.src = errorIconImg
+                errorIcon.src = '/img/error_icon.svg'
+                //                errorIcon.src = errorIconImg
                 pixel.appendChild(errorIcon)
 
                 return
@@ -234,7 +235,7 @@ const renderAvailableSampleOptions = () => {
 const loadAvailableSamples = async () => {
     let availableSamples = localStorage.getItem("available-samples");
     if (!availableSamples) {
-        availableSamples = (await import("./samples/retro.json")).default;
+        availableSamples = (await import("../../samples/retro.json")).default;
         localStorage.setItem("available-samples", JSON.stringify(availableSamples))
     }
     samples = JSON.parse(availableSamples);
