@@ -52,6 +52,8 @@ const createDrawGrid = (frame) => {
     grid.addEventListener("mousedown", colorInPixel)
 
     gridContainer.append(grid)
+
+    pixels = document.querySelectorAll(".pixel")
 }
 
 const colorInPixel = (event) => {
@@ -64,6 +66,8 @@ const colorInPixel = (event) => {
             event.target.style.backgroundColor = colorPresetForm.colorPresets.value
         }
     }
+
+    frameBoxes[currentFrameIndex].value = readGridColors()
 }
 
 const snakeGrid = (arr, x, y) => {
@@ -92,28 +96,31 @@ const convertToHex = (color) => {
         ("0" + parseInt(color[3],10).toString(16)).slice(-2) : ''
 }
 
-const outputCode = (event) => {
-    event.preventDefault()
-    pixels = document.querySelectorAll(".pixel")
-
-    outputBox.innerText = ""
-    let pixelcolors = []
+const readGridColors = () => {
+    let pixelColors = []
 
     pixels.forEach((pixel, index) => {
         const color = pixel.style.backgroundColor
 
         if (outputType.value === "hex") {
-            pixelcolors[index] = `0x${convertToHex(color)}`
+            pixelColors[index] = `0x${convertToHex(color)}`
         } else {
-            pixelcolors[index] = `${color}`
+            pixelColors[index] = `${color}`
         }
     })
 
     if (snakeBox.checked) {
-        pixelcolors = snakeGrid(pixelcolors, x.value, y.value)
+        pixelColors = snakeGrid(pixelColors, x.value, y.value)
     }
+    return pixelColors.toString();
+}
 
-    const colorString = `${pixelcolors.toString()}`
+const outputCode = (event) => {
+    event.preventDefault()
+
+    outputBox.innerText = ""
+
+    const colorString = readGridColors()
     outputBox.innerText = colorString
     
     navigator.clipboard.writeText(colorString)
