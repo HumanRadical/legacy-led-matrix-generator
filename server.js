@@ -21,16 +21,21 @@ async function startServer() {
   ).middlewares
   app.use(viteDevMiddleware)
 
+  //Need to figure out how to get this bit working
+  // ========================================
   app.get('/', (req, res) => {
-    res.redirect('/main')
+      res.redirect('/main')
   })
   app.get('/main', (req, res) => {
       res.render('index')
   })
 
   app.get('/draw', (req, res) => {
+    console.log('rendered draw')
       res.render('draw')
   })
+  // ========================================
+
 
   app.listen(port)
   console.log(`Server running at http://localhost:${port}`)
