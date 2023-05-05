@@ -5,7 +5,7 @@ export default defineConfig({
   test: {
     globals: true,
   },
-  rollupInputOptions: {
-    input: resolve(__dirname, 'views/index.html')
-  }
+  // rollupInputOptions: {
+  //   input: resolve(__dirname, 'views/index.html')
+  // }
 })

@@ -9,7 +9,6 @@
     "vitest": "^0.29.8"
   },
   "nodemonConfig": {
-    "ext": "js",
     "ignore": [
       "*.json"
     ],
