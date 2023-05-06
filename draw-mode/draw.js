@@ -109,9 +109,6 @@ const readGridColors = () => {
         }
     })
 
-    if (snakeBox.checked) {
-        pixelColors = snakeGrid(pixelColors, x.value, y.value)
-    }
     return pixelColors.toString();
 }
 
@@ -120,7 +117,10 @@ const outputCode = (event) => {
 
     outputBox.innerText = ""
 
-    const colorString = frameBoxes[currentFrameIndex].value
+    let colorString = frameBoxes[currentFrameIndex].value
+    if (snakeBox.checked) {
+        colorString = snakeGrid(sanitizeColorArrayIntoHex(colorString, '0x'), x.value, y.value).toString()
+    }
 
     outputBox.innerText = colorString
     navigator.clipboard.writeText(colorString)
