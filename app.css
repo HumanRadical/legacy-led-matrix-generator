@@ -168,9 +168,14 @@ textarea {
 
 /* DRAW MODE STYLES */
 
+.drawFrameLabel {
+    margin: 10px;
+}
+
 .drawGrid {
     width: 550px;
     height: 550px;
+    margin-top: 0;
 }
 
 .drawPixel {
