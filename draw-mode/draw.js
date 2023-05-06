@@ -120,9 +120,9 @@ const outputCode = (event) => {
 
     outputBox.innerText = ""
 
-    const colorString = readGridColors()
+    const colorString = frameBoxes[currentFrameIndex].value
+
     outputBox.innerText = colorString
-    
     navigator.clipboard.writeText(colorString)
     clipboardMessage.innerText = "Copied to clipboard."
 }
