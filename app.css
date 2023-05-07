@@ -168,6 +168,20 @@ textarea {
 
 /* DRAW MODE STYLES */
 
+.gridSection {
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.frameLeft, .frameRight {
+    margin: 12px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 .drawFrameLabel {
     margin: 10px;
 }
