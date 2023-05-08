@@ -1,5 +1,7 @@
 import {sanitizeColorArrayIntoHex} from "../src/sanitizeColorArrayIntoHex";
 
+const drawMode = document.querySelector("#drawMode")
+const codeMode = document.querySelector("#codeMode")
 const frameLeftButton = document.querySelector("#frameLeft")
 const frameRightButton = document.querySelector("#frameRight")
 const gridContainer = document.querySelector("#gridContainer")
@@ -26,7 +28,7 @@ let frameBoxes = [
 ]
 let currentFrameIndex = 0
 
-const appendCurrentFrame = () => {
+const appendCurrentDrawFrame = () => {
     gridContainer.innerHTML = ""
 
     const gridLabel = document.createElement("h2")
@@ -57,6 +59,21 @@ const appendCurrentFrame = () => {
     gridContainer.append(grid)
 
     pixels = document.querySelectorAll(".pixel")
+}
+
+const appendCurrentCodeFrame = () => {
+    gridContainer.innerHTML = ""
+
+    const gridLabel = document.createElement("h2")
+    gridLabel.innerText = `Frame ${currentFrameIndex + 1}`
+    gridLabel.classList.add("drawFrameLabel")
+
+    const frameCode = document.createElement("textarea")
+    frameCode.value = frameBoxes[currentFrameIndex].value
+    frameCode.classList.add("frameCodeBox")
+
+    gridContainer.append(gridLabel)
+    gridContainer.append(frameCode)
 }
 
 const colorInPixel = (event) => {
@@ -136,7 +153,7 @@ const reset = (event) => {
     x.value = 16
     y.value = 16
     frameBoxes[currentFrameIndex].value = '0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000'
-    appendCurrentFrame()
+    appendCurrentDrawFrame()
     outputBox.innerText = ""
     clipboardMessage.innerText = ""
 }
@@ -154,7 +171,7 @@ const switchFrameLeft = (event) => {
 
     if (frameBoxes[currentFrameIndex - 1]) {
         currentFrameIndex--
-        appendCurrentFrame(frameBoxes[currentFrameIndex])
+        appendCurrentDrawFrame(frameBoxes[currentFrameIndex])
     }
 }
 
@@ -163,16 +180,18 @@ const switchFrameRight = (event) => {
 
     if (frameBoxes[currentFrameIndex + 1]) {
         currentFrameIndex++
-        appendCurrentFrame(frameBoxes[currentFrameIndex])
+        appendCurrentDrawFrame(frameBoxes[currentFrameIndex])
     }
 }
 
 document.addEventListener("mouseup", () => {mouseDown = false})
-resetButton.addEventListener("click", reset)
-submit.addEventListener("click", outputCode)
-x.addEventListener("change", appendCurrentFrame)
-y.addEventListener("change", appendCurrentFrame)
+drawMode.addEventListener("click", appendCurrentDrawFrame)
+codeMode.addEventListener("click", appendCurrentCodeFrame)
 frameLeftButton.addEventListener("click", switchFrameLeft)
 frameRightButton.addEventListener("click", switchFrameRight)
+resetButton.addEventListener("click", reset)
+submit.addEventListener("click", outputCode)
+x.addEventListener("change", appendCurrentDrawFrame)
+y.addEventListener("change", appendCurrentDrawFrame)
 
-window.onload = appendCurrentFrame(frameBoxes[currentFrameIndex])
+window.onload = appendCurrentDrawFrame(frameBoxes[currentFrameIndex])

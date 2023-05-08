@@ -196,6 +196,11 @@ textarea {
     border: 1px solid white;
 }
 
+.frameCodeBox {
+    width: 550px;
+    height: 550px;
+    resize: none;
+}
 
 .colorPresetForm {
     margin: auto;
