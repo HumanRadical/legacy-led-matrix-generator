@@ -12,9 +12,10 @@ const outputBox = document.querySelector("#outputBox")
 const snakeBox = document.querySelector("#snakeBox")
 const outputType = document.querySelector("#outputType")
 const resetButton = document.querySelector("#resetButton")
-
 const x = document.querySelector("#x-axis")
 const y = document.querySelector("#y-axis")
+
+let currentMode = "draw"
 let pixels = []
 let mouseDown = false
 
@@ -29,11 +30,12 @@ let frameBoxes = [
 let currentFrameIndex = 0
 
 const appendCurrentDrawFrame = () => {
+    currentMode = "draw"
     gridContainer.innerHTML = ""
 
-    const gridLabel = document.createElement("h2")
-    gridLabel.innerText = `Frame ${currentFrameIndex + 1}`
-    gridLabel.classList.add("drawFrameLabel")
+    const frameLabel = document.createElement("h2")
+    frameLabel.innerText = `Frame ${currentFrameIndex + 1}`
+    frameLabel.classList.add("drawFrameLabel")
 
     const grid = document.createElement("div")
     grid.classList.add("grid")
@@ -55,24 +57,29 @@ const appendCurrentDrawFrame = () => {
     grid.addEventListener("mousemove", colorInPixelIfMouseDown)
     grid.addEventListener("mousedown", colorInPixel)
 
-    gridContainer.append(gridLabel)
+    gridContainer.append(frameLabel)
     gridContainer.append(grid)
 
     pixels = document.querySelectorAll(".pixel")
 }
 
 const appendCurrentCodeFrame = () => {
+    currentMode = "code"
     gridContainer.innerHTML = ""
 
-    const gridLabel = document.createElement("h2")
-    gridLabel.innerText = `Frame ${currentFrameIndex + 1}`
-    gridLabel.classList.add("drawFrameLabel")
+    const frameLabel = document.createElement("h2")
+    frameLabel.innerText = `Frame ${currentFrameIndex + 1}`
+    frameLabel.classList.add("drawFrameLabel")
 
     const frameCode = document.createElement("textarea")
     frameCode.value = frameBoxes[currentFrameIndex].value
     frameCode.classList.add("frameCodeBox")
 
-    gridContainer.append(gridLabel)
+    frameCode.addEventListener("input", () => {
+        frameBoxes[currentFrameIndex].value = frameCode.value
+    })
+
+    gridContainer.append(frameLabel)
     gridContainer.append(frameCode)
 }
 
@@ -171,7 +178,13 @@ const switchFrameLeft = (event) => {
 
     if (frameBoxes[currentFrameIndex - 1]) {
         currentFrameIndex--
-        appendCurrentDrawFrame(frameBoxes[currentFrameIndex])
+
+        if (currentMode === "draw") {
+            appendCurrentDrawFrame()
+        } 
+        else if (currentMode === "code") {
+            appendCurrentCodeFrame()
+        }
     }
 }
 
@@ -180,7 +193,13 @@ const switchFrameRight = (event) => {
 
     if (frameBoxes[currentFrameIndex + 1]) {
         currentFrameIndex++
-        appendCurrentDrawFrame(frameBoxes[currentFrameIndex])
+
+        if (currentMode === "draw") {
+            appendCurrentDrawFrame()
+        } 
+        else if (currentMode === "code") {
+            appendCurrentCodeFrame()
+        }
     }
 }
 
@@ -194,4 +213,4 @@ submit.addEventListener("click", outputCode)
 x.addEventListener("change", appendCurrentDrawFrame)
 y.addEventListener("change", appendCurrentDrawFrame)
 
-window.onload = appendCurrentDrawFrame(frameBoxes[currentFrameIndex])
+window.onload = appendCurrentDrawFrame()

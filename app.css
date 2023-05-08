@@ -61,8 +61,6 @@ ul {
 textarea {
     border: 5px solid black;
     font-size: medium;
-    /* overflow: scroll;
-    white-space: nowrap; */
 }
 
 .settings {
