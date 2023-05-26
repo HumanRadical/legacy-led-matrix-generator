@@ -15,9 +15,5 @@
     "cytest": "cypress open"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  }
+  "license": "ISC"
 }
